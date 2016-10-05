@@ -10,7 +10,8 @@ import org.antlr.v4.runtime.Token;
 
 /**
  * Classe {@link Iterable} qui permet de parcourir les léxèmes du {@link Lexer}
- * passé en paramètre.
+ * passé en paramètre.<br/>
+ * Cette classe a été créé pour répondre aux questions 10 et 11 du TP <i>Lexémisation</i>.
  */
 public class TokenReader implements Iterable<List<? extends Token>> {
 	
@@ -70,6 +71,12 @@ public class TokenReader implements Iterable<List<? extends Token>> {
 			
 			int currentPos = 0;
 			
+			
+			/**
+			 * Returns the next element in the iteration.<br/>
+			 * The last iteration's element may contains less elements than expected,
+			 * but at least one.
+			 */
 			@Override
 			public List<? extends Token> next() {
 				List<? extends Token> returnedTokens = tokens.subList(currentPos, Math.min(tokens.size(), currentPos+bufferSize));
