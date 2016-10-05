@@ -42,7 +42,7 @@
 					<appendAssemblyId>false</appendAssemblyId>
 					<archive>
 						<manifest>
-							<mainClass>fr.univ_lille1.fil.pjea.TestJava8etu</mainClass>
+							<mainClass>fr.univ_lille1.fil.pjea.PlagiatVEMP</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
