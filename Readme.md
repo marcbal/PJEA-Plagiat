@@ -33,4 +33,6 @@ Compare simplement les fichiers deux à deux, avec un algorithme simple. Une hi�
 Algorithmes développés :
 
 * `StrictEqualsFilesComparator` : 100% quand les fichiers sont identiques (sauf commentaires et caractères non-imprimables), sinon 0% (le plus simple)
-
+* `NaiveSuccessivesTokensFileComparator` : Compare les fichiers tokens par tokens.
+Plus techniquement : divise le nombre de paire de tokens identique d'un fichier à l'autre par le nombre total de token du fichier qui en a le plus. Les tokens sont comparés dans l'ordre, donc l'ajout ou suppression d'une ligne de code au début d'un des fichier réduit drastiquement le
+pourcentage de similitude.

@@ -1,4 +1,4 @@
-
+package fr.univ_artois.iut_lens.mexican_train.gui;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
