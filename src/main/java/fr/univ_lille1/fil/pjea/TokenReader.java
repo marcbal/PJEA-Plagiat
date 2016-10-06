@@ -112,6 +112,17 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 		}
 		
 		
+		
+		// #define REHASH(a, b, h) ((((h) - (a)*d) << 1) + (b))
+
+		
+		public int rehash(int a, int b, int h) {
+			// TODO 
+			
+			return 0;
+		}
+		
+		
 		@Override
 		public int hashCode() {
 			return hashCode;
