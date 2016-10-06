@@ -85,11 +85,6 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 			int currentPos = 0;
 			
 			
-			/**
-			 * Returns the next element in the iteration.<br/>
-			 * The last iteration's element may contains less elements than expected,
-			 * but at least one.
-			 */
 			@Override
 			public QGram next() {
 				List<? extends Token> returnedTokens = tokens.subList(currentPos, Math.min(tokens.size(), currentPos+bufferSize));
@@ -100,7 +95,7 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 			
 			@Override
 			public boolean hasNext() {
-				return (currentPos < tokens.size());
+				return (currentPos <= tokens.size() - bufferSize);
 			}
 		};
 	}
