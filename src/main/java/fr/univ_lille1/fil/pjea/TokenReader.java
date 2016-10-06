@@ -1,5 +1,6 @@
 package fr.univ_lille1.fil.pjea;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -62,6 +63,19 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 	public TokenReader(Lexer lexer) {
 		this(lexer, 1, 1);
 	}
+	
+	
+	
+	
+	public List<QGram> getAllQGram() {
+		List<QGram> qGrams = new ArrayList<>();
+		for (QGram qGram : this) {
+			qGrams.add(qGram);
+		}
+		return qGrams;
+	}
+	
+	
 	
 	
 	@Override
