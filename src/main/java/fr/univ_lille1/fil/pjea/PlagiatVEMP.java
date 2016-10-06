@@ -11,7 +11,7 @@ public class PlagiatVEMP {
 	public static void main(String[] args) {
 		
 		/*
-		 * Convert an orray of string that contains file path
+		 * Convert an array of string that contains file path
 		 * to an array of File instance that represents the sames file path.
 		 */
 		File[] files = Arrays.stream(args)
