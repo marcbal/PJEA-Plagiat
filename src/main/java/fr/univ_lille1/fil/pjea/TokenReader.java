@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
@@ -82,15 +83,34 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 	public Iterator<QGram> iterator() {
 		return new Iterator<QGram>() {
 			
-			int currentPos = 0;
+			private int currentPos = 0;
 			
+			private RabinHashCodeBuilder hashCodeBuilder = null;
 			
 			@Override
 			public QGram next() {
+				if (!hasNext())
+					throw new NoSuchElementException();
 				List<? extends Token> returnedTokens = tokens.subList(currentPos, Math.min(tokens.size(), currentPos+qGramSize));
+				
+				
+				if (hashCodeBuilder == null) {
+					hashCodeBuilder = new RabinHashCodeBuilder(256, qGramSize,
+							returnedTokens.stream()
+							.mapToInt(TokenReader::hashCodeToken).toArray());
+				}
+				else {
+					hashCodeBuilder.putHashCode(returnedTokens.stream()
+							.skip(Math.max(qGramSize - step, 0)) // retain only last Token that are not present in the previous QGram
+							.mapToInt(TokenReader::hashCodeToken).toArray());
+				}
+				
 				int qGramPos = currentPos;
+				QGram next = new QGram(returnedTokens, qGramPos, hashCodeBuilder.getCurrentHashCode());
+				
 				currentPos += step;
-				return new QGram(returnedTokens, qGramPos);
+				
+				return next;
 			}
 			
 			@Override
@@ -109,10 +129,10 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 		private final int qGramPosition;
 		
 		@SuppressWarnings("unchecked")
-		private QGram(List<? extends Token> toks, int pos) {
+		private QGram(List<? extends Token> toks, int pos, int computedHashCode) {
 			qGramTokens = (List<Token>) toks;
-			hashCode = qGramTokens.hashCode();
 			qGramPosition = pos;
+			hashCode = computedHashCode;
 		}
 		
 
@@ -120,16 +140,6 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 			return qGramPosition;
 		}
 		
-		
-		
-		// #define REHASH(a, b, h) ((((h) - (a)*d) << 1) + (b))
-
-		
-		public int rehash(int a, int b, int h) {
-			// TODO 
-			
-			return 0;
-		}
 		
 		
 		@Override
@@ -226,15 +236,36 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 			if (obj == null) return false;
 			if (!(obj instanceof QGram)) return false;
 			if (hashCode() != obj.hashCode()) return false;
-			return qGramTokens.equals(((QGram)obj).qGramTokens);
+			QGram other = (QGram) obj;
+			if (size() != other.size()) return false;
+			for (int i = 0; i < size() && i < other.size(); i++) {
+				if (!equalsTokens(get(i), other.get(i)))
+					return false;
+			}
+			return true;
 		}
 		
 		
 		
+		@Override
+		public String toString() {
+			return "["+Integer.toHexString(hashCode())+":" + String.join(",", this.stream().map(Token::getText).toArray(s -> new String[s])) + "]";
+		}
+		
 		
 	}
 	
+
 	
 	
+	private static boolean equalsTokens(Token t1, Token t2) {
+		if (t1 == null && t2 == null) return true;
+		if (t1 == null || t2 == null) return false;
+		return t1.getText().equals(t2.getText()) && t1.getType() == t2.getType();
+	}
+	
+	public static int hashCodeToken(Token t) {
+		return t.getType() << 4 + t.getText().hashCode();
+	}
 	
 }
