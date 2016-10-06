@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 
 import fr.univ_lille1.fil.pjea.TokenReader;
+import fr.univ_lille1.fil.pjea.TokenReader.QGram;
 
 public class NaiveSuccessivesTokensFileComparator extends FileComparator {
 	
@@ -22,8 +23,8 @@ public class NaiveSuccessivesTokensFileComparator extends FileComparator {
 		Lexer lexer2 = getJava8Lexer(file2);
 		
 	
-	    Iterator<List<? extends Token>> it1 = new TokenReader(lexer1).iterator();
-	    Iterator<List<? extends Token>> it2 = new TokenReader(lexer2).iterator();
+	    Iterator<QGram> it1 = new TokenReader(lexer1).iterator();
+	    Iterator<QGram> it2 = new TokenReader(lexer2).iterator();
 	    
 	    int total = 0, nbEquals = 0;
 	    

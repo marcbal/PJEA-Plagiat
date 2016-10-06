@@ -1,7 +1,9 @@
 package fr.univ_lille1.fil.pjea;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
@@ -13,7 +15,7 @@ import org.antlr.v4.runtime.Token;
  * passé en paramètre.<br/>
  * Cette classe a été créé pour répondre aux questions 10 et 11 du TP <i>Lexémisation</i>.
  */
-public class TokenReader implements Iterable<List<? extends Token>> {
+public class TokenReader implements Iterable<TokenReader.QGram> {
 	
 	private final int step;
 	private final int bufferSize;
@@ -66,8 +68,8 @@ public class TokenReader implements Iterable<List<? extends Token>> {
 	
 	
 	@Override
-	public Iterator<List<? extends Token>> iterator() {
-		return new Iterator<List<? extends Token>>() {
+	public Iterator<QGram> iterator() {
+		return new Iterator<QGram>() {
 			
 			int currentPos = 0;
 			
@@ -78,10 +80,11 @@ public class TokenReader implements Iterable<List<? extends Token>> {
 			 * but at least one.
 			 */
 			@Override
-			public List<? extends Token> next() {
+			public QGram next() {
 				List<? extends Token> returnedTokens = tokens.subList(currentPos, Math.min(tokens.size(), currentPos+bufferSize));
+				int qGramPos = currentPos;
 				currentPos += step;
-				return returnedTokens;
+				return new QGram(returnedTokens, qGramPos);
 			}
 			
 			@Override
@@ -90,6 +93,134 @@ public class TokenReader implements Iterable<List<? extends Token>> {
 			}
 		};
 	}
+	
+	
+	
+	
+	public class QGram implements List<Token> {
+		private final int hashCode;
+		private List<Token> qGramTokens;
+		private final int qGramPosition;
+		
+		@SuppressWarnings("unchecked")
+		private QGram(List<? extends Token> toks, int pos) {
+			qGramTokens = (List<Token>) toks;
+			hashCode = qGramTokens.hashCode();
+			qGramPosition = pos;
+		}
+		
+		
+		
+		@Override
+		public int hashCode() {
+			return hashCode;
+		}
+		
+		
+		
+		
+		/*
+		 * All methods that throws UnsupportedOperationException
+		 */
+		@Override
+		public void add(int index, Token element) { throw new UnsupportedOperationException(); }
+		@Override
+		public boolean add(Token e) { throw new UnsupportedOperationException(); }
+		@Override
+		public boolean addAll(Collection<? extends Token> c) { throw new UnsupportedOperationException(); }
+		@Override
+		public boolean addAll(int index, Collection<? extends Token> c) { throw new UnsupportedOperationException(); }
+		@Override
+		public void clear() { throw new UnsupportedOperationException(); }
+		@Override
+		public Token remove(int index) { throw new UnsupportedOperationException(); }
+		@Override
+		public boolean remove(Object o) { throw new UnsupportedOperationException(); }
+		@Override
+		public boolean removeAll(Collection<?> c) { throw new UnsupportedOperationException(); }
+		@Override
+		public boolean retainAll(Collection<?> c) { throw new UnsupportedOperationException(); }
+		@Override
+		public Token set(int index, Token element) { throw new UnsupportedOperationException(); }
+		// ---------------------------------
+		
+		
+		
+		@Override
+		public boolean contains(Object o) {
+			return qGramTokens.contains(o);
+		}
+		@Override
+		public boolean containsAll(Collection<?> c) {
+			return qGramTokens.containsAll(c);
+		}
+		@Override
+		public Token get(int index) {
+			return qGramTokens.get(index);
+		}
+		@Override
+		public int indexOf(Object o) {
+			return qGramTokens.indexOf(o);
+		}
+		@Override
+		public boolean isEmpty() {
+			return qGramTokens.isEmpty();
+		}
+		@Override
+		public Iterator<Token> iterator() {
+			return qGramTokens.iterator();
+		}
+		@Override
+		public int lastIndexOf(Object o) {
+			return qGramTokens.lastIndexOf(o);
+		}
+		@Override
+		public ListIterator<Token> listIterator() {
+			return qGramTokens.listIterator();
+		}
+		@Override
+		public ListIterator<Token> listIterator(int index) {
+			return qGramTokens.listIterator(index);
+		}
+		@Override
+		public int size() {
+			return qGramTokens.size();
+		}
+		@Override
+		public List<Token> subList(int fromIndex, int toIndex) {
+			return qGramTokens.subList(fromIndex, toIndex);
+		}
+		@Override
+		public Object[] toArray() {
+			return qGramTokens.toArray();
+		}
+		@Override
+		public <T> T[] toArray(T[] a) {
+			return qGramTokens.toArray(a);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == null) return false;
+			if (!(obj instanceof QGram)) return false;
+			if (hashCode() != obj.hashCode()) return false;
+			return qGramTokens.equals(((QGram)obj).qGramTokens);
+		}
+		
+		
+		
+		
+	}
+	
+	
 	
 	
 }

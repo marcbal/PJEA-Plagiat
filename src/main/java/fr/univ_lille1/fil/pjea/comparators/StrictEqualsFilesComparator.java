@@ -2,12 +2,12 @@ package fr.univ_lille1.fil.pjea.comparators;
 
 import java.io.File;
 import java.util.Iterator;
-import java.util.List;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 
 import fr.univ_lille1.fil.pjea.TokenReader;
+import fr.univ_lille1.fil.pjea.TokenReader.QGram;
 
 public class StrictEqualsFilesComparator extends FileComparator {
 	
@@ -22,8 +22,8 @@ public class StrictEqualsFilesComparator extends FileComparator {
 		Lexer lexer2 = getJava8Lexer(file2);
 		
 	
-	    Iterator<List<? extends Token>> it1 = new TokenReader(lexer1).iterator();
-	    Iterator<List<? extends Token>> it2 = new TokenReader(lexer2).iterator();
+	    Iterator<QGram> it1 = new TokenReader(lexer1).iterator();
+	    Iterator<QGram> it2 = new TokenReader(lexer2).iterator();
 	    
 	    while (it1.hasNext() && it2.hasNext()) {
 	    	Token t1 = it1.next().get(0);
