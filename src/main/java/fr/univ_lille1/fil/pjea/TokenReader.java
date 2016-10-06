@@ -19,13 +19,13 @@ import org.antlr.v4.runtime.Token;
 public class TokenReader implements Iterable<TokenReader.QGram> {
 	
 	private final int step;
-	private final int bufferSize;
+	private final int qGramSize;
 	private final List<? extends Token> tokens;
 	
 	
-	public TokenReader(List<? extends Token> tokens, int step, int bufferSize) {
+	public TokenReader(List<? extends Token> tokens, int step, int qGramSize) {
 		this.step = step;
-		this.bufferSize = bufferSize;
+		this.qGramSize = qGramSize;
 		this.tokens = tokens;
 	}
 	
@@ -47,18 +47,19 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 	 * @param buffSize la taille du buffer, c'est à dire le nombre d'élément retourné à
 	 * chaque itération.
 	 */
-	public TokenReader(Lexer lexer, int step, int bufferSize) {
-		this(lexer.getAllTokens(), step, bufferSize);
+
+	public TokenReader(Lexer lexer, int step, int qGramSize) {
+		this(lexer.getAllTokens(), step, qGramSize);
 	}
 
 	/**
 	 * Équivaut à
-	 * <pre>new TokenReader(lexer, buffSize, buffSize)</pre>
+	 * <pre>new TokenReader(lexer, qGramSize, qGramSize)</pre>
 	 * @param lexer
-	 * @param buffSize
+	 * @param qGramSize
 	 */
-	public TokenReader(Lexer lexer, int buffSize) {
-		this(lexer, buffSize, buffSize);
+	public TokenReader(Lexer lexer, int qGramSize) {
+		this(lexer, qGramSize, qGramSize);
 	}
 	
 	/**
@@ -71,7 +72,11 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 	}
 	
 	
-	public List<QGram> getAllQGram() {
+
+	
+	
+	public List<QGram> getAllQGrams() {
+
 		List<QGram> qGrams = new ArrayList<>();
 		for (QGram qGram : this) {
 			qGrams.add(qGram);
@@ -89,14 +94,9 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 			int currentPos = 0;
 			
 			
-			/**
-			 * Returns the next element in the iteration.<br/>
-			 * The last iteration's element may contains less elements than expected,
-			 * but at least one.
-			 */
 			@Override
 			public QGram next() {
-				List<? extends Token> returnedTokens = tokens.subList(currentPos, Math.min(tokens.size(), currentPos+bufferSize));
+				List<? extends Token> returnedTokens = tokens.subList(currentPos, Math.min(tokens.size(), currentPos+qGramSize));
 				int qGramPos = currentPos;
 				currentPos += step;
 				return new QGram(returnedTokens, qGramPos);
@@ -104,7 +104,7 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 			
 			@Override
 			public boolean hasNext() {
-				return (currentPos < tokens.size());
+				return (currentPos <= tokens.size() - qGramSize);
 			}
 		};
 	}
