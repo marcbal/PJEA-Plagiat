@@ -38,9 +38,9 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 	 * @param buffSize la taille du buffer, c'est à dire le nombre d'élément retourné à
 	 * chaque itération.
 	 */
-	public TokenReader(Lexer lexer, int stp, int buffSize) {
-		step = stp;
-		bufferSize = buffSize;
+	public TokenReader(Lexer lexer, int step, int bufferSize) {
+		this.step = step;
+		this.bufferSize = bufferSize;
 		tokens = lexer.getAllTokens();
 	}
 
@@ -62,9 +62,6 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 	public TokenReader(Lexer lexer) {
 		this(lexer, 1, 1);
 	}
-	
-	
-	
 	
 	
 	@Override
@@ -109,6 +106,10 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 			qGramPosition = pos;
 		}
 		
+
+		public int getQGramPosition() {
+			return qGramPosition;
+		}
 		
 		
 		@Override
@@ -200,13 +201,6 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-
 		@Override
 		public boolean equals(Object obj) {
 			if (obj == null) return false;
