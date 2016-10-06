@@ -23,6 +23,14 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 	private final int qGramSize;
 	private final List<? extends Token> tokens;
 	
+	
+	public TokenReader(List<? extends Token> tokens, int step, int qGramSize) {
+		this.step = step;
+		this.qGramSize = qGramSize;
+		this.tokens = tokens;
+	}
+	
+	
 	/**
 	 * Contruit un {@link Iterable} qui parcours la liste des léxèmes du {@link Lexer}
 	 * passé en paramètre de stp à stp éléments. Chaque itération retourne buffSize
@@ -40,10 +48,9 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 	 * @param buffSize la taille du buffer, c'est à dire le nombre d'élément retourné à
 	 * chaque itération.
 	 */
+
 	public TokenReader(Lexer lexer, int step, int qGramSize) {
-		this.step = step;
-		this.qGramSize = qGramSize;
-		tokens = lexer.getAllTokens();
+		this(lexer.getAllTokens(), step, qGramSize);
 	}
 
 	/**
@@ -66,9 +73,11 @@ public class TokenReader implements Iterable<TokenReader.QGram> {
 	}
 	
 	
+
 	
 	
 	public List<QGram> getAllQGrams() {
+
 		List<QGram> qGrams = new ArrayList<>();
 		for (QGram qGram : this) {
 			qGrams.add(qGram);

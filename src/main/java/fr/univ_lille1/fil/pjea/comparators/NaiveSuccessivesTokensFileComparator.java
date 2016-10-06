@@ -10,6 +10,7 @@ import fr.univ_lille1.fil.pjea.TokenReader;
 import fr.univ_lille1.fil.pjea.TokenReader.QGram;
 
 public class NaiveSuccessivesTokensFileComparator extends FileComparator {
+	 
 	
 	public NaiveSuccessivesTokensFileComparator(File f1, File f2) {
 		super(f1, f2);
