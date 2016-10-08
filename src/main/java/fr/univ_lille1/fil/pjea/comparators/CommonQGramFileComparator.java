@@ -6,8 +6,8 @@ import java.util.Set;
 
 import org.antlr.v4.runtime.Lexer;
 
-import fr.univ_lille1.fil.pjea.TokenReader;
-import fr.univ_lille1.fil.pjea.TokenReader.QGram;
+import fr.univ_lille1.fil.pjea.qgrams.QGram;
+import fr.univ_lille1.fil.pjea.qgrams.TokenReader;
 
 public class CommonQGramFileComparator extends FileComparator {
 	

@@ -6,8 +6,8 @@ import java.util.Iterator;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 
-import fr.univ_lille1.fil.pjea.TokenReader;
-import fr.univ_lille1.fil.pjea.TokenReader.QGram;
+import fr.univ_lille1.fil.pjea.qgrams.QGram;
+import fr.univ_lille1.fil.pjea.qgrams.TokenReader;
 
 public class NaiveSuccessivesTokensFileComparator extends FileComparator {
 	 
