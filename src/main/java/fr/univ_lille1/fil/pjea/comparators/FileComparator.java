@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.Lexer;
 
-import fr.univ_lille1.fil.pjea.analyzer.java8.Java8Lexer;
+import fr.univ_lille1.fil.pjea.antlr_lexers.java8.Java8Lexer;
 
 
 

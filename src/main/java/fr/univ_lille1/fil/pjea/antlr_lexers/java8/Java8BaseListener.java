@@ -1,4 +1,4 @@
-package fr.univ_lille1.fil.pjea.analyzer.java8;
+package fr.univ_lille1.fil.pjea.antlr_lexers.java8;
 
 // Generated from .\src\main\resources\grammars\java8\Java8.g4 by ANTLR 4.5.3
 
