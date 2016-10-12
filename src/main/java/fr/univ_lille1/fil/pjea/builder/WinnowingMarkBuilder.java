@@ -1,45 +1,77 @@
-package fr.univ_lille1.fil.pjea.analyzer.java8.algo;
+package fr.univ_lille1.fil.pjea.builder;
 
-import java.io.File;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.antlr.v4.runtime.Lexer;
+import org.javatuples.Pair;
 
-import fr.univ_lille1.fil.pjea.comparators.FileComparator;
+import fr.univ_lille1.fil.pjea.qgrams.QGram;
 import fr.univ_lille1.fil.pjea.qgrams.TokenReader;
 
-public class WinnowingFileComparator extends FileComparator {
+
+public class WinnowingMarkBuilder {
 
 	/**
 	 * 
 	 */
-	private int t;
-	private int k; 
+	private int t; 
 	private int q;
 	
-	public WinnowingFileComparator(File f1, File f2, int q, int t, int k) {
-		super(f1, f2);
+	private Lexer lexer;
+	
+	public WinnowingMarkBuilder(Lexer lexer, int q, int t) {
+		this.lexer = lexer;
 		this.q = q;
 		this.t = t;
-		this.k = k;
 	}
 
 	
-	@Override
-	public double computeDifference() throws Exception {
-			
-		Lexer lexer1 = getJava8Lexer(file1);
-		Lexer lexer2 = getJava8Lexer(file2);
+	public List<Pair<Integer, Integer>> build() throws Exception {
 		
+		List<Pair<Integer, Integer>> mark = new ArrayList<>();
+		
+		/* Construction des listes de tokens hashé */ 
+		
+		List<Integer> hashQgrams = new TokenReader(lexer, 0, t).getAllQGrams().stream().map(QGram::hashCode).collect(Collectors.toList());
+		int w = t - q + 1;
+		
+		Pair<Integer, Boolean> curMin;
+		
+		/* 90 17 17 (98) / 17 17 98 25 {25 est pris, ou 17 est pris, ou aucun de cette frame ?} */
+		/* Boucle principale de l'algorithme */ 
+		for (int i = 0; i < w; i++) {
+			curMin = min(i, q, hashQgrams);
+			if (curMin.getValue1()) {
+				
+			}
+		}
+		
+	    
+		return mark;
+	}
 	
-	   // Iterator<QGram> it1 = new TokenReader(lexer1).iterator();
-	    //Iterator<QGram> it2 = new TokenReader(lexer2).iterator();
-	    
+	private static Pair<Integer, Boolean> min(int i, int n, List<Integer> list) {
+		int len = list.size();
+		if (i >= len || i + n > len) return null;
 		
-	    //for ()
-	    
-	    
-		return 0;
+		int min = list.get(i);
+		int pos = i;
+		int elm;
+		boolean alone = true;
+		for (int j = i + 1; j < i + n; j++) {
+			elm = list.get(j);
+			if (min > elm) {
+				min = elm;
+				pos = j;
+				alone = true;
+			} else if (min == elm) {
+				alone = false;
+				pos = j;
+			}
+		}
+		return new Pair<>(pos, alone);
 	}
 	
 }

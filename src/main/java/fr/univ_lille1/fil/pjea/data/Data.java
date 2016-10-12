@@ -1,4 +1,4 @@
-package fr.univ_lille1.fil.pjea.analyzer.java8.data;
+package fr.univ_lille1.fil.pjea.data;
 
 /* Represente les données sur lequelle les algorithmes traitront */ 
 
