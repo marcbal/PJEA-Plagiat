@@ -69,7 +69,7 @@ public class QGramTest {
         Lexer l2 = new Java8Lexer(in2);
         QGram qGram1 = new TokenReader(l1, 8).iterator().next();
 		QGram qGram2 = new TokenReader(l2, 11).iterator().next();
-		/**
+		/*
 		 * Info : Pourquoi 4 ? On compte le nombre de tokens manuellement dans les fichiers de comparaison
 		 * Et on ajoute 1 pour car le nom de la classe est changée dans le second.
 		 */

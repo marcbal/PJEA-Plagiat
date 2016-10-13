@@ -1,6 +1,5 @@
 package fr.univ_lille1.fil.pjea.qgrams;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
