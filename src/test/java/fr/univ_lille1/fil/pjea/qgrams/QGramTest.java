@@ -15,12 +15,14 @@ import fr.univ_lille1.fil.pjea.antlr_lexers.java8.Java8Lexer;
 public class QGramTest {
 
 	QGram qGram;
+	QGram qGramEqual;
 	
 	@Before
 	public void setUp() throws Exception {
 		ANTLRInputStream in = new ANTLRFileStream("src/test/resources/file1.java");
         Lexer l = new Java8Lexer(in);
 		qGram = new QGram(l.getAllTokens().subList(15, 25), 15, 134454645);
+		qGramEqual = new QGram(l.getAllTokens().subList(15, 25), 15, 134454645);
 	}
 
 	@After
@@ -30,20 +32,20 @@ public class QGramTest {
 
 	@Test
 	public void testHashCode() {
-		assertEquals(qGram.hashCode(),134454645);
+		assertEquals(134454645,qGram.hashCode());
 		
 	}
 
 	@Test
 	public void testGetQGramPosition() {
-		assertEquals(qGram.getQGramPosition(),15);
+		assertEquals(15,qGram.getQGramPosition());
 	}
 
 	
 
 	@Test
 	public void testSize() {
-		assertEquals(qGram.size(),10);
+		assertEquals(10,qGram.size());
 		
 	}
 	
@@ -78,6 +80,12 @@ public class QGramTest {
 		 * Et on ajoute 1 pour car le nom de la classe est changée dans le second.
 		 */
 		assertEquals(4, qGram1.distance(qGram2));
+	
+	}
+	
+	@Test
+	public void testAlignmentNeedlemanWunsch() {
+		assertEquals(qGram.size()*2, (qGramEqual.alignmentNeedlemanWunsch(qGram)));
 	}
 
 }
