@@ -29,20 +29,20 @@ public class QGramTest {
 
 	@Test
 	public void testHashCode() {
-		assertEquals(qGram.hashCode(),134454645);
+		assertEquals(134454645,qGram.hashCode());
 		
 	}
 
 	@Test
 	public void testGetQGramPosition() {
-		assertEquals(qGram.getQGramPosition(),15);
+		assertEquals(15,qGram.getQGramPosition());
 	}
 
 	
 
 	@Test
 	public void testSize() {
-		assertEquals(qGram.size(),10);
+		assertEquals(10,qGram.size());
 		
 	}
 
