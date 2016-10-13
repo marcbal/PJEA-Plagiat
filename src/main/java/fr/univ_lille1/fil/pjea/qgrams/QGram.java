@@ -130,6 +130,36 @@ public class QGram implements List<Token> {
 	
 	
 	
+	
+	
+	
+	public int alignmentNeedlemanWunsch(QGram q) {
+		int[][] tab = new int[size() + 1][q.size() + 1];
+
+        for (int i = 0; i <= size(); i++)
+            tab[i][0] = i;
+
+        for (int i = 0; i <= q.size(); i++)
+            tab[0][i] = i;
+
+        for (int i = 1; i <= size(); i++) {
+            for (int j = 1; j <= q.size(); j++) {
+                if (get(i - 1).equals(q.get(j - 1)))
+                    tab[i][j] = tab[i - 1][j - 1];
+                else
+                    tab[i][j] = Math.min(tab[i - 1][j], tab[i][j - 1]) + 1;
+            }
+        }
+        
+        return tab[size()][q.size()];
+	}
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public String toString() {
 		return "["+Integer.toHexString(hashCode())+":" + String.join(",", this.stream().map(Token::getText).toArray(s -> new String[s])) + "]";
