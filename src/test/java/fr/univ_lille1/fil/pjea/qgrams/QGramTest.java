@@ -28,6 +28,7 @@ public class QGramTest {
 	@After
 	public void tearDown() throws Exception {
 		qGram = null;
+		qGramEqual =null;
 	}
 
 	@Test
