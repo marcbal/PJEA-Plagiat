@@ -24,7 +24,7 @@ public class QGram implements List<Token> {
 	}
 	
 	public int distance(QGram qGramCompared){
-		Integer[][] d = new Integer[this.size()][qGramCompared.size()];
+		Integer[][] d = new Integer[this.size()+1][qGramCompared.size()+1];
 		for(int i = 0; i<this.size()+1;i++){
 			d[i][0] = i;
 		}
@@ -36,7 +36,7 @@ public class QGram implements List<Token> {
 	        for( int j = 1; j < qGramCompared.size() + 1; j++ ) {
 	            int d1 = d[ i - 1 ][ j ] + 1;
 	            int d2 = d[ i ][ j - 1 ] + 1;
-	            int d3 = d[ i - 1 ][ j - 1 ] + ((this.get(i-1).equals(qGramCompared.get(j-1) ))?1:0) ;
+	            int d3 = d[ i - 1 ][ j - 1 ] + (TokenReader.equalsTokens(this.get(i-1), qGramCompared.get(j-1))?0:1) ;
 
 	            d[ i ][ j ] = Math.min( Math.min( d1, d2 ), d3 );
 	        }

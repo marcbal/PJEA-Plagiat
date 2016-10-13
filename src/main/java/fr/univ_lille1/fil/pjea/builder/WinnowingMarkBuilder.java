@@ -1,7 +1,8 @@
 package fr.univ_lille1.fil.pjea.builder;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.antlr.v4.runtime.Lexer;
@@ -30,48 +31,56 @@ public class WinnowingMarkBuilder {
 	
 	public List<Pair<Integer, Integer>> build() throws Exception {
 		
-		List<Pair<Integer, Integer>> mark = new ArrayList<>();
+		List<Pair<Integer, Integer>> mark; 
 		
 		/* Construction des listes de tokens hashé */ 
 		
 		List<Integer> hashQgrams = new TokenReader(lexer, 0, t).getAllQGrams().stream().map(QGram::hashCode).collect(Collectors.toList());
 		int w = t - q + 1;
 		
-		Pair<Integer, Boolean> curMin;
+		Pair<Integer, Integer> curMin;
 		
-		/* 90 17 17 (98) / 17 17 98 25 {25 est pris, ou 17 est pris, ou aucun de cette frame ?} */
-		/* Boucle principale de l'algorithme */ 
+		Map<Integer, Integer> listMin = new HashMap<>();
+		
+	
 		for (int i = 0; i < w; i++) {
-			curMin = min(i, q, hashQgrams);
-			if (curMin.getValue1()) {
-				
+			curMin = minFrame(i, q, hashQgrams, listMin);
+			if (curMin != null) {
+				listMin.put(curMin.getValue0(), curMin.getValue1());
 			}
 		}
 		
-	    
+		mark = listMin.entrySet().stream().map((e) -> new Pair<>(e.getKey(), e.getValue())).collect(Collectors.toList());
+		mark.sort((p1, p2) -> Integer.compare(p1.getValue0(), p2.getValue0()));
 		return mark;
 	}
 	
-	private static Pair<Integer, Boolean> min(int i, int n, List<Integer> list) {
+	/**
+	 * 	
+	 * @param i
+	 * @param n
+	 * @param list
+	 * @return Retourne une paire composé d'une position et de la valeur du minimum
+	 */
+	private static Pair<Integer, Integer> minFrame(int i, int nFrame, List<Integer> list, Map<Integer, Integer> listMin) {
 		int len = list.size();
-		if (i >= len || i + n > len) return null;
+		if (i >= len || i + nFrame > len) return null;
+
 		
-		int min = list.get(i);
-		int pos = i;
-		int elm;
-		boolean alone = true;
-		for (int j = i + 1; j < i + n; j++) {
+		int elm, min = list.get(i), pos = i;
+		
+		for (int j = i + 1; j < i + nFrame; j++) {
 			elm = list.get(j);
-			if (min > elm) {
-				min = elm;
-				pos = j;
-				alone = true;
-			} else if (min == elm) {
-				alone = false;
-				pos = j;
-			}
+			
+				if (min > elm) {
+					min = elm; 
+					pos = j; 
+				} else if (min == elm && !listMin.containsKey(j)) {
+					pos = j;
+				}	
 		}
-		return new Pair<>(pos, alone);
+		
+		return !listMin.containsKey(pos) ? new Pair<>(pos, min) : null;
 	}
 	
 }

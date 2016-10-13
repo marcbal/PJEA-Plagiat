@@ -19,6 +19,7 @@ public class RabinHashCodeBuilderTest {
 		
 	}
 
+	@SuppressWarnings("static-method")
 	@Test
 	public void test1() {
 		int base = 1138763548;
