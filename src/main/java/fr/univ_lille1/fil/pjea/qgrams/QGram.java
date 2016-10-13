@@ -1,5 +1,6 @@
 package fr.univ_lille1.fil.pjea.qgrams;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -160,19 +161,21 @@ public class QGram implements List<Token> {
 		int[][] tab = new int[size() + 1][q.size() + 1];
 
         for (int i = 0; i <= size(); i++)
-            tab[i][0] = i;
+            tab[i][0] = -i;
 
         for (int i = 0; i <= q.size(); i++)
-            tab[0][i] = i;
+            tab[0][i] = -i;
 
         for (int i = 1; i <= size(); i++) {
             for (int j = 1; j <= q.size(); j++) {
-                if (get(i - 1).equals(q.get(j - 1)))
-                    tab[i][j] = tab[i - 1][j - 1];
+                if (TokenReader.equalsTokens(get(i - 1), q.get(j - 1)))
+                    tab[i][j] = tab[i - 1][j - 1] + 2;
                 else
-                    tab[i][j] = Math.min(tab[i - 1][j], tab[i][j - 1]) + 1;
+                    tab[i][j] = Math.max(tab[i - 1][j], tab[i][j - 1]) - 1;
             }
         }
+        
+        System.out.println(Arrays.deepToString(tab));
         
         return tab[size()][q.size()];
 	}
