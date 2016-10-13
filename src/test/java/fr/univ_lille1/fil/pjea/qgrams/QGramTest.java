@@ -74,6 +74,7 @@ public class QGramTest {
 		 * Et on ajoute 1 pour car le nom de la classe est changée dans le second.
 		 */
 		assertEquals(4, qGram1.distance(qGram2));
+		assertTrue(qGram1.distance(qGram2) == qGram2.distance(qGram1));
 
 	}
 	
