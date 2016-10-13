@@ -23,6 +23,29 @@ public class QGram implements List<Token> {
 		return qGramPosition;
 	}
 	
+	public int distance(QGram qGramCompared){
+		Integer[][] d = new Integer[this.size()][qGramCompared.size()];
+		for(int i = 0; i<this.size()+1;i++){
+			d[i][0] = i;
+		}
+		for(int j = 0; j<qGramCompared.size()+1;j++){
+			d[0][j] = j;
+		}
+		
+		for( int i = 1; i < this.size() + 1; i++ ) {
+	        for( int j = 1; j < qGramCompared.size() + 1; j++ ) {
+	            int d1 = d[ i - 1 ][ j ] + 1;
+	            int d2 = d[ i ][ j - 1 ] + 1;
+	            int d3 = d[ i - 1 ][ j - 1 ] + ((this.get(i-1).equals(qGramCompared.get(j-1) ))?1:0) ;
+
+	            d[ i ][ j ] = Math.min( Math.min( d1, d2 ), d3 );
+	        }
+	    }
+		
+		
+		return d[this.size()][qGramCompared.size()];
+	}
+	
 	
 	
 	@Override
@@ -127,6 +150,36 @@ public class QGram implements List<Token> {
 		}
 		return true;
 	}
+	
+	
+	
+	
+	
+	
+	public int alignmentNeedlemanWunsch(QGram q) {
+		int[][] tab = new int[size() + 1][q.size() + 1];
+
+        for (int i = 0; i <= size(); i++)
+            tab[i][0] = i;
+
+        for (int i = 0; i <= q.size(); i++)
+            tab[0][i] = i;
+
+        for (int i = 1; i <= size(); i++) {
+            for (int j = 1; j <= q.size(); j++) {
+                if (get(i - 1).equals(q.get(j - 1)))
+                    tab[i][j] = tab[i - 1][j - 1];
+                else
+                    tab[i][j] = Math.min(tab[i - 1][j], tab[i][j - 1]) + 1;
+            }
+        }
+        
+        return tab[size()][q.size()];
+	}
+	
+	
+	
+	
 	
 	
 	
