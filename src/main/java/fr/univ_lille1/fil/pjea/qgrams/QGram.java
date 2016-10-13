@@ -24,26 +24,31 @@ public class QGram implements List<Token> {
 	}
 	
 	public int distance(QGram qGramCompared){
-		Integer[][] d = new Integer[this.size()+1][qGramCompared.size()+1];
-		for(int i = 0; i<this.size()+1;i++){
-			d[i][0] = i;
-		}
-		for(int j = 0; j<qGramCompared.size()+1;j++){
-			d[0][j] = j;
-		}
-		
-		for( int i = 1; i < this.size() + 1; i++ ) {
-	        for( int j = 1; j < qGramCompared.size() + 1; j++ ) {
-	            int d1 = d[ i - 1 ][ j ] + 1;
-	            int d2 = d[ i ][ j - 1 ] + 1;
-	            int d3 = d[ i - 1 ][ j - 1 ] + (TokenReader.equalsTokens(this.get(i-1), qGramCompared.get(j-1))?0:1) ;
+		// Last version was O(n*m), this one only memorizes previous line of disance matrix
+		// which makes this algorithm O(n)
+	    int[] prev = new int[ qGramCompared.size()+1];
 
-	            d[ i ][ j ] = Math.min( Math.min( d1, d2 ), d3 );
-	        }
+	    for( int j = 0; j < qGramCompared.size() + 1; j++ ) {
+	        prev[ j ] = j;
 	    }
-		
-		
-		return d[this.size()][qGramCompared.size()];
+
+	    for( int i = 1; i < this.size() + 1; i++ ) {
+
+	        // calculate current line of distance matrix     
+	        int[] curr = new int[ qGramCompared.size() + 1 ];
+	        curr[0] = i;
+
+	        for( int j = 1; j < qGramCompared.size() + 1; j++ ) {
+	            int d1 = prev[ j ] + 1;
+	            int d2 = curr[ j - 1 ] + 1;
+	            int d3 = prev[ j - 1 ] + (TokenReader.equalsTokens(this.get(i-1), qGramCompared.get(j-1))?0:1) ;
+	            curr[ j ] = Math.min( Math.min( d1, d2 ), d3 );
+	        }
+
+	        // define current line of distance matrix as previous     
+	        prev = curr;
+	    }
+	    return prev[ qGramCompared.size() ];
 	}
 	
 	
