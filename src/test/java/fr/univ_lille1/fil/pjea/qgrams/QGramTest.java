@@ -14,12 +14,14 @@ import fr.univ_lille1.fil.pjea.antlr_lexers.java8.Java8Lexer;
 public class QGramTest {
 
 	QGram qGram;
+	QGram qGramEqual;
 	
 	@Before
 	public void setUp() throws Exception {
 		ANTLRInputStream in = new ANTLRFileStream("src/test/resources/file1.java");
         Lexer l = new Java8Lexer(in);
 		qGram = new QGram(l.getAllTokens().subList(15, 25), 15, 134454645);
+		qGramEqual = new QGram(l.getAllTokens().subList(15, 25), 15, 134454645);
 	}
 
 	@After
@@ -44,6 +46,12 @@ public class QGramTest {
 	public void testSize() {
 		assertEquals(qGram.size(),10);
 		
+	}
+	
+	
+	@Test
+	public void testAlignmentNeedlemanWunsch() {
+		assertEquals(qGram.size()*2, (qGramEqual.alignmentNeedlemanWunsch(qGram)));
 	}
 
 }
