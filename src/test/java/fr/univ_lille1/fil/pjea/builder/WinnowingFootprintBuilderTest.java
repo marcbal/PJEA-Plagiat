@@ -1,4 +1,4 @@
-package fr.univ_lille1.fil.pjea.qgrams;
+package fr.univ_lille1.fil.pjea.builder;
 
 import static org.junit.Assert.*;
 
@@ -10,8 +10,6 @@ import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import fr.univ_lille1.fil.pjea.builder.WinnowingFootprintBuilder;
 
 
 public class WinnowingFootprintBuilderTest {
