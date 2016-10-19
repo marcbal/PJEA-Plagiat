@@ -24,9 +24,9 @@ public class WinnowingFootprintBuilder {
 	//private Lexer lexer;
 	
 	public WinnowingFootprintBuilder(Lexer lexer, int q, int t) {
-		this(new TokenReader(lexer, 0, t).getAllQGrams()
-										  .stream().map(QGram::hashCode)
-										  .collect(Collectors.toList()), 
+		this(new TokenReader(lexer, 1, q).getAllQGrams()
+								          .stream().map(QGram::hashCode)
+								          .collect(Collectors.toList()), 
 			 q, 
 			 t
 		);
