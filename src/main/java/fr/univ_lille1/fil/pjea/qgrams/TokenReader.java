@@ -8,6 +8,8 @@ import java.util.NoSuchElementException;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 
+import fr.univ_lille1.fil.pjea.TokenUtils;
+
 
 
 /**
@@ -104,12 +106,12 @@ public class TokenReader implements Iterable<QGram> {
 				if (hashCodeBuilder == null) {
 					hashCodeBuilder = new RabinHashCodeBuilder(256, qGramSize,
 							returnedTokens.stream()
-							.mapToInt(TokenReader::hashCodeToken).toArray());
+							.mapToInt(TokenUtils::hashCodeToken).toArray());
 				}
 				else {
 					hashCodeBuilder.putHashCode(returnedTokens.stream()
 							.skip(Math.max(qGramSize - step, 0)) // retain only last Token that are not present in the previous QGram
-							.mapToInt(TokenReader::hashCodeToken).toArray());
+							.mapToInt(TokenUtils::hashCodeToken).toArray());
 				}
 				
 				int qGramPos = currentPos;
@@ -128,16 +130,5 @@ public class TokenReader implements Iterable<QGram> {
 	}
 	
 	
-	
-	
-	public static boolean equalsTokens(Token t1, Token t2) {
-		if (t1 == null && t2 == null) return true;
-		if (t1 == null || t2 == null) return false;
-		return t1.getText().equals(t2.getText()) && t1.getType() == t2.getType();
-	}
-	
-	public static int hashCodeToken(Token t) {
-		return t.getType() << 4 + t.getText().hashCode();
-	}
 	
 }

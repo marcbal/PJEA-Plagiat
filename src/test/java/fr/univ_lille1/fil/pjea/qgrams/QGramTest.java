@@ -83,14 +83,14 @@ public class QGramTest {
 	@Test
 	public void testAlignmentNeedlemanWunschEquals() {
 		assertTrue(qGram.equals(qGramEqual));
-		assertEquals(qGram.size()*2, qGram.alignmentNeedlemanWunsch(qGram));
+		assertEquals(qGram.size(), qGram.alignmentNeedlemanWunsch(qGram, -1));
 	}
 	
 	
 	
 	@Test
 	public void testAlignmentNeedlemanWunschOther() {
-		assertEquals(qGram.size()*2-1, (qGramOther.alignmentNeedlemanWunsch(qGram)));
+		assertEquals(qGram.size()-1, (qGramOther.alignmentNeedlemanWunsch(qGram, -1)));
 	}
 
 }

@@ -7,6 +7,8 @@ import java.util.ListIterator;
 
 import org.antlr.v4.runtime.Token;
 
+import fr.univ_lille1.fil.pjea.TokenUtils;
+
 public class QGram implements List<Token> {
 	private final int hashCode;
 	private List<Token> qGramTokens;
@@ -41,7 +43,7 @@ public class QGram implements List<Token> {
 	        for( int j = 1; j < qGramCompared.size() + 1; j++ ) {
 	            int d1 = prev[ j ] + 1;
 	            int d2 = curr[ j - 1 ] + 1;
-	            int d3 = prev[ j - 1 ] + (TokenReader.equalsTokens(this.get(i-1), qGramCompared.get(j-1))?0:1) ;
+	            int d3 = prev[ j - 1 ] + (TokenUtils.equalsTokens(this.get(i-1), qGramCompared.get(j-1))?0:1) ;
 	            curr[ j ] = Math.min( Math.min( d1, d2 ), d3 );
 	        }
 
@@ -150,7 +152,7 @@ public class QGram implements List<Token> {
 		QGram other = (QGram) obj;
 		if (size() != other.size()) return false;
 		for (int i = 0; i < size() && i < other.size(); i++) {
-			if (!TokenReader.equalsTokens(get(i), other.get(i)))
+			if (!TokenUtils.equalsTokens(get(i), other.get(i)))
 				return false;
 		}
 		return true;
@@ -161,21 +163,24 @@ public class QGram implements List<Token> {
 	
 	
 	
-	public int alignmentNeedlemanWunsch(QGram q) {
+	public int alignmentNeedlemanWunsch(QGram q, int d) {
 		int[][] tab = new int[size() + 1][q.size() + 1];
 
         for (int i = 0; i <= size(); i++)
-            tab[i][0] = -i;
+            tab[i][0] = i * d;
 
         for (int i = 0; i <= q.size(); i++)
-            tab[0][i] = -i;
+            tab[0][i] = i * d;
 
         for (int i = 1; i <= size(); i++) {
             for (int j = 1; j <= q.size(); j++) {
-                if (TokenReader.equalsTokens(get(i - 1), q.get(j - 1)))
-                    tab[i][j] = tab[i - 1][j - 1] + 2;
-                else
-                    tab[i][j] = Math.max(tab[i - 1][j], tab[i][j - 1]) - 1;
+            	int S = TokenUtils.tokenSimilarity(get(i - 1), q.get(j - 1));
+                tab[i][j] = Math.max(tab[i - 1][j - 1] + S,
+                					Math.max(tab[i - 1][j] + d,
+                							tab[i][j - 1] + d
+                							)
+                					);
+                
             }
         }
         
