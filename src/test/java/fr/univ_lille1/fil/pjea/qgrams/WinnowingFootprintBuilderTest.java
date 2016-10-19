@@ -47,4 +47,11 @@ public class WinnowingFootprintBuilderTest {
 		}
 	}
 	
+	@Test
+	public void buildWithTokenReaderTest() {
+		// TODO continuer le test
+		//fail();
+
+	}
+	
 }

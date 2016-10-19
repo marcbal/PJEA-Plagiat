@@ -6,6 +6,7 @@ import java.util.List;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 
+import fr.univ_lille1.fil.pjea.builder.WinnowingFootprintBuilder;
 import fr.univ_lille1.fil.pjea.qgrams.QGram;
 import fr.univ_lille1.fil.pjea.qgrams.TokenReader;
 
@@ -41,5 +42,18 @@ public class WinnowingAndAlignmentFileComparator extends FileComparator {
 		
 		return val < 0 ? 0 : val;
 	}
+	
+	protected static boolean checkFootPrint(Lexer lex1, Lexer lex2) {
+		// TODO 
+		//lex1.
+		
+		WinnowingFootprintBuilder wfpBuilder1 = new WinnowingFootprintBuilder(lex1, 0, 0); // Init false 
+		WinnowingFootprintBuilder wfpBuilder2 = new WinnowingFootprintBuilder(lex2, 0, 0); // Init false
+		
+		
+		
+		return false;
+	}
+	
 
 }
