@@ -27,7 +27,22 @@ public class PlagiatVEMP {
 					
 					double result = new WinnowingAndAlignmentFileComparator(files[i], files[j]).computeDifference();
 					
-					System.out.println(files[i]+" and "+files[j]+": "+(Math.round(result*100))+"%");
+					int printedResult = (int)(Math.round(result*100));
+					if (printedResult > 100) {
+						System.err.println("Le résutat retourné est "+result+" mais "
+								+ "c'est un résultat invalide. Une valeur entre 0 et "
+								+ "1 est demandée. La valeur est tronquée à 100% (1.0) "
+								+ "pour respecter le format de sortie.");
+						printedResult = 100;
+					}
+					else if (printedResult < 0) {
+						System.err.println("Le résutat retourné est "+result+" mais "
+								+ "c'est un résultat invalide. Une valeur entre 0 et "
+								+ "1 est demandée. La valeur est tronquée à 0% (0.0) "
+								+ "pour respecter le format de sortie.");
+						printedResult = 0;
+					}
+					System.out.println(files[i]+" and "+files[j]+": "+printedResult+"%");
 					
 				} catch(Exception e) {
 					e.printStackTrace();
