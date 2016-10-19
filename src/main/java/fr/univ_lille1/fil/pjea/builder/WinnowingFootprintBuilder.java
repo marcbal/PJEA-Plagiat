@@ -12,7 +12,7 @@ import fr.univ_lille1.fil.pjea.qgrams.QGram;
 import fr.univ_lille1.fil.pjea.qgrams.TokenReader;
 
 
-public class WinnowingMarkBuilder {
+public class WinnowingFootprintBuilder {
 
 	/**
 	 * 
@@ -22,7 +22,7 @@ public class WinnowingMarkBuilder {
 	
 	private Lexer lexer;
 	
-	public WinnowingMarkBuilder(Lexer lexer, int q, int t) {
+	public WinnowingFootprintBuilder(Lexer lexer, int q, int t) {
 		this.lexer = lexer;
 		this.q = q;
 		this.t = t;
@@ -31,7 +31,7 @@ public class WinnowingMarkBuilder {
 	
 	public List<Pair<Integer, Integer>> build() throws Exception {
 		
-		List<Pair<Integer, Integer>> mark; 
+		List<Pair<Integer, Integer>> footprint; 
 		
 		/* Construction des listes de tokens hashé */ 
 		
@@ -50,9 +50,9 @@ public class WinnowingMarkBuilder {
 			}
 		}
 		
-		mark = listMin.entrySet().stream().map((e) -> new Pair<>(e.getKey(), e.getValue())).collect(Collectors.toList());
-		mark.sort((p1, p2) -> Integer.compare(p1.getValue0(), p2.getValue0()));
-		return mark;
+		footprint = listMin.entrySet().stream().map((e) -> new Pair<>(e.getKey(), e.getValue())).collect(Collectors.toList());
+		footprint.sort((p1, p2) -> Integer.compare(p1.getValue0(), p2.getValue0()));
+		return footprint;
 	}
 	
 	/**
