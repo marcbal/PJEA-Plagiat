@@ -19,23 +19,31 @@ public class WinnowingFootprintBuilder {
 	 */
 	private int t; 
 	private int q;
+	private List<Integer> hashQgrams;
 	
-	private Lexer lexer;
+	//private Lexer lexer;
 	
 	public WinnowingFootprintBuilder(Lexer lexer, int q, int t) {
-		this.lexer = lexer;
+		this(new TokenReader(lexer, 0, t).getAllQGrams()
+										  .stream().map(QGram::hashCode)
+										  .collect(Collectors.toList()), 
+			 q, 
+			 t
+		);
+	}
+
+	public WinnowingFootprintBuilder(List<Integer> hashQgrams, int q, int t) {
+		this.hashQgrams = hashQgrams;
 		this.q = q;
 		this.t = t;
 	}
-
+	
 	
 	public List<Pair<Integer, Integer>> build() throws Exception {
 		
 		List<Pair<Integer, Integer>> footprint; 
 		
-		/* Construction des listes de tokens hashé */ 
 		
-		List<Integer> hashQgrams = new TokenReader(lexer, 0, t).getAllQGrams().stream().map(QGram::hashCode).collect(Collectors.toList());
 		int w = t - q + 1;
 		
 		Pair<Integer, Integer> curMin;
