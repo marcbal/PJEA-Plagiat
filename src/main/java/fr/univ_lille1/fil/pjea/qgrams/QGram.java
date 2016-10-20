@@ -26,7 +26,7 @@ public class QGram implements List<Token> {
 	}
 	
 	public int distance(QGram qGramCompared){
-		// Last version was O(n*m), this one only memorizes previous line of disance matrix
+		// Last version was O(n*m), this one only memorizes previous line of distance matrix
 		// which makes this algorithm O(n)
 	    int[] prev = new int[ qGramCompared.size()+1];
 
