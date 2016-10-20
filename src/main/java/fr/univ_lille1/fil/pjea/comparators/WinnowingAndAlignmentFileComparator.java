@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
+import org.javatuples.Pair;
 
 import fr.univ_lille1.fil.pjea.builder.WinnowingFootprintBuilder;
 import fr.univ_lille1.fil.pjea.qgrams.QGram;
@@ -12,11 +13,13 @@ import fr.univ_lille1.fil.pjea.qgrams.TokenReader;
 
 public class WinnowingAndAlignmentFileComparator extends FileComparator {
 	
-	
+	public static final int HEURISTIC_Q = 15;
+	public static final double HEURISTIC_RATIO_DIFF = 0.3; /* 30% */
 	
 	public WinnowingAndAlignmentFileComparator(File f1, File f2) {
 		super(f1, f2);
 	}
+
 
 	@Override
 	public double computeDifference() throws Exception {
@@ -43,16 +46,30 @@ public class WinnowingAndAlignmentFileComparator extends FileComparator {
 		return val < 0 ? 0 : val;
 	}
 	
-	protected static boolean checkFootPrint(Lexer lex1, Lexer lex2) {
-		// TODO 
-		//lex1.
+	protected static boolean isDifferentFootPrint(List<? extends Token> tokens1 , List<? extends Token> tokens2) throws Exception{
 		
-		WinnowingFootprintBuilder wfpBuilder1 = new WinnowingFootprintBuilder(lex1, 0, 0); // Init false 
-		WinnowingFootprintBuilder wfpBuilder2 = new WinnowingFootprintBuilder(lex2, 0, 0); // Init false
+		// TODO Revoir le throw
 		
+		WinnowingFootprintBuilder wfpBuilder1 = new WinnowingFootprintBuilder(tokens1, HEURISTIC_Q, tokens1.size()); 
+		WinnowingFootprintBuilder wfpBuilder2 = new WinnowingFootprintBuilder(tokens2, HEURISTIC_Q, tokens2.size()); 
 		
+		List<Pair<Integer, Integer>> footprint1 = wfpBuilder1.build();
+		List<Pair<Integer, Integer>> footprint2 = wfpBuilder2.build();
 		
-		return false;
+		int cptId = 0;
+		int fp1Size = footprint1.size();
+		int fp2Size = footprint2.size();
+		int nMin = Math.min(fp1Size, fp2Size);
+		int nMax = Math.max(fp1Size, fp2Size);
+		for (int i = 0; i < nMin; ++i) {
+			if (footprint1.get(i).equals(footprint2.get(i))) {
+				cptId ++;
+			}
+		}
+		
+		double ratio = cptId / nMax;
+		
+		return ratio <= HEURISTIC_RATIO_DIFF;
 	}
 	
 

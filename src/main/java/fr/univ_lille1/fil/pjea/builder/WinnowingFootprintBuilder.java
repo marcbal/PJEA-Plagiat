@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.antlr.v4.runtime.Lexer;
+import org.antlr.v4.runtime.Token;
 import org.javatuples.Pair;
 
 import fr.univ_lille1.fil.pjea.qgrams.QGram;
@@ -21,18 +21,22 @@ public class WinnowingFootprintBuilder {
 	private int q;
 	private List<Integer> hashQgrams;
 	
-	//private Lexer lexer;
 	
-	public WinnowingFootprintBuilder(Lexer lexer, int q, int t) {
-		this(new TokenReader(lexer, 1, q).getAllQGrams()
+	
+	public WinnowingFootprintBuilder(List<? extends Token> tokens, int q, int t) {
+		this(new TokenReader(tokens, 1, q).getAllQGrams()
 								          .stream().map(QGram::hashCode)
 								          .collect(Collectors.toList()), 
 			 q, 
-			 t
+			 t, 
+			 true
 		);
 	}
+	
 
-	public WinnowingFootprintBuilder(List<Integer> hashQgrams, int q, int t) {
+	WinnowingFootprintBuilder(List<Integer> hashQgrams, int q, int t, boolean disc) {
+		
+		// TODO Enlevé le discriminent
 		this.hashQgrams = hashQgrams;
 		this.q = q;
 		this.t = t;

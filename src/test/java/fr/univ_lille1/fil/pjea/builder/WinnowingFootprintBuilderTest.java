@@ -34,15 +34,11 @@ public class WinnowingFootprintBuilderTest {
 	}
 	
 	@Test
-	public void buildTest() {
-		WinnowingFootprintBuilder footprintBuilder = new WinnowingFootprintBuilder(rabinHashCodeExemple, 4, rabinHashCodeExemple.size());
-		try {
-			List<Pair<Integer, Integer>> footPrintBuild = footprintBuilder.build();
-			assertTrue("Test du build : " + footPrintBuild + " " + expectedResult, footPrintBuild.equals(expectedResult));
-		} catch(Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void buildTest() throws Exception {
+		// TODO Appel au constructeur avec discriminant
+		WinnowingFootprintBuilder footprintBuilder = new WinnowingFootprintBuilder(rabinHashCodeExemple, 4, rabinHashCodeExemple.size(), true);
+		List<Pair<Integer, Integer>> footPrintBuild = footprintBuilder.build();
+		assertTrue("Test du build : " + footPrintBuild + " " + expectedResult, footPrintBuild.equals(expectedResult));
 	}
 	
 	@Test
