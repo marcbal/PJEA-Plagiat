@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.antlr.v4.runtime.Lexer;
 import org.javatuples.Pair;
 
+import fr.univ_lille1.fil.pjea.Java8File;
 import fr.univ_lille1.fil.pjea.qgrams.QGram;
 import fr.univ_lille1.fil.pjea.qgrams.TokenReader;
 
@@ -23,8 +23,8 @@ public class WinnowingFootprintBuilder {
 	
 	//private Lexer lexer;
 	
-	public WinnowingFootprintBuilder(Lexer lexer, int q, int t) {
-		this(new TokenReader(lexer, 1, q).getAllQGrams()
+	public WinnowingFootprintBuilder(Java8File file, int q, int t) {
+		this(new TokenReader(file, 1, q).getAllQGrams()
 								          .stream().map(QGram::hashCode)
 								          .collect(Collectors.toList()), 
 			 q, 

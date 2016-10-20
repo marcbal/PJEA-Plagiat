@@ -5,14 +5,11 @@ import static org.junit.Assert.*;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import org.antlr.v4.runtime.ANTLRFileStream;
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.Lexer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univ_lille1.fil.pjea.antlr_lexers.java8.Java8Lexer;
+import fr.univ_lille1.fil.pjea.Java8File;
 
 public class TokenReaderTest {
 
@@ -20,10 +17,7 @@ public class TokenReaderTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		
-		ANTLRInputStream in = new ANTLRFileStream("src/test/resources/fileNbT8.java");
-        Lexer l = new Java8Lexer(in);
-		fileNbT8TokenReader = new TokenReader(l, 1, 1);
+		fileNbT8TokenReader = new TokenReader(new Java8File("src/test/resources/fileNbT8.java"), 1, 1);
 	}
 
 	@After
