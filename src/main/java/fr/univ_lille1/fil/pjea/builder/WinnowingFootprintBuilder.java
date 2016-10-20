@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.antlr.v4.runtime.Token;
 import org.javatuples.Pair;
 
+import fr.univ_lille1.fil.pjea.Java8File;
 import fr.univ_lille1.fil.pjea.qgrams.QGram;
 import fr.univ_lille1.fil.pjea.qgrams.TokenReader;
 
@@ -22,13 +23,22 @@ public class WinnowingFootprintBuilder {
 	private List<Integer> hashQgrams;
 	
 	
+	public WinnowingFootprintBuilder(Java8File file, int q) {
+		this(new TokenReader(file, 1, q).getAllQGrams()
+		          .stream().map(QGram::hashCode)
+		          .collect(Collectors.toList()), 
+			q,
+			file.tokens.size(),
+			true
+		);
+	}
 	
 	public WinnowingFootprintBuilder(List<? extends Token> tokens, int q, int t) {
 		this(new TokenReader(tokens, 1, q).getAllQGrams()
 								          .stream().map(QGram::hashCode)
 								          .collect(Collectors.toList()), 
-			 q, 
-			 t, 
+			 q,
+			 t,
 			 true
 		);
 	}
@@ -43,7 +53,7 @@ public class WinnowingFootprintBuilder {
 	}
 	
 	
-	public List<Pair<Integer, Integer>> build() throws Exception {
+	public List<Pair<Integer, Integer>> build() {
 		
 		List<Pair<Integer, Integer>> footprint; 
 		

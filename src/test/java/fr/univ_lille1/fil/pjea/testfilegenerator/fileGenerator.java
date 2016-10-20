@@ -3,13 +3,9 @@ package fr.univ_lille1.fil.pjea.testfilegenerator;
 import java.io.File;
 import java.util.Iterator;
 
-import org.antlr.v4.runtime.ANTLRFileStream;
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.Lexer;
+import org.antlr.v4.runtime.Token;
 
-import fr.univ_lille1.fil.pjea.antlr_lexers.java8.Java8Lexer;
-import fr.univ_lille1.fil.pjea.qgrams.QGram;
-import fr.univ_lille1.fil.pjea.qgrams.TokenReader;
+import fr.univ_lille1.fil.pjea.Java8File;
 
 public class fileGenerator {
 
@@ -19,18 +15,12 @@ public class fileGenerator {
 	}
 
 	
-	public static File BuildFile(File f1, File f2) throws Exception{
+	public static File BuildFile(Java8File f1, Java8File f2) throws Exception{
 		
-		File newFile = new File("concact"+f1.getName()+"-"+f2.getName());
+		File newFile = new File("concact"+f1.file.getName()+"-"+f2.file.getName());
 		
-		ANTLRInputStream file1 = new ANTLRFileStream(f1.getPath());
-        Lexer lexer1 = new Java8Lexer(file1);
-        
-        ANTLRInputStream file2 = new ANTLRFileStream(f2.getPath());
-        Lexer lexer2 = new Java8Lexer(file2);
-        
-        Iterator<QGram> listToken1 = new TokenReader(lexer1).iterator();
-        Iterator<QGram> listToken2 = new TokenReader(lexer2).iterator();
+        Iterator<? extends Token> listToken1 = f1.tokens.iterator();
+        Iterator<? extends Token> listToken2 = f1.tokens.iterator();
         
         //listToken1.remove();
         //listToken2.remove();

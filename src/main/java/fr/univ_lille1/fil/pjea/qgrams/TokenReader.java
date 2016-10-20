@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 
+import fr.univ_lille1.fil.pjea.Java8File;
 import fr.univ_lille1.fil.pjea.TokenUtils;
 
 
@@ -49,8 +50,8 @@ public class TokenReader implements Iterable<QGram> {
 	 * chaque itération.
 	 */
 
-	public TokenReader(Lexer lexer, int step, int qGramSize) {
-		this(lexer.getAllTokens(), step, qGramSize);
+	public TokenReader(Java8File file, int step, int qGramSize) {
+		this(file.tokens, step, qGramSize);
 	}
 
 	/**
@@ -59,8 +60,8 @@ public class TokenReader implements Iterable<QGram> {
 	 * @param lexer
 	 * @param qGramSize
 	 */
-	public TokenReader(Lexer lexer, int qGramSize) {
-		this(lexer, qGramSize, qGramSize);
+	public TokenReader(Java8File file, int qGramSize) {
+		this(file, qGramSize, qGramSize);
 	}
 	
 	/**
@@ -68,8 +69,8 @@ public class TokenReader implements Iterable<QGram> {
 	 * <pre>new TokenReader(lexer, 1, 1)</pre>
 	 * @param lexer
 	 */
-	public TokenReader(Lexer lexer) {
-		this(lexer, 1, 1);
+	public TokenReader(Java8File file) {
+		this(file, 1, 1);
 	}
 	
 	
