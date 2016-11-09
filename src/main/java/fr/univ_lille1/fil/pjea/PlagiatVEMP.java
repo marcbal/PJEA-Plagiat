@@ -12,7 +12,7 @@ public class PlagiatVEMP {
 		
 		/*
 		 * Convert an array of string that contains file path
-		 * to an array of File instance that represents the sames file path.
+		 * to an array of Java8File instance that represents a file
 		 */
 		Java8File[] files = Arrays.stream(args)
 				.map(arg -> {
@@ -35,17 +35,9 @@ public class PlagiatVEMP {
 					
 					int printedResult = (int)(Math.round(result*100));
 					if (printedResult > 100) {
-						System.err.println("Le résutat retourné est "+result+" mais "
-								+ "c'est un résultat invalide. Une valeur entre 0 et "
-								+ "1 est demandée. La valeur est tronquée à 100% (1.0) "
-								+ "pour respecter le format de sortie.");
 						printedResult = 100;
 					}
 					else if (printedResult < 0) {
-						System.err.println("Le résutat retourné est "+result+" mais "
-								+ "c'est un résultat invalide. Une valeur entre 0 et "
-								+ "1 est demandée. La valeur est tronquée à 0% (0.0) "
-								+ "pour respecter le format de sortie.");
 						printedResult = 0;
 					}
 					System.out.println(files[i].file+" and "+files[j].file+": "+printedResult+"%");
