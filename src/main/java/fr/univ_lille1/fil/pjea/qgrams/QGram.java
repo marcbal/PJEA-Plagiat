@@ -1,5 +1,6 @@
 package fr.univ_lille1.fil.pjea.qgrams;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -9,13 +10,15 @@ import org.antlr.v4.runtime.Token;
 
 import fr.univ_lille1.fil.pjea.TokenUtils;
 
-public class QGram implements List<Token> {
+public class QGram extends ArrayList<Token> {
+	private static final long serialVersionUID = 1L;
+	
+	
 	private final int hashCode;
-	private List<Token> qGramTokens;
 	private final int qGramPosition;
 	
 	@SuppressWarnings("unchecked") QGram(List<? extends Token> toks, int pos, int computedHashCode) {
-		qGramTokens = (List<Token>) toks;
+		super(toks);
 		qGramPosition = pos;
 		hashCode = computedHashCode;
 	}
@@ -88,60 +91,6 @@ public class QGram implements List<Token> {
 	public Token set(int index, Token element) { throw new UnsupportedOperationException(); }
 	// ---------------------------------
 	
-	
-	
-	@Override
-	public boolean contains(Object o) {
-		return qGramTokens.contains(o);
-	}
-	@Override
-	public boolean containsAll(Collection<?> c) {
-		return qGramTokens.containsAll(c);
-	}
-	@Override
-	public Token get(int index) {
-		return qGramTokens.get(index);
-	}
-	@Override
-	public int indexOf(Object o) {
-		return qGramTokens.indexOf(o);
-	}
-	@Override
-	public boolean isEmpty() {
-		return qGramTokens.isEmpty();
-	}
-	@Override
-	public Iterator<Token> iterator() {
-		return qGramTokens.iterator();
-	}
-	@Override
-	public int lastIndexOf(Object o) {
-		return qGramTokens.lastIndexOf(o);
-	}
-	@Override
-	public ListIterator<Token> listIterator() {
-		return qGramTokens.listIterator();
-	}
-	@Override
-	public ListIterator<Token> listIterator(int index) {
-		return qGramTokens.listIterator(index);
-	}
-	@Override
-	public int size() {
-		return qGramTokens.size();
-	}
-	@Override
-	public List<Token> subList(int fromIndex, int toIndex) {
-		return qGramTokens.subList(fromIndex, toIndex);
-	}
-	@Override
-	public Object[] toArray() {
-		return qGramTokens.toArray();
-	}
-	@Override
-	public <T> T[] toArray(T[] a) {
-		return qGramTokens.toArray(a);
-	}
 	
 	
 	@Override
