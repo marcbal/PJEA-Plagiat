@@ -166,7 +166,7 @@ public class QGramTest {
 		assertTrue(qGram.equals(qGram));
 		assertTrue(qGram.equals(qGramEqual));
 		assertFalse(qGram.equals(qGramOther));
-		QGram qGramSameHashDiffContent      = new QGram(qGramOther, 15, 134454645);
+		QGram qGramSameHashDiffContent      = new QGram(qGramOther.subList(1, 11), 15, 134454645);
 		QGram qGramSameHashDiffContentSize  = new QGram(qGramEqual.subList(0, 2), 15, 134454645);
 		assertFalse(qGram.equals(qGramSameHashDiffContent));
 		assertFalse(qGram.equals(qGramSameHashDiffContentSize));
