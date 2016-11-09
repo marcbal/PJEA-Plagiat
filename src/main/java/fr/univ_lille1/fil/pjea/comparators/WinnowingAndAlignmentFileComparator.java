@@ -2,7 +2,6 @@ package fr.univ_lille1.fil.pjea.comparators;
 
 import java.util.List;
 
-import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 import org.javatuples.Pair;
 

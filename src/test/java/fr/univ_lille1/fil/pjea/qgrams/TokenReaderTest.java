@@ -2,6 +2,7 @@ package fr.univ_lille1.fil.pjea.qgrams;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -60,6 +61,37 @@ public class TokenReaderTest {
 
 	@Test
 	public void testHashCodeToken() {
+	}
+	
+	
+	@Test
+	public void testTokenReaderListOfQextendsTokenIntInt() throws IOException {
+		Java8File f = new Java8File("src/test/resources/fileNbT8.java");
+		TokenReader tokenReader = new TokenReader(f.tokens, 1, 1); // même paramètre que le constructeur appelé dans le setUp();
+		assertEquals(fileNbT8TokenReader.getAllQGrams(), tokenReader.getAllQGrams());
+		TokenReader tokenReader2 = new TokenReader(f.tokens, 2, 2);
+		assertEquals(4, tokenReader2.getAllQGrams().size());
+		assertEquals(2, tokenReader2.getAllQGrams().get(0).size());
+		assertEquals(0, tokenReader2.getAllQGrams().get(0).getQGramPosition());
+		assertEquals(2, tokenReader2.getAllQGrams().get(1).getQGramPosition());
+		assertEquals(4, tokenReader2.getAllQGrams().get(2).getQGramPosition());
+	}
+
+	@SuppressWarnings("static-method")
+	@Test
+	public void testTokenReaderJava8FileInt() throws IOException {
+		TokenReader tokenReader = new TokenReader(new Java8File("src/test/resources/fileNbT8.java"), 2);
+		assertEquals(4, tokenReader.getAllQGrams().size());
+		assertEquals(2, tokenReader.getAllQGrams().get(0).size());
+		assertEquals(0, tokenReader.getAllQGrams().get(0).getQGramPosition());
+		assertEquals(2, tokenReader.getAllQGrams().get(1).getQGramPosition());
+		assertEquals(4, tokenReader.getAllQGrams().get(2).getQGramPosition());
+	}
+
+	@Test
+	public void testTokenReaderJava8File() throws IOException {
+		TokenReader tokenReader = new TokenReader(new Java8File("src/test/resources/fileNbT8.java"));
+		assertEquals(fileNbT8TokenReader.getAllQGrams(), tokenReader.getAllQGrams());
 	}
 	
 	
