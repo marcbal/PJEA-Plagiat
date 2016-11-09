@@ -2,9 +2,7 @@ package fr.univ_lille1.fil.pjea.qgrams;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.antlr.v4.runtime.Token;
 
@@ -17,7 +15,7 @@ public class QGram extends ArrayList<Token> {
 	private final int hashCode;
 	private final int qGramPosition;
 	
-	@SuppressWarnings("unchecked") QGram(List<? extends Token> toks, int pos, int computedHashCode) {
+	QGram(List<? extends Token> toks, int pos, int computedHashCode) {
 		super(toks);
 		qGramPosition = pos;
 		hashCode = computedHashCode;
