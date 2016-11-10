@@ -98,7 +98,7 @@ public class QGram extends ArrayList<Token> {
 		if (hashCode() != obj.hashCode()) return false;
 		QGram other = (QGram) obj;
 		if (size() != other.size()) return false;
-		for (int i = 0; i < size() && i < other.size(); i++) {
+		for (int i = 0; i < size(); i++) {
 			if (!TokenUtils.equalsTokens(get(i), other.get(i)))
 				return false;
 		}

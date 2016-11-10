@@ -93,12 +93,6 @@ public class PlagiatVEMPTest {
 		outputContent.reset();
 	}
 	
-
-	@SuppressWarnings("static-method")
-	@Test
-	public void testPlagiatVEMP() {
-		assertNotNull(new PlagiatVEMP()); // inutile, mais c'est juste pour la couverture de code
-	}
 	
 	
 
