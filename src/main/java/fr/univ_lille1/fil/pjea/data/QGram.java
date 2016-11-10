@@ -7,6 +7,7 @@ import java.util.List;
 import org.antlr.v4.runtime.Token;
 
 import fr.univ_lille1.fil.pjea.TokenUtils;
+import fr.univ_lille1.fil.pjea.algos.AlignmentNeedlemanWunschAlgorithm;
 
 public class QGram extends ArrayList<Token> {
 	private static final long serialVersionUID = 1L;
@@ -111,27 +112,7 @@ public class QGram extends ArrayList<Token> {
 	
 	
 	public int alignmentNeedlemanWunsch(QGram q, int d) {
-		int[][] tab = new int[2][q.size() + 1];
-
-        for (int i = 0; i <= q.size(); i++)
-            tab[1][i] = i * d;
-
-        for (int i = 1; i <= size(); i++) {
-        	tab[0] = tab[1];
-        	tab[1] = new int[q.size() + 1];
-        	tab[1][0] = i * d;
-            for (int j = 1; j <= q.size(); j++) {
-            	int S = TokenUtils.tokenSimilarity(get(i - 1), q.get(j - 1));
-                tab[1][j] = Math.max(tab[0][j - 1] + S,
-                					Math.max(tab[0][j] + d,
-                							tab[1][j - 1] + d
-                							)
-                					);
-                
-            }
-        }
-        
-        return tab[1][q.size()];
+		return AlignmentNeedlemanWunschAlgorithm.compute(this, q, d, TokenUtils::tokenSimilarity);
 	}
 	
 	
