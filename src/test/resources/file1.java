@@ -134,15 +134,15 @@ public class Application {
 	
 	protected void update()
 	{
-		Time now = _clock.getElapsedTime();
-		Time elapsed = Time.sub(now, _timeBefore);
-		_timeBefore = now;
+		Time now = _clock.getElapsedTime();   
+		Time elapsed = Time.sub(now, _timeBefore);  
+		_timeBefore = now;   
 		
-		_background.update(elapsed);
+		_background.update(elapsed);   
 		
-		_ecrans[_ecran_actif.val].update(elapsed);
+		_ecrans[_ecran_actif.val].update(elapsed);  
 		
-		_debug.update(elapsed);
+		_debug.update(elapsed);   
 		
 		
 	}

@@ -39,18 +39,5 @@ public class LineEndsFileComparator extends FileComparator {
 		return 0;
 	}
 	
-	public static void main(String[] args) {
-		Java8File[] files = Arrays.stream(args)
-				.map(arg -> {
-					try {
-						return new Java8File(arg);
-					}catch (IOException e1) {
-						throw new UncheckedIOException(e1);
-					}
-				})
-				.toArray((length) -> new Java8File[length]);
-		LineEndsFileComparator.extractEndLines(files[0]);
-		
-	}
 
 }
