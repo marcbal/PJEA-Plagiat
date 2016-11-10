@@ -36,14 +36,13 @@ public class LineEndsFileComparator extends FileComparator {
 	}
 	
 	private static List<String> extractEndLines(Java8File f) {
-		List<String> linesEnd = f.fileLines.stream().filter(line -> !line.trim().isEmpty()).map(line -> {
-				return line.substring(getLastIndex(line), line.length());
-			} ).collect(Collectors.toList());
-	
-		return linesEnd;
+		return f.fileLines.stream()
+				.filter(line -> !line.trim().isEmpty()) // on supprime les lignes sans contenu visible
+				.map(line -> line.substring(getLastIndex(line), line.length())) // on garde que les 
+				.collect(Collectors.toList());
 	}
 	
-	private static int getLastIndex(String s){
+	static int getLastIndex(String s){
 		for(int i = s.length()-1; i>=0;i--)
 			if(!Character.isWhitespace(s.charAt(i)))
 				return i+1;
