@@ -39,19 +39,22 @@ Plus techniquement : divise le nombre de paire de tokens identique d'un fichier 
 pourcentage de similitude.
 
 ### Deuxième rendu **v2.0** du 20 octobre
-Compare les fichiers deux à deux, avec un algorithme d'alignement.
-Ajout d'une classe permettant la génération de l'empreinte du fichiers.  
-Pour ce faire, les algorithmes utilisé pour le générateur sont :
 
-* `RabinHashCodeBuilder` : Permet de creer les hashs suivant le formalisme de Rabin.
+* Ajout d'une classe permettant la génération de l'empreinte du fichiers. Pour ce faire, les algorithmes utilisé pour le générateur sont :
+    * `RabinHashCodeBuilder` : Permet de creer les hashs suivant le formalisme de Rabin.
+    * `WinnowingFootprintBuilder` : Permet de creer les empreintes suivant de Winnowing avec les fenetres glissantes.
 
-* `WinnowingFootprintBuilder` : Permet de creer les empreintes suivant de Winnowing avec les fenetres glissantes.
-
-Par ailleurs, les méthodes de comparaisons utilisés sont les suivantes :
-
-* `AlignmentFileComparator` : Comparaison de deux fichiers avec l'algorithmes d'alignement de Needleman-Wunsch
+La comparaison effectué par le main est la suivante :
+* `WinnowingAndAlignmentFileComparator` : Comparaison de deux fichiers avec l'algorithmes d'alignement de Needleman-Wunsch. Le filtrage des fichiers trop différents (en comparant les empreintes) n'est pas implémenté
 
 
 ### Troisième rendu **v3.0** du 10 novembre
-* Ajout de test
-* Ajout du serveur d'intégration ... 
+
+* On compare toujours les fichiers passé en argument du main, en utilisant l'algorithme d'alignement (en attendant la validation du test du Winnowing, et l'algo sur les fins de lignes)
+* Ajout d'un grand nombre de tests unitaires.
+* Développement (non terminé) d'algorithme de fusion de fichiers .java (pour tester la comparaison en gros volume)
+* Développement (non terminé) d'algorithme qui compare les fins de ligne des fichiers (caractères non-imprimables)
+* Installation du projet sur un serveur d'intégration `Jenkins` (lien au dessus) :
+    * Affichage graphique des tests unitaires Junit fonctionnels et non-fonctionnels
+    * Affichage de la couverture de code des tests unitaires (en relation avec un plugin Maven qui effectue l'analyse)
+    * Un build est lancé sur Jenkins à chaque push sur le dépôt Github.
