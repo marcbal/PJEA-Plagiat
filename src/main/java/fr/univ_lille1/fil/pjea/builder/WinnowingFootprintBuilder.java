@@ -10,9 +10,18 @@ import org.antlr.v4.runtime.Token;
 import org.javatuples.Pair;
 
 import fr.univ_lille1.fil.pjea.Java8File;
+import fr.univ_lille1.fil.pjea.data.FootPrint;
 import fr.univ_lille1.fil.pjea.qgrams.QGram;
 import fr.univ_lille1.fil.pjea.qgrams.TokenReader;
 
+
+/* --------
+ * Data : 
+ * 	- Java8File 
+ *  - Une partie du fichier :  
+ * 		
+ * 
+ */
 
 public class WinnowingFootprintBuilder {
 
@@ -59,10 +68,7 @@ public class WinnowingFootprintBuilder {
 		return this;
 	}
 	
-	public List<Pair<Integer, Integer>> build() {
-		
-		List<Pair<Integer, Integer>> footprint; 
-		
+	public FootPrint build() {
 		
 		int w = t - q + 1;
 		
@@ -78,9 +84,11 @@ public class WinnowingFootprintBuilder {
 			}
 		}
 		
-		footprint = listMin.entrySet().stream().map((e) -> new Pair<>(e.getKey(), e.getValue())).collect(Collectors.toList());
+		List<Pair<Integer, Integer>> footprint = listMin.entrySet()
+														.stream().map((e) -> new Pair<>(e.getKey(), e.getValue()))
+														.collect(Collectors.toList());
 		footprint.sort((p1, p2) -> Integer.compare(p1.getValue0(), p2.getValue0()));
-		return footprint;
+		return new FootPrint(footprint);
 	}
 	
 	/**

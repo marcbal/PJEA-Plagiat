@@ -7,8 +7,9 @@ import java.util.List;
 import org.antlr.v4.runtime.Token;
 
 import fr.univ_lille1.fil.pjea.TokenUtils;
+import fr.univ_lille1.fil.pjea.data.Data;
 
-public class QGram extends ArrayList<Token> {
+public class QGram extends ArrayList<Token> implements Data {
 	private static final long serialVersionUID = 1L;
 	
 	
@@ -21,6 +22,11 @@ public class QGram extends ArrayList<Token> {
 		hashCode = computedHashCode;
 	}
 	
+	
+	@Override
+	public List<Token> getAllToken() {
+		return this;
+	}
 
 	public int getQGramPosition() {
 		return qGramPosition;
@@ -94,10 +100,14 @@ public class QGram extends ArrayList<Token> {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) return false;
+		
 		if (!(obj instanceof QGram)) return false;
+		
 		if (hashCode() != obj.hashCode()) return false;
+		
 		QGram other = (QGram) obj;
 		if (size() != other.size()) return false;
+		
 		for (int i = 0; i < size() && i < other.size(); i++) {
 			if (!TokenUtils.equalsTokens(get(i), other.get(i)))
 				return false;

@@ -14,6 +14,7 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 
 import fr.univ_lille1.fil.pjea.antlr_lexers.java8.Java8Lexer;
+import fr.univ_lille1.fil.pjea.data.Data;
 
 public class Java8File {
 	
@@ -29,9 +30,6 @@ public class Java8File {
 			fileLines = Collections.unmodifiableList(r.lines().collect(Collectors.toList()));
 		}
 	}
-	
-	
-	
 	
 	
 	
