@@ -15,6 +15,7 @@ public class PlagiatVEMPTest {
 	
 	public static final String TEST_FILE_DIR = "src/test/resources/";
 
+	public static final String TEST_FILE_NB_TOKEN_16 = TEST_FILE_DIR + "fileNbT16.java";
 	public static final String TEST_FILE_NB_TOKEN_12 = TEST_FILE_DIR + "fileNbT12.java";
 	public static final String TEST_FILE_NB_TOKEN_8  = TEST_FILE_DIR + "fileNbT8.java";
 	public static final String TEST_FILE_WINNOWING  = TEST_FILE_DIR + "filewinnowing.java";
