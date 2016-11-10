@@ -71,8 +71,8 @@ public class QGramTest {
 	public void testIdenticalQGramDistance() throws IOException {
 		Java8File f1 = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8);
 		Java8File f2 = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_12);
-        QGram qGram1 = new TokenReader(f1, 8).iterator().next();
-		QGram qGram2 = new TokenReader(f2, 11).iterator().next();
+        QGram qGram1 = new QGramContainer(f1, 8).iterator().next();
+		QGram qGram2 = new QGramContainer(f2, 11).iterator().next();
 		/*
 		 * Info : Pourquoi 4 ? On compte le nombre de tokens manuellement dans les fichiers de comparaison
 		 * Et on ajoute 1 pour car le nom de la classe est changée dans le second.

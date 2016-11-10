@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.Token;
 import fr.univ_lille1.fil.pjea.Java8File;
 import fr.univ_lille1.fil.pjea.TokenUtils;
 import fr.univ_lille1.fil.pjea.qgrams.QGram;
-import fr.univ_lille1.fil.pjea.qgrams.TokenReader;
+import fr.univ_lille1.fil.pjea.qgrams.QGramContainer;
 
 public class NaiveSuccessivesTokensFileComparator extends FileComparator {
 	 
@@ -21,8 +21,8 @@ public class NaiveSuccessivesTokensFileComparator extends FileComparator {
 	public double computeDifference() throws Exception {
 		
 	
-	    Iterator<QGram> it1 = new TokenReader(file1).iterator();
-	    Iterator<QGram> it2 = new TokenReader(file2).iterator();
+	    Iterator<QGram> it1 = new QGramContainer(file1).iterator();
+	    Iterator<QGram> it2 = new QGramContainer(file2).iterator();
 	    
 	    int total = 0, nbEquals = 0;
 	    
