@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Arrays;
 
-import fr.univ_lille1.fil.pjea.comparators.WinnowingAndAlignmentFileComparator;
+import fr.univ_lille1.fil.pjea.comparators.AlignmentFileComparator;
 
 public class PlagiatVEMP {
 	
@@ -31,7 +31,7 @@ public class PlagiatVEMP {
 			for (int j=i+1; j<files.length; j++) {
 				try {
 					
-					double result = new WinnowingAndAlignmentFileComparator(files[i], files[j]).computeDifference();
+					double result = new AlignmentFileComparator(files[i], files[j]).computeDifference();
 					
 					outputResult(files[i].file.toString(), files[j].file.toString(), result);
 					
