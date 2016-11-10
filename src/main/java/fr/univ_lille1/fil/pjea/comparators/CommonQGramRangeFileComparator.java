@@ -23,7 +23,6 @@ public class CommonQGramRangeFileComparator extends FileComparator {
 			int qSquare = (q-qMin)*(q-qMin)+1;
 			totalResult += subResult * qSquare;
 			divizor += qSquare;
-			System.out.println(subResult);
 		}
 		
 		return totalResult / divizor;
