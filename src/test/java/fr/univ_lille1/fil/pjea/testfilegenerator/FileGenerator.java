@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.Token;
 
 import fr.univ_lille1.fil.pjea.Java8File;
 
-public class fileGenerator {
+public class FileGenerator {
 
 	
 	public static void main(String[] args) {
