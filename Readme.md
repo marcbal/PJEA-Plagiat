@@ -37,3 +37,21 @@ Algorithmes développés :
 * `NaiveSuccessivesTokensFileComparator` : Compare les fichiers tokens par tokens.
 Plus techniquement : divise le nombre de paire de tokens identique d'un fichier à l'autre par le nombre total de token du fichier qui en a le plus. Les tokens sont comparés dans l'ordre, donc l'ajout ou suppression d'une ligne de code au début d'un des fichier réduit drastiquement le
 pourcentage de similitude.
+
+### Deuxième rendu **v2.0** du 20 octobre
+Compare les fichiers deux à deux, avec un algorithme d'alignement.
+Ajout d'une classe permettant la génération de l'empreinte du fichiers.  
+Pour ce faire, les algorithmes utilisé pour le générateur sont :
+
+* `RabinHashCodeBuilder` : Permet de creer les hashs suivant le formalisme de Rabin.
+
+* `WinnowingFootprintBuilder` : Permet de creer les empreintes suivant de Winnowing avec les fenetres glissantes.
+
+Par ailleurs, les méthodes de comparaisons utilisés sont les suivantes :
+
+* `AlignmentFileComparator` : Comparaison de deux fichiers avec l'algorithmes d'alignement de Needleman-Wunsch
+
+
+### Troisième rendu **v3.0** du 10 novembre
+* Ajout de test
+* Ajout du serveur d'intégration ... 
