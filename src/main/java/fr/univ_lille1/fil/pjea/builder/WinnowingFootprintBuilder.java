@@ -52,7 +52,7 @@ public class WinnowingFootprintBuilder {
 	 * @param q
 	 * @param t
 	 */
-	WinnowingFootprintBuilder init(List<Integer> hashQgrams, int q, int t) {
+	final WinnowingFootprintBuilder init(List<Integer> hashQgrams, int q, int t) {
 		this.hashQgrams = Collections.unmodifiableList(hashQgrams);
 		this.q = q;
 		this.t = t;	
