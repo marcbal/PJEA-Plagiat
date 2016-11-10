@@ -1,15 +1,10 @@
 package fr.univ_lille1.fil.pjea.comparators;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import fr.univ_lille1.fil.pjea.Java8File;
-import fr.univ_lille1.fil.pjea.qgrams.QGram;
-import fr.univ_lille1.fil.pjea.qgrams.QGramTest;
 
 public class LineEndsFileComparator extends FileComparator {
 	
