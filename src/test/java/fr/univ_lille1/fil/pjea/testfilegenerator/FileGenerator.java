@@ -1,7 +1,7 @@
 package fr.univ_lille1.fil.pjea.testfilegenerator;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +15,86 @@ import fr.univ_lille1.fil.pjea.Java8File;
 public class FileGenerator {
 
 	private static final String[] EOL_TOKENS = {";", "{", "}"};
+	private static final String[] MODIFIER_TOKENS = {"public", "protected", "private"};
+	
+	private List<Token> imports = new ArrayList<>();
+	private List<Token> otherDecls = new ArrayList<>();
+	private boolean firstPackage = true;
+	
+	
+	public FileGenerator(Java8File... files) {
+		for (Java8File java8File : files) {
+			separate(java8File);
+		}
+	}
+	
+	public void separate(Java8File f) {
+		
+        List<Token> tokens = f.tokens;
+         
+        int nextClassDecl = 0;
+        
+        Iterator<Token> iter = tokens.iterator();
+        for (Token token; iter.hasNext();) {
+        	token = iter.next();
+        	
+            /* Remove declaration package line */
+            if (token.getText().equals("package")) {
+            	do {
+            		if (firstPackage ) imports.add(token);
+    	        	token = iter.next();
+    	        } while (!token.getText().equals(";")); 
+            	
+            	if (firstPackage) imports.add(token);
+            	firstPackage = false;
+    	        	
+            } else if (token.getText().equals("import")) {
+            	do {
+        			imports.add(token);
+        			token = iter.next();
+        		} while (!token.getText().equals(";"));
+            	
+            	imports.add(token);
+            	
+        	} else { /* other decl */  
+        		final String tokenText = token.getText(); /* For the lambda */ 
+        		if (nextClassDecl == 0 && 
+        				Arrays.stream(MODIFIER_TOKENS).anyMatch(e -> e.equals(tokenText))) {
+        			token = iter.next();
+        		}
+        		String tt = token.getText();
+        		if (tt.equals("{")) {
+        			nextClassDecl++;
+        		} else if (tt.equals("}")) {
+        			nextClassDecl--;
+        		}
+        		otherDecls.add(token);
+        	}
+     	
+        }
+        
+       return;
+	}
+	
+	
+	
+	void print(PrintStream stream) {
+    	
+		for (Token imp : imports) {
+			final String tt = imp.getText();
+			stream.print(tt + " ");
+			if (Arrays.stream(EOL_TOKENS).anyMatch(e -> e.equals(tt))) stream.println();
+	
+		}
+		
+		for (Token decl : otherDecls) {
+			final String tt = decl.getText();
+			stream.print(tt + " ");
+			if (Arrays.stream(EOL_TOKENS).anyMatch(e -> e.equals(tt))) stream.println();
+		}
+	}
+	
+	
 	
 	public static void main(String[] args) throws Exception {
 		Java8File[] files = Arrays.stream(args)
@@ -26,65 +106,8 @@ public class FileGenerator {
 					}
 				})
 				.toArray((length) -> new Java8File[length]);
-		
-		buildFile(files[0], files[1]);
+        
+		new FileGenerator(files).print(System.out);
 	}
-
-	
-	public static File buildFile(Java8File f1, Java8File f2) throws Exception {
-		
-		File newFile = new File("concact" + f1.file.getName() + "-" + f2.file.getName());
-		
-        List<Token> listToken1 = f1.tokens;
-        List<Token> listToken2 = f2.tokens;
-        
-        List<Token> listTokenR = new ArrayList<>(listToken1);
-        listTokenR.addAll(listToken2);
-        
-        
-        List<Token> imports = new ArrayList<>();
-        List<Token> allDecl = new ArrayList<>();
-       
-        boolean nextClassDecl = false;
-        
-        Iterator<Token> iter = listTokenR.iterator();
-        for (Token token; iter.hasNext();) {
-        	token = iter.next();
-        	
-            /* Remove declaration package line */
-            if (token.getText() == "package") {
-    	        do {
-    	        	token = iter.next();
-    	        } while (!token.getText().equals(";")); 
-    	        	
-            } else if (token.getText() == "import") {
-        		do {
-        			imports.add(token);
-        			token = iter.next();
-        		} while (!token.getText().equals(";"));
-        			
-        	} else { /* other decl */  
-        		
-        	}
-        	
-        	
-        	//System.out.println(token.getText() + "	" + f1.vocabulary.getSymbolicName(token.getType()));
-        }
-        
-        /* Printing */ 
-        StringBuilder importsSb = new StringBuilder();
-        StringBuilder otherDeclSb = new StringBuilder();
-        //for ...
-        //if (Arrays.stream(EOL_TOKENS).anyMatch(e -> e.equals(token.getText()))) {
-    		importsSb.append('\n');
-    	//}
-        
-        
-        
-        
-		return newFile;
-	}
-
-	
 	
 }
