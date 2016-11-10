@@ -37,6 +37,7 @@ public class WinnowingAndAlignmentFileComparator extends FileComparator {
 		QGram qGram1 = new TokenReader(tokens1, tokens1.size(), tokens1.size()).getAllQGrams().get(0);
 		QGram qGram2 = new TokenReader(tokens2, tokens2.size(), tokens2.size()).getAllQGrams().get(0);
 		
+		
 		// peut être négatif si les deux fichiers ont un taux d'alignement des tokens supérieur au nombre total de token.
 		double val = qGram1.alignmentNeedlemanWunsch(qGram2, -1) / (double)Math.max(qGram1.size(), qGram2.size());
 		

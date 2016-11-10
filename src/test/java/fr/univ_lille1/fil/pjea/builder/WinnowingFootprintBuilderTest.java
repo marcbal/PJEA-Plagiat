@@ -35,17 +35,18 @@ public class WinnowingFootprintBuilderTest {
 	
 	@Test
 	public void buildTest() throws Exception {
-		// TODO Appel au constructeur avec discriminant
-		WinnowingFootprintBuilder footprintBuilder = new WinnowingFootprintBuilder(rabinHashCodeExemple, 4, rabinHashCodeExemple.size(), true);
+		WinnowingFootprintBuilder footprintBuilder = new WinnowingFootprintBuilder().init(rabinHashCodeExemple, 
+				4, rabinHashCodeExemple.size());
+		
 		List<Pair<Integer, Integer>> footPrintBuild = footprintBuilder.build();
+		
 		assertTrue("Test du build : " + footPrintBuild + " " + expectedResult, footPrintBuild.equals(expectedResult));
 	}
 	
 	@Test
 	public void buildWithTokenReaderTest() {
 		// TODO continuer le test
-		//fail();
-
+		fail("Test not implemented");
 	}
 	
 }

@@ -1,5 +1,6 @@
 package fr.univ_lille1.fil.pjea.builder;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,35 +24,40 @@ public class WinnowingFootprintBuilder {
 	private List<Integer> hashQgrams;
 	
 	
+	public WinnowingFootprintBuilder() {
+
+	}
+	
 	public WinnowingFootprintBuilder(Java8File file, int q) {
-		this(new TokenReader(file, 1, q).getAllQGrams()
+		init(new TokenReader(file, 1, q).getAllQGrams()
 		          .stream().map(QGram::hashCode)
 		          .collect(Collectors.toList()), 
 			q,
-			file.tokens.size(),
-			true
+			file.tokens.size()
 		);
 	}
 	
 	public WinnowingFootprintBuilder(List<? extends Token> tokens, int q, int t) {
-		this(new TokenReader(tokens, 1, q).getAllQGrams()
-								          .stream().map(QGram::hashCode)
-								          .collect(Collectors.toList()), 
+		init(new TokenReader(tokens, 1, q).getAllQGrams()
+								           .stream().map(QGram::hashCode)
+								           .collect(Collectors.toList()), 
 			 q,
-			 t,
-			 true
+			 t
 		);
 	}
 	
-
-	WinnowingFootprintBuilder(List<Integer> hashQgrams, int q, int t, boolean disc) {
-		
-		// TODO Enlevé le discriminent
-		this.hashQgrams = hashQgrams;
+	/**
+	 * 
+	 * @param hashQgrams
+	 * @param q
+	 * @param t
+	 */
+	WinnowingFootprintBuilder init(List<Integer> hashQgrams, int q, int t) {
+		this.hashQgrams = Collections.unmodifiableList(hashQgrams);
 		this.q = q;
-		this.t = t;
+		this.t = t;	
+		return this;
 	}
-	
 	
 	public List<Pair<Integer, Integer>> build() {
 		
@@ -86,7 +92,9 @@ public class WinnowingFootprintBuilder {
 	 */
 	private static Pair<Integer, Integer> minFrame(int i, int nFrame, List<Integer> list, Map<Integer, Integer> listMin) {
 		int len = list.size();
-		if (i >= len || i + nFrame > len) return null;
+		if (i >= len || i + nFrame > len) {
+			return null;
+		}
 
 		
 		int elm, min = list.get(i), pos = i;
