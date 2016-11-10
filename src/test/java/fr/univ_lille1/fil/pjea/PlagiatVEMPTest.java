@@ -14,6 +14,9 @@ import org.junit.Test;
 public class PlagiatVEMPTest {
 	
 	public static final String TEST_FILE_DIR = "src/test/resources/";
+
+	public static final String TEST_FILE_NB_TOKEN_12 = TEST_FILE_DIR + "fileNbT12.java";
+	public static final String TEST_FILE_NB_TOKEN_8  = TEST_FILE_DIR + "fileNbT8.java";
 	
 	public static final String[] TEST_PACK_1 = new String[] {
 			TEST_FILE_DIR + "file1.java",

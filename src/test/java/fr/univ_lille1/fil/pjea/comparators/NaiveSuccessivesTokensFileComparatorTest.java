@@ -18,5 +18,15 @@ public class NaiveSuccessivesTokensFileComparatorTest {
 				.computeDifference();
 		assertEquals(1, res, 0.01);
 	}
+	
+	@SuppressWarnings("static-method")
+	@Test
+	public void testComputeDifferenceDiffFile() throws Exception {
+		double res = new NaiveSuccessivesTokensFileComparator(
+				new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_12),
+				new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8))
+				.computeDifference();
+		assertEquals(0.5, res, 0.2); // plus ou moins 20%
+	}
 
 }
