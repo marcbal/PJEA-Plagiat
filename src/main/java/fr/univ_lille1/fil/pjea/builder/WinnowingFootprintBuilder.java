@@ -16,9 +16,6 @@ import fr.univ_lille1.fil.pjea.qgrams.QGramContainer;
 
 public class WinnowingFootprintBuilder {
 
-	/**
-	 * 
-	 */
 	private int t; 
 	private int q;
 	private List<Integer> hashQgrams;
@@ -61,9 +58,6 @@ public class WinnowingFootprintBuilder {
 	
 	public List<Pair<Integer, Integer>> build() {
 		
-		List<Pair<Integer, Integer>> footprint; 
-		
-		
 		int w = t - q + 1;
 		
 		Pair<Integer, Integer> curMin;
@@ -78,9 +72,10 @@ public class WinnowingFootprintBuilder {
 			}
 		}
 		
-		footprint = listMin.entrySet().stream().map((e) -> new Pair<>(e.getKey(), e.getValue())).collect(Collectors.toList());
-		footprint.sort((p1, p2) -> Integer.compare(p1.getValue0(), p2.getValue0()));
-		return footprint;
+		return listMin.entrySet().stream()
+				.map(e -> new Pair<>(e.getKey(), e.getValue()))
+				.sorted((p1, p2) -> Integer.compare(p1.getValue0(), p2.getValue0()))
+				.collect(Collectors.toList());
 	}
 	
 	/**

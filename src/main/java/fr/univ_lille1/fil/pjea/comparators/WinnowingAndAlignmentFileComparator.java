@@ -28,28 +28,19 @@ public class WinnowingAndAlignmentFileComparator extends FileComparator {
 	
 	protected boolean isDifferentFootprint() {
 		
-		// TODO Revoir le throw
-		
-		WinnowingFootprintBuilder wfpBuilder1 = new WinnowingFootprintBuilder(file1, HEURISTIC_Q); 
-		WinnowingFootprintBuilder wfpBuilder2 = new WinnowingFootprintBuilder(file2, HEURISTIC_Q); 
-		
-		List<Pair<Integer, Integer>> footprint1 = wfpBuilder1.build();
-		List<Pair<Integer, Integer>> footprint2 = wfpBuilder2.build();
+		List<Pair<Integer, Integer>> footprint1 = new WinnowingFootprintBuilder(file1, HEURISTIC_Q).build();
+		List<Pair<Integer, Integer>> footprint2 = new WinnowingFootprintBuilder(file2, HEURISTIC_Q).build();
 		
 		int cptId = 0;
-		int fp1Size = footprint1.size();
-		int fp2Size = footprint2.size();
-		int nMin = Math.min(fp1Size, fp2Size);
-		int nMax = Math.max(fp1Size, fp2Size);
+		int nMin = Math.min(footprint1.size(), footprint2.size());
+		int nMax = Math.max(footprint1.size(), footprint2.size());
 		for (int i = 0; i < nMin; ++i) {
 			if (footprint1.get(i).equals(footprint2.get(i))) {
 				cptId ++;
 			}
 		}
 		
-		double ratio = cptId / nMax;
-		
-		return ratio <= HEURISTIC_RATIO_DIFF;
+		return  (cptId / (double)nMax) <= HEURISTIC_RATIO_DIFF;
 	}
 	
 
