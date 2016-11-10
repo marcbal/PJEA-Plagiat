@@ -31,6 +31,13 @@ public class PlagiatVEMPTest {
 			TEST_FILE_DIR + "test_pack_2/BigFile2.java"
 	};
 	
+	public static final String[] TEST_PACK_SPACES = new String[] {
+			TEST_FILE_DIR + "test_pack_spaces/file1.java",
+			TEST_FILE_DIR + "test_pack_spaces/file1copy.java",
+			TEST_FILE_DIR + "test_pack_spaces/filespaces1.java",
+			TEST_FILE_DIR + "test_pack_spaces/filespaces2.java"
+	};
+	
 	// TODO ajouter d'autres jeu de test (et créer une méthode de test associé, ci-dessous)
 	
 	
