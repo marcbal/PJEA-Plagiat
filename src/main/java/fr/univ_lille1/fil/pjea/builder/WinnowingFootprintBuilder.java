@@ -11,7 +11,7 @@ import org.javatuples.Pair;
 
 import fr.univ_lille1.fil.pjea.Java8File;
 import fr.univ_lille1.fil.pjea.qgrams.QGram;
-import fr.univ_lille1.fil.pjea.qgrams.TokenReader;
+import fr.univ_lille1.fil.pjea.qgrams.QGramContainer;
 
 
 public class WinnowingFootprintBuilder {
@@ -24,25 +24,25 @@ public class WinnowingFootprintBuilder {
 	private List<Integer> hashQgrams;
 	
 	
-	public WinnowingFootprintBuilder() {
+	WinnowingFootprintBuilder() {
 
 	}
 	
 	public WinnowingFootprintBuilder(Java8File file, int q) {
-		init(new TokenReader(file, 1, q).getAllQGrams()
-		          .stream().map(QGram::hashCode)
-		          .collect(Collectors.toList()), 
-			q,
-			file.tokens.size()
+		init(new QGramContainer(file, 1, q)
+						.stream().map(QGram::hashCode)
+						.collect(Collectors.toList()), 
+				q,
+				file.tokens.size()
 		);
 	}
 	
-	public WinnowingFootprintBuilder(List<? extends Token> tokens, int q, int t) {
-		init(new TokenReader(tokens, 1, q).getAllQGrams()
-								           .stream().map(QGram::hashCode)
-								           .collect(Collectors.toList()), 
-			 q,
-			 t
+	public WinnowingFootprintBuilder(List<Token> tokens, int q, int t) {
+		init(new QGramContainer(tokens, 1, q)
+						.stream().map(QGram::hashCode)
+						.collect(Collectors.toList()), 
+				q,
+				t
 		);
 	}
 	

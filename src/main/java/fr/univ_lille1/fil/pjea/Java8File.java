@@ -30,6 +30,7 @@ public class Java8File {
 		Lexer lexer = getJava8Lexer(file);
 		
 		tokens = Collections.unmodifiableList(lexer.getAllTokens());
+		
 		try (BufferedReader r = new BufferedReader(new FileReader(file))) {
 			fileLines = Collections.unmodifiableList(r.lines().collect(Collectors.toList()));
 		}

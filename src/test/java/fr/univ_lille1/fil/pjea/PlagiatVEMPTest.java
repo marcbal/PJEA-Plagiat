@@ -93,12 +93,6 @@ public class PlagiatVEMPTest {
 		outputContent.reset();
 	}
 	
-
-	@SuppressWarnings("static-method")
-	@Test
-	public void testPlagiatVEMP() {
-		assertNotNull(new PlagiatVEMP()); // inutile, mais c'est juste pour la couverture de code
-	}
 	
 	
 
@@ -126,16 +120,15 @@ public class PlagiatVEMPTest {
 	public void testMainPack1() {
 		PlagiatVEMP.main(TEST_PACK_1);
 		String output = outputContent.toString();
-		assertNotSame("", output);
-		fail("Vérifier la sortie (nombre de ligne, ...)");
+		assertEquals(6, output.split(System.lineSeparator()).length);
+		
 	}
 
 	@Test
 	public void testMainPack2() {
 		PlagiatVEMP.main(TEST_PACK_2);
 		String output = outputContent.toString();
-		assertNotSame("", output);
-		fail("Vérifier la sortie (nombre de ligne, ...)");
+		assertEquals(1, output.split(System.lineSeparator()).length);
 	}
 
 	@SuppressWarnings("static-method")
