@@ -3,10 +3,13 @@ package fr.univ_lille1.fil.pjea.comparators;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import fr.univ_lille1.fil.pjea.Java8File;
+import fr.univ_lille1.fil.pjea.qgrams.QGram;
+import fr.univ_lille1.fil.pjea.qgrams.QGramTest;
 
 public class LineEndsFileComparator extends FileComparator {
 	
@@ -18,14 +21,27 @@ public class LineEndsFileComparator extends FileComparator {
 	public double computeDifference() throws Exception {
 		List<String> spacesF1 = extractEndLines(this.file1);
 		List<String> spacesF2 = extractEndLines(this.file2);
+		int cpt = 0;
+
+		spacesF1.removeIf(s -> s.isEmpty());
+		spacesF2.removeIf(s -> s.isEmpty());
 		
-		// TODO comparer les deux listes de fin de lignes
+		if(spacesF1.isEmpty() || spacesF2.isEmpty())
+			return 0;
 		
-		return 0;
+		for(Iterator<String> it = spacesF1.iterator();it.hasNext();)
+			if(spacesF2.contains(it.next()))
+				cpt++;
+		
+		for(Iterator<String> it = spacesF2.iterator();it.hasNext();)
+			if(spacesF1.contains(it.next()))
+				cpt++;
+		
+		return (cpt/2.0) / Math.min((double)spacesF1.size(), (double)spacesF2.size());
 	}
 	
 	private static List<String> extractEndLines(Java8File f) {
-		List<String> linesEnd = f.fileLines.stream().map(line -> {
+		List<String> linesEnd = f.fileLines.stream().filter(line -> !line.trim().isEmpty()).map(line -> {
 				return line.substring(getLastIndex(line), line.length());
 			} ).collect(Collectors.toList());
 	
