@@ -48,9 +48,9 @@ public class WinnowingFootprintBuilderTest {
 	@Test
 	public void testBuildFromFile() throws Exception {
 		Java8File f = new Java8File(PlagiatVEMPTest.TEST_PACK_1[0]);
-		WinnowingFootprintBuilder b1 = new WinnowingFootprintBuilder(f, 2);
-		WinnowingFootprintBuilder b2 = new WinnowingFootprintBuilder(f.tokens, 2, f.tokens.size());
-		assertEquals(b1.build(), b2.build());
+		Footprint f1 = f.getFootprint(2);
+		Footprint f2 = f.getFootprint(2, f.tokens.size());
+		assertEquals(f1, f2);
 	}
 	
 }
