@@ -24,7 +24,7 @@ public class WinnowingFootprintBuilder {
 	private List<Integer> hashQgrams;
 	
 	
-	public WinnowingFootprintBuilder() {
+	WinnowingFootprintBuilder() {
 
 	}
 	
