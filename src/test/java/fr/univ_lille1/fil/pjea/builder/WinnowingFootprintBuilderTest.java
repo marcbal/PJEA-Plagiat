@@ -12,17 +12,18 @@ import org.junit.Test;
 
 import fr.univ_lille1.fil.pjea.Java8File;
 import fr.univ_lille1.fil.pjea.PlagiatVEMPTest;
+import fr.univ_lille1.fil.pjea.data.Footprint;
 
 
 public class WinnowingFootprintBuilderTest {
 
 	List<Integer> rabinHashCodeExample = Arrays.asList(77, 72, 42, 17, 98, 50, 17, 98, 8, 88, 67, 39, 77, 72, 42, 17, 98);
-	List<Pair<Integer, Integer>> expectedResult = Arrays.asList(new Pair<>(3, 17), 
+	Footprint expectedResult = new Footprint(Arrays.asList(new Pair<>(3, 17), 
 													   new Pair<>(6, 17),
 													   new Pair<>(8, 8),
 													   new Pair<>(11, 39),
 													   new Pair<>(15, 17)
-				                                       );
+				                                       ));
 	
 	@Before
 	public void setUp() throws Exception {
@@ -38,7 +39,7 @@ public class WinnowingFootprintBuilderTest {
 		WinnowingFootprintBuilder footprintBuilder = new WinnowingFootprintBuilder().init(rabinHashCodeExample, 
 				4, rabinHashCodeExample.size());
 		
-		List<Pair<Integer, Integer>> footPrintBuild = footprintBuilder.build();
+		Footprint footPrintBuild = footprintBuilder.build();
 		
 		assertEquals(expectedResult, footPrintBuild);
 	}

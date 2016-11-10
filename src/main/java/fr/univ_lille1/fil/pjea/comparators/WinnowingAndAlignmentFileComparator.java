@@ -1,11 +1,8 @@
 package fr.univ_lille1.fil.pjea.comparators;
 
-import java.util.List;
-
-import org.javatuples.Pair;
-
 import fr.univ_lille1.fil.pjea.Java8File;
 import fr.univ_lille1.fil.pjea.builder.WinnowingFootprintBuilder;
+import fr.univ_lille1.fil.pjea.data.Footprint;
 
 public class WinnowingAndAlignmentFileComparator extends FileComparator {
 	
@@ -28,8 +25,8 @@ public class WinnowingAndAlignmentFileComparator extends FileComparator {
 	
 	protected boolean isDifferentFootprint() {
 		
-		List<Pair<Integer, Integer>> footprint1 = new WinnowingFootprintBuilder(file1, HEURISTIC_Q).build();
-		List<Pair<Integer, Integer>> footprint2 = new WinnowingFootprintBuilder(file2, HEURISTIC_Q).build();
+		Footprint footprint1 = new WinnowingFootprintBuilder(file1, HEURISTIC_Q).build();
+		Footprint footprint2 = new WinnowingFootprintBuilder(file2, HEURISTIC_Q).build();
 		
 		int cptId = 0;
 		int nMin = Math.min(footprint1.size(), footprint2.size());
