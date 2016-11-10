@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.univ_lille1.fil.pjea</groupId>
 	<artifactId>yapt</artifactId>
-	<version>v3.0</version>
+	<version>v4.0</version>
 	<name>Plagiat VEMP</name>
 	<dependencies>
 		<dependency>
