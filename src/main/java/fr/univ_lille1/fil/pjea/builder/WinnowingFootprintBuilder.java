@@ -92,7 +92,7 @@ public class WinnowingFootprintBuilder {
 	 */
 	private static Pair<Integer, Integer> minFrame(int i, int nFrame, List<Integer> list, Map<Integer, Integer> listMin) {
 		int len = list.size();
-		if (i >= len || i + nFrame > len) {
+		if (i + nFrame > len) { // TODO i >= len, à verifier 
 			return null;
 		}
 
