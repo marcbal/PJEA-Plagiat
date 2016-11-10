@@ -2,8 +2,6 @@ package fr.univ_lille1.fil.pjea.comparators;
 
 import java.util.Iterator;
 
-import org.antlr.v4.runtime.Token;
-
 import fr.univ_lille1.fil.pjea.Java8File;
 import fr.univ_lille1.fil.pjea.TokenUtils;
 import fr.univ_lille1.fil.pjea.qgrams.QGram;
@@ -19,28 +17,18 @@ public class NaiveSuccessivesTokensFileComparator extends FileComparator {
 	
 	@Override
 	public double computeDifference() throws Exception {
-		
-	
-	    Iterator<QGram> it1 = new QGramContainer(file1).iterator();
-	    Iterator<QGram> it2 = new QGramContainer(file2).iterator();
+		QGramContainer cont1 = new QGramContainer(file1);
+		QGramContainer cont2 = new QGramContainer(file2);
 	    
-	    int total = 0, nbEquals = 0;
-	    
-	    while (it1.hasNext() && it2.hasNext()) {
-	    	total++;
-	    	Token t1 = it1.next().get(0);
-	    	Token t2 = it2.next().get(0);
-	    	if (TokenUtils.equalsTokens(t1, t2)) {
+	    int nbEquals = 0;
+	    for (Iterator<QGram> it1 = cont1.iterator(), it2 = cont2.iterator();
+	    		it1.hasNext() && it2.hasNext();) {
+	    	if (TokenUtils.equalsTokens(it1.next().get(0), it2.next().get(0))) {
 	    		nbEquals++;
 	    	}
 	    }
-	    while (it1.hasNext() || it2.hasNext()) {
-	    	if (it1.hasNext()) it1.next();
-	    	if (it2.hasNext()) it2.next();
-	    	total++;
-	    }
 		
-		return nbEquals/(double)total;
+		return nbEquals/(double)Math.max(cont1.size(), cont2.size());
 	}
 
 }
