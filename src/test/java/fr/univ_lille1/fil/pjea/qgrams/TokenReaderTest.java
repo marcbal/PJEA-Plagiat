@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.univ_lille1.fil.pjea.Java8File;
+import fr.univ_lille1.fil.pjea.PlagiatVEMPTest;
 
 public class TokenReaderTest {
 
@@ -18,7 +19,7 @@ public class TokenReaderTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		fileNbT8TokenReader = new TokenReader(new Java8File("src/test/resources/fileNbT8.java"), 1, 1);
+		fileNbT8TokenReader = new TokenReader(new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8), 1, 1);
 	}
 
 	@After
@@ -66,7 +67,7 @@ public class TokenReaderTest {
 	
 	@Test
 	public void testTokenReaderListOfQextendsTokenIntInt() throws IOException {
-		Java8File f = new Java8File("src/test/resources/fileNbT8.java");
+		Java8File f = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8);
 		TokenReader tokenReader = new TokenReader(f.tokens, 1, 1); // même paramètre que le constructeur appelé dans le setUp();
 		assertEquals(fileNbT8TokenReader.getAllQGrams(), tokenReader.getAllQGrams());
 		TokenReader tokenReader2 = new TokenReader(f.tokens, 2, 2);
@@ -80,7 +81,7 @@ public class TokenReaderTest {
 	@SuppressWarnings("static-method")
 	@Test
 	public void testTokenReaderJava8FileInt() throws IOException {
-		TokenReader tokenReader = new TokenReader(new Java8File("src/test/resources/fileNbT8.java"), 2);
+		TokenReader tokenReader = new TokenReader(new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8), 2);
 		assertEquals(4, tokenReader.getAllQGrams().size());
 		assertEquals(2, tokenReader.getAllQGrams().get(0).size());
 		assertEquals(0, tokenReader.getAllQGrams().get(0).getQGramPosition());
@@ -90,7 +91,7 @@ public class TokenReaderTest {
 
 	@Test
 	public void testTokenReaderJava8File() throws IOException {
-		TokenReader tokenReader = new TokenReader(new Java8File("src/test/resources/fileNbT8.java"));
+		TokenReader tokenReader = new TokenReader(new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8));
 		assertEquals(fileNbT8TokenReader.getAllQGrams(), tokenReader.getAllQGrams());
 	}
 	

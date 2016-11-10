@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.univ_lille1.fil.pjea.Java8File;
+import fr.univ_lille1.fil.pjea.PlagiatVEMPTest;
 import fr.univ_lille1.fil.pjea.antlr_lexers.java8.Java8Lexer;
 
 public class QGramTest {
@@ -23,7 +24,7 @@ public class QGramTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		ANTLRInputStream in = new ANTLRFileStream("src/test/resources/file1.java");
+		ANTLRInputStream in = new ANTLRFileStream(PlagiatVEMPTest.TEST_PACK_1[0]);
         List<? extends Token> toks = new Java8Lexer(in).getAllTokens();
 		qGram      = new QGram(toks.subList(15, 25), 15, 134454645);
 		qGramEqual = new QGram(toks.subList(15, 25), 15, 134454645);
@@ -68,8 +69,8 @@ public class QGramTest {
 	@SuppressWarnings("static-method")
 	@Test
 	public void testIdenticalQGramDistance() throws IOException {
-		Java8File f1 = new Java8File("src/test/resources/fileNbT8.java");
-		Java8File f2 = new Java8File("src/test/resources/fileNbT12.java");
+		Java8File f1 = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8);
+		Java8File f2 = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_12);
         QGram qGram1 = new TokenReader(f1, 8).iterator().next();
 		QGram qGram2 = new TokenReader(f2, 11).iterator().next();
 		/*
