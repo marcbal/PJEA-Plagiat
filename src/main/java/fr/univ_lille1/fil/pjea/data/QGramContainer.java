@@ -1,4 +1,4 @@
-package fr.univ_lille1.fil.pjea.qgrams;
+package fr.univ_lille1.fil.pjea.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,8 +7,8 @@ import java.util.List;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 
-import fr.univ_lille1.fil.pjea.Java8File;
 import fr.univ_lille1.fil.pjea.TokenUtils;
+import fr.univ_lille1.fil.pjea.data.builder.RabinHashCodeBuilder;
 
 
 

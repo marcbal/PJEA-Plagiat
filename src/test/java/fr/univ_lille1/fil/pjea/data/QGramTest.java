@@ -1,4 +1,4 @@
-package fr.univ_lille1.fil.pjea.qgrams;
+package fr.univ_lille1.fil.pjea.data;
 
 import static org.junit.Assert.*;
 
@@ -12,9 +12,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univ_lille1.fil.pjea.Java8File;
 import fr.univ_lille1.fil.pjea.PlagiatVEMPTest;
 import fr.univ_lille1.fil.pjea.antlr_lexers.java8.Java8Lexer;
+import fr.univ_lille1.fil.pjea.data.Java8File;
+import fr.univ_lille1.fil.pjea.data.QGram;
+import fr.univ_lille1.fil.pjea.data.QGramContainer;
 
 public class QGramTest {
 

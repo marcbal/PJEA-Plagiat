@@ -1,4 +1,4 @@
-package fr.univ_lille1.fil.pjea;
+package fr.univ_lille1.fil.pjea.data;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,6 +15,7 @@ import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.Vocabulary;
 
 import fr.univ_lille1.fil.pjea.antlr_lexers.java8.Java8Lexer;
+import fr.univ_lille1.fil.pjea.data.builder.WinnowingFootprintBuilder;
 
 public class Java8File {
 	
@@ -37,11 +38,26 @@ public class Java8File {
 		
 		vocabulary = lexer.getVocabulary();
 	}
+
+	
+	public Footprint getFootprint(int q, int t) {
+		return new WinnowingFootprintBuilder(tokens, q, t).build();
+	}
+	
+	public Footprint getFootprint(int q) {
+		return new WinnowingFootprintBuilder(this, q).build();
+	}
+	
+	
+	
+	
 	
 
 	public static Lexer getJava8Lexer(File f) throws IOException {
         ANTLRInputStream in = new ANTLRFileStream(f.getPath());
         return new Java8Lexer(in);
 	}
+	
+	
 
 }

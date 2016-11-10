@@ -1,4 +1,4 @@
-package fr.univ_lille1.fil.pjea.qgrams;
+package fr.univ_lille1.fil.pjea.data;
 
 import java.util.ArrayList;
 import java.util.Collection;

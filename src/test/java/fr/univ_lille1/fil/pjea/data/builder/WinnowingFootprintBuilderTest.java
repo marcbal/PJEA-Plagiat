@@ -1,4 +1,4 @@
-package fr.univ_lille1.fil.pjea.builder;
+package fr.univ_lille1.fil.pjea.data.builder;
 
 import static org.junit.Assert.*;
 
@@ -10,9 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univ_lille1.fil.pjea.Java8File;
 import fr.univ_lille1.fil.pjea.PlagiatVEMPTest;
 import fr.univ_lille1.fil.pjea.data.Footprint;
+import fr.univ_lille1.fil.pjea.data.Java8File;
 
 
 public class WinnowingFootprintBuilderTest {

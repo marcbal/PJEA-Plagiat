@@ -1,4 +1,4 @@
-package fr.univ_lille1.fil.pjea.qgrams;
+package fr.univ_lille1.fil.pjea.data.builder;
 
 import java.math.BigInteger;
 import java.util.LinkedList;

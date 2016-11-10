@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import fr.univ_lille1.fil.pjea.Java8File;
 import fr.univ_lille1.fil.pjea.PlagiatVEMPTest;
+import fr.univ_lille1.fil.pjea.data.Java8File;
 
 public class AlignmentFileComparatorTest {
 

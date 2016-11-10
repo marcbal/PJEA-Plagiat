@@ -1,6 +1,6 @@
 package fr.univ_lille1.fil.pjea.comparators;
 
-import fr.univ_lille1.fil.pjea.Java8File;
+import fr.univ_lille1.fil.pjea.data.Java8File;
 
 
 

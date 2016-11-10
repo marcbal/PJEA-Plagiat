@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.antlr.v4.runtime.Token;
 
-import fr.univ_lille1.fil.pjea.Java8File;
-import fr.univ_lille1.fil.pjea.qgrams.QGram;
-import fr.univ_lille1.fil.pjea.qgrams.QGramContainer;
+import fr.univ_lille1.fil.pjea.data.Java8File;
+import fr.univ_lille1.fil.pjea.data.QGram;
+import fr.univ_lille1.fil.pjea.data.QGramContainer;
 
 public class AlignmentFileComparator extends FileComparator {
 

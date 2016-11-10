@@ -5,6 +5,7 @@ import java.io.UncheckedIOException;
 import java.util.Arrays;
 
 import fr.univ_lille1.fil.pjea.comparators.AlignmentFileComparator;
+import fr.univ_lille1.fil.pjea.data.Java8File;
 
 public class PlagiatVEMP {
 	

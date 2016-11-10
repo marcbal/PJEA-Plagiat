@@ -1,4 +1,4 @@
-package fr.univ_lille1.fil.pjea.qgrams;
+package fr.univ_lille1.fil.pjea.data.builder;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univ_lille1.fil.pjea.qgrams.RabinHashCodeBuilder;
+import fr.univ_lille1.fil.pjea.data.builder.RabinHashCodeBuilder;
 
 public class RabinHashCodeBuilderTest {
 	

@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import fr.univ_lille1.fil.pjea.Java8File;
+import fr.univ_lille1.fil.pjea.data.Java8File;
 
 public class LineEndsFileComparator extends FileComparator {
 	

@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import fr.univ_lille1.fil.pjea.data.Java8File;
+
 public class TokenUtilsTest {
 
 	@SuppressWarnings("static-method")
