@@ -17,6 +17,7 @@ public class PlagiatVEMPTest {
 
 	public static final String TEST_FILE_NB_TOKEN_12 = TEST_FILE_DIR + "fileNbT12.java";
 	public static final String TEST_FILE_NB_TOKEN_8  = TEST_FILE_DIR + "fileNbT8.java";
+	public static final String TEST_FILE_WINNOWING  = TEST_FILE_DIR + "filewinnowing.java";
 
 	public static final String[] TEST_PACK_1 = new String[] {
 			TEST_FILE_DIR + "test_pack_1/file1.java",
@@ -29,9 +30,6 @@ public class PlagiatVEMPTest {
 			TEST_FILE_DIR + "test_pack_2/BigFile1.java",
 			TEST_FILE_DIR + "test_pack_2/BigFile2.java"
 	};
-	
-	// IMPORTANT : ne pas mettre de jeu de test trop lourd. On réserve ça pour des
-	// tests manuels
 	
 	// TODO ajouter d'autres jeu de test (et créer une méthode de test associé, ci-dessous)
 	
