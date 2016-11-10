@@ -17,12 +17,17 @@ public class PlagiatVEMPTest {
 
 	public static final String TEST_FILE_NB_TOKEN_12 = TEST_FILE_DIR + "fileNbT12.java";
 	public static final String TEST_FILE_NB_TOKEN_8  = TEST_FILE_DIR + "fileNbT8.java";
-	
+
 	public static final String[] TEST_PACK_1 = new String[] {
-			TEST_FILE_DIR + "file1.java",
-			TEST_FILE_DIR + "file1copy.java",
-			TEST_FILE_DIR + "file1modif.java",
-			TEST_FILE_DIR + "file1rearanged.java"
+			TEST_FILE_DIR + "test_pack_1/file1.java",
+			TEST_FILE_DIR + "test_pack_1/file1copy.java",
+			TEST_FILE_DIR + "test_pack_1/file1modif.java",
+			TEST_FILE_DIR + "test_pack_1/file1rearanged.java"
+	};
+	
+	public static final String[] TEST_PACK_2 = new String[] {
+			TEST_FILE_DIR + "test_pack_2/BigFile1.java",
+			TEST_FILE_DIR + "test_pack_2/BigFile2.java"
 	};
 	
 	// IMPORTANT : ne pas mettre de jeu de test trop lourd. On réserve ça pour des
@@ -115,6 +120,14 @@ public class PlagiatVEMPTest {
 	@Test
 	public void testMainPack1() {
 		PlagiatVEMP.main(TEST_PACK_1);
+		String output = outputContent.toString();
+		assertNotSame("", output);
+		fail("Vérifier la sortie (nombre de ligne, ...)");
+	}
+
+	@Test
+	public void testMainPack2() {
+		PlagiatVEMP.main(TEST_PACK_2);
 		String output = outputContent.toString();
 		assertNotSame("", output);
 		fail("Vérifier la sortie (nombre de ligne, ...)");
