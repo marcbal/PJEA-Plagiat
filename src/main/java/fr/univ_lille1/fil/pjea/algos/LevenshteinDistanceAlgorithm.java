@@ -1,7 +1,6 @@
 package fr.univ_lille1.fil.pjea.algos;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.BiFunction;
 
 public class LevenshteinDistanceAlgorithm {
@@ -41,20 +40,5 @@ public class LevenshteinDistanceAlgorithm {
 			prev = curr;
 		}
 		return prev[o2.size()];
-	}
-	
-	
-	/**
-	 * Calcule la distance de Levenshtein. Deux éléments sont considérés égaux
-	 * si la méthode equals retourne true.
-	 * Pour défini un autre comportement de comparaison, utiliser {@link #compute(List, List, BiFunction)}
-	 * @see https://fr.wikipedia.org/wiki/Distance_de_Levenshtein
-	 * @param <T> le type des éléments des chaines o1 et o2
-	 * @param o1 chaine 1
-	 * @param o2 chaine 2
-	 * @return la distance
-	 */
-	public static <T> int compute(List<T> o1, List<T> o2) {
-		return compute(o1, o2, Objects::equals);
 	}
 }
