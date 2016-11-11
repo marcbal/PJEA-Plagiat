@@ -2,6 +2,7 @@ package fr.univ_lille1.fil.pjea;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.lang.annotation.AnnotationFormatError;
 import java.util.Arrays;
 
 import fr.univ_lille1.fil.pjea.comparators.AlignmentFileComparator;
@@ -30,15 +31,17 @@ public class PlagiatVEMP {
 		 */
 		for (int i=0; i<files.length; i++) {
 			for (int j=i+1; j<files.length; j++) {
+				double result = 0;
 				try {
-					
-					double result = new AlignmentFileComparator(files[i], files[j]).computeDifference();
-					
-					outputResult(files[i].file.toString(), files[j].file.toString(), result);
-					
-				} catch(Exception e) {
+					result = new AlignmentFileComparator(files[i], files[j]).computeDifference();
+				} catch(OutOfMemoryError e) {
+					System.gc();
+					System.err.println("Heap-space garbage collected due to the following exception :");
+					e.printStackTrace();
+				} catch(Exception|StackOverflowError|AssertionError|AnnotationFormatError e) {
 					e.printStackTrace();
 				}
+				outputResult(files[i].file.toString(), files[j].file.toString(), result);
 			}
 		}
 		
