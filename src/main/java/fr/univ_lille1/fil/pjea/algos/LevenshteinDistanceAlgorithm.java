@@ -6,7 +6,7 @@ import java.util.function.BiFunction;
 public class LevenshteinDistanceAlgorithm {
 	/**
 	 * Calcule la distance de Levenshtein.
-	 * 
+	 *
 	 * @see https://fr.wikipedia.org/wiki/Distance_de_Levenshtein
 	 * @param <T> le type des éléments des chaines o1 et o2
 	 * @param o1 chaine 1
@@ -36,7 +36,7 @@ public class LevenshteinDistanceAlgorithm {
 				curr[j] = Math.min(Math.min(d1, d2), d3);
 			}
 
-			// define current line of distance matrix as previous  
+			// define current line of distance matrix as previous
 			prev = curr;
 		}
 		return prev[o2.size()];

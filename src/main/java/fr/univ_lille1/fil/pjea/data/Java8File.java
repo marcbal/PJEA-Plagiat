@@ -18,46 +18,45 @@ import fr.univ_lille1.fil.pjea.antlr_lexers.java8.Java8Lexer;
 import fr.univ_lille1.fil.pjea.data.builder.WinnowingFootprintBuilder;
 
 public class Java8File {
-	
+
 	public final File file;
 	public final List<Token> tokens;
 	public final List<String> fileLines;
-	public final Vocabulary vocabulary; 
-	
-	
+	public final Vocabulary vocabulary;
+
+
 	public Java8File(String fileName) throws IOException {
 		file = new File(fileName);
-		
+
 		Lexer lexer = getJava8Lexer(file);
-		
+
 		tokens = Collections.unmodifiableList(lexer.getAllTokens());
-		
+
 		try (BufferedReader r = new BufferedReader(new FileReader(file))) {
 			fileLines = Collections.unmodifiableList(r.lines().collect(Collectors.toList()));
 		}
-		
+
 		vocabulary = lexer.getVocabulary();
 	}
 
-	
+
 	public Footprint getFootprint(int q, int t) {
 		return new WinnowingFootprintBuilder(tokens, q, t).build();
 	}
-	
+
 	public Footprint getFootprint(int q) {
 		return new WinnowingFootprintBuilder(this, q).build();
 	}
-	
-	
-	
-	
-	
+
+
+
+
 
 	public static Lexer getJava8Lexer(File f) throws IOException {
-        ANTLRInputStream in = new ANTLRFileStream(f.getPath());
-        return new Java8Lexer(in);
+		ANTLRInputStream in = new ANTLRFileStream(f.getPath());
+		return new Java8Lexer(in);
 	}
-	
-	
+
+
 
 }

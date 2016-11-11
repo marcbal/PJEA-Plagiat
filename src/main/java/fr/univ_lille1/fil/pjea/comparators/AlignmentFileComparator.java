@@ -17,16 +17,16 @@ public class AlignmentFileComparator extends FileComparator {
 
 	@Override
 	public double computeDifference() throws Exception {
-		
+
 		List<Token> tokens1 = file1.tokens;
 		List<Token> tokens2 = file2.tokens;
-		
+
 		QGram qGram1 = new QGramContainer(tokens1, tokens1.size()).get(0);
 		QGram qGram2 = new QGramContainer(tokens2, tokens2.size()).get(0);
-		
+
 		// peut être négatif si les deux fichiers ont un taux d'alignement des tokens supérieur au nombre total de token.
-		double val = qGram1.needlemanWunschAlignment(qGram2, -1) / (double)Math.max(qGram1.size(), qGram2.size());
-		
+		double val = qGram1.needlemanWunschAlignment(qGram2, -1) / (double) Math.max(qGram1.size(), qGram2.size());
+
 		return val < 0 ? 0 : val;
 	}
 }

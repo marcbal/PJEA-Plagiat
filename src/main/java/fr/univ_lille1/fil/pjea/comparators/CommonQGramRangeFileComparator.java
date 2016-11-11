@@ -3,7 +3,7 @@ package fr.univ_lille1.fil.pjea.comparators;
 import fr.univ_lille1.fil.pjea.data.Java8File;
 
 public class CommonQGramRangeFileComparator extends FileComparator {
-	
+
 	private int qMin;
 	private int qMax;
 
@@ -15,16 +15,16 @@ public class CommonQGramRangeFileComparator extends FileComparator {
 
 	@Override
 	public double computeDifference() throws Exception {
-		
+
 		double totalResult = 0;
 		int divizor = 0;
-		for (int q=qMin; q <= qMax; q++) {
+		for (int q = qMin; q <= qMax; q++) {
 			double subResult = new CommonQGramFileComparator(file1, file2, q).computeDifference();
-			int qSquare = (q-qMin)*(q-qMin)+1;
+			int qSquare = (q - qMin) * (q - qMin) + 1;
 			totalResult += subResult * qSquare;
 			divizor += qSquare;
 		}
-		
+
 		return totalResult / divizor;
 	}
 

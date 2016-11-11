@@ -13,14 +13,15 @@ import org.antlr.v4.runtime.Vocabulary;
 
 import fr.univ_lille1.fil.pjea.PlagiatVEMPTest;
 import fr.univ_lille1.fil.pjea.data.Java8File;
+
 /*
  * TODO prendre en charge le cas où plusieurs classes fournis ont le même noms (dans des packages différents)
  */
 public class FileGenerator {
-	
+
 	private static final String INDENTATION = "    ";
-	private static final String[] END_OF_LINE_TOKENS = {";", "{", "}"};
-	private static final String[] MODIFIER_TOKENS = {"public", "protected", "private"};
+	private static final String[] END_OF_LINE_TOKENS = { ";", "{", "}" };
+	private static final String[] MODIFIER_TOKENS = { "public", "protected", "private" };
 
 	private List<Token> packageDeclarator = new ArrayList<>();
 	private List<Token> imports = new ArrayList<>();
@@ -49,14 +50,17 @@ public class FileGenerator {
 			/* Remove declaration package line */
 			if (token.getText().equals("package")) {
 				do {
-					if (!packageAlreadyDeclared) packageDeclarator.add(token);
+					if (!packageAlreadyDeclared)
+						packageDeclarator.add(token);
 					token = iter.next();
 				} while (!token.getText().equals(";"));
 
-				if (!packageAlreadyDeclared) packageDeclarator.add(token);
+				if (!packageAlreadyDeclared)
+					packageDeclarator.add(token);
 				packageAlreadyDeclared = true;
 
-			} else if (token.getText().equals("import")) {
+			}
+			else if (token.getText().equals("import")) {
 				do {
 					imports.add(token);
 					token = iter.next();
@@ -64,7 +68,8 @@ public class FileGenerator {
 
 				imports.add(token);
 
-			} else { /* other decl */
+			}
+			else { /* other decl */
 				if (nextClassDecl == 0 &&
 						isTokenJavaModifier(token)) {
 					token = iter.next();
@@ -72,7 +77,8 @@ public class FileGenerator {
 				String tt = token.getText();
 				if (tt.equals("{")) {
 					nextClassDecl++;
-				} else if (tt.equals("}")) {
+				}
+				else if (tt.equals("}")) {
 					nextClassDecl--;
 				}
 				classes.add(token);
@@ -82,14 +88,12 @@ public class FileGenerator {
 
 		return;
 	}
-	
+
 	private static boolean isTokenJavaModifier(Token t) {
 		return Arrays.stream(MODIFIER_TOKENS).anyMatch(e -> e.equals(t.getText()));
 	}
-	
-	
 
-	
+
 
 
 
@@ -100,9 +104,9 @@ public class FileGenerator {
 		stream.println();
 		printTokenList(stream, classes);
 	}
-	
-	
-	
+
+
+
 	private void printTokenList(PrintStream stream, List<Token> tokens) {
 		Token prevT = null;
 		int currentIndent = 0;
@@ -122,7 +126,7 @@ public class FileGenerator {
 			prevT = t;
 		}
 	}
-	
+
 	private boolean addSpaceBetween(Token t1, Token t2) {
 		if (t1 == null
 				|| endOfLineAfterToken(t1)
@@ -143,9 +147,9 @@ public class FileGenerator {
 
 		return true;
 	}
-	
 
-	
+
+
 	private static boolean endOfLineAfterToken(Token t) {
 		return Arrays.stream(END_OF_LINE_TOKENS).anyMatch(e -> e.equals(t.getText()));
 	}
@@ -157,9 +161,9 @@ public class FileGenerator {
 		}
 		return str;
 	}
-	
-	
-	
+
+
+
 	public static void main(String[] args) {
 
 		// TEST
@@ -173,14 +177,14 @@ public class FileGenerator {
 				.map(arg -> {
 					try {
 						return new Java8File(arg);
-					}catch (IOException e1) {
+					} catch (IOException e1) {
 						throw new UncheckedIOException(e1);
 					}
 				})
 				.toArray((length) -> new Java8File[length]);
-		
+
 		new FileGenerator(files).print(System.out);
 	}
-	
-	
+
+
 }

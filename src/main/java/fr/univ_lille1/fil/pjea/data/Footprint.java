@@ -18,33 +18,62 @@ public class Footprint extends ArrayList<Pair<Integer, Integer>> {
 	public Footprint(List<Pair<Integer, Integer>> base) {
 		super(base);
 	}
-	
-	
-	
+
+
+
 
 	/*
 	 * All methods that throws UnsupportedOperationException
 	 */
 	@Override
-	public void add(int index, Pair<Integer, Integer> element) { throw new UnsupportedOperationException(); }
+	public void add(int index, Pair<Integer, Integer> element) {
+		throw new UnsupportedOperationException();
+	}
+
 	@Override
-	public boolean add(Pair<Integer, Integer> e) { throw new UnsupportedOperationException(); }
+	public boolean add(Pair<Integer, Integer> e) {
+		throw new UnsupportedOperationException();
+	}
+
 	@Override
-	public boolean addAll(Collection<? extends Pair<Integer, Integer>> c) { throw new UnsupportedOperationException(); }
+	public boolean addAll(Collection<? extends Pair<Integer, Integer>> c) {
+		throw new UnsupportedOperationException();
+	}
+
 	@Override
-	public boolean addAll(int index, Collection<? extends Pair<Integer, Integer>> c) { throw new UnsupportedOperationException(); }
+	public boolean addAll(int index, Collection<? extends Pair<Integer, Integer>> c) {
+		throw new UnsupportedOperationException();
+	}
+
 	@Override
-	public void clear() { throw new UnsupportedOperationException(); }
+	public void clear() {
+		throw new UnsupportedOperationException();
+	}
+
 	@Override
-	public Pair<Integer, Integer> remove(int index) { throw new UnsupportedOperationException(); }
+	public Pair<Integer, Integer> remove(int index) {
+		throw new UnsupportedOperationException();
+	}
+
 	@Override
-	public boolean remove(Object o) { throw new UnsupportedOperationException(); }
+	public boolean remove(Object o) {
+		throw new UnsupportedOperationException();
+	}
+
 	@Override
-	public boolean removeAll(Collection<?> c) { throw new UnsupportedOperationException(); }
+	public boolean removeAll(Collection<?> c) {
+		throw new UnsupportedOperationException();
+	}
+
 	@Override
-	public boolean retainAll(Collection<?> c) { throw new UnsupportedOperationException(); }
+	public boolean retainAll(Collection<?> c) {
+		throw new UnsupportedOperationException();
+	}
+
 	@Override
-	public Pair<Integer, Integer> set(int index, Pair<Integer, Integer> element) { throw new UnsupportedOperationException(); }
+	public Pair<Integer, Integer> set(int index, Pair<Integer, Integer> element) {
+		throw new UnsupportedOperationException();
+	}
 	// ---------------------------------
-	
+
 }
