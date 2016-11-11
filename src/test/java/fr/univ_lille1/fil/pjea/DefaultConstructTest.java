@@ -6,7 +6,7 @@ import fr.univ_lille1.fil.pjea.algos.LevenshteinDistanceAlgorithm;
 import fr.univ_lille1.fil.pjea.algos.NeedlemanWunschAlignmentAlgorithm;
 
 public class DefaultConstructTest {
-
+	
 	@SuppressWarnings({ "static-method", "unused" })
 	@Test
 	public void testUselessConstructors() {
@@ -15,5 +15,5 @@ public class DefaultConstructTest {
 		new LevenshteinDistanceAlgorithm();
 		new NeedlemanWunschAlignmentAlgorithm();
 	}
-
+	
 }

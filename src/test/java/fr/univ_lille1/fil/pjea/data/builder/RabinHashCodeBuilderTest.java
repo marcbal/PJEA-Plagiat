@@ -11,14 +11,13 @@ import fr.univ_lille1.fil.pjea.data.builder.RabinHashCodeBuilder;
 public class RabinHashCodeBuilderTest {
 	
 	@Before
-	public void setUp() throws Exception {
-	}
-
+	public void setUp() throws Exception {}
+	
 	@After
 	public void tearDown() throws Exception {
 		
 	}
-
+	
 	@SuppressWarnings("static-method")
 	@Test
 	public void test1() {
@@ -46,5 +45,5 @@ public class RabinHashCodeBuilderTest {
 		builder.putHashCode(-465197);
 		assertEquals(hash1, builder.getCurrentHashCode());
 	}
-
+	
 }

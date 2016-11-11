@@ -16,19 +16,19 @@ import fr.univ_lille1.fil.pjea.data.QGram;
 import fr.univ_lille1.fil.pjea.data.QGramContainer;
 
 public class QGramContainerTest {
-
+	
 	QGramContainer fileNbT8QGramContainer;
 	
 	@Before
 	public void setUp() throws Exception {
 		fileNbT8QGramContainer = new QGramContainer(new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8), 1, 1);
 	}
-
+	
 	@After
 	public void tearDown() throws Exception {
 		fileNbT8QGramContainer = null;
 	}
-
+	
 	@Test
 	public void testIterator() {
 		Iterator<QGram> it = fileNbT8QGramContainer.iterator();
@@ -46,14 +46,18 @@ public class QGramContainerTest {
 		assertEquals("}", it.next().get(0).getText());
 		assertFalse(it.hasNext());
 	}
-
-	@Test(expected=NoSuchElementException.class)
+	
+	@Test(expected = NoSuchElementException.class)
 	public void testIteratorNoSuchElementException() {
 		Iterator<QGram> it = fileNbT8QGramContainer.iterator();
-		it.next(); it.next();
-		it.next(); it.next();
-		it.next(); it.next();
-		it.next(); it.next();
+		it.next();
+		it.next();
+		it.next();
+		it.next();
+		it.next();
+		it.next();
+		it.next();
+		it.next();
 		assertFalse(it.hasNext());
 		it.next(); // must throw NoSuchElementException
 	}
@@ -71,7 +75,7 @@ public class QGramContainerTest {
 		assertEquals(2, qGramContainer2.get(1).getQGramPosition());
 		assertEquals(4, qGramContainer2.get(2).getQGramPosition());
 	}
-
+	
 	@SuppressWarnings("static-method")
 	@Test
 	public void testTokenReaderJava8FileInt() throws IOException {
@@ -82,20 +86,20 @@ public class QGramContainerTest {
 		assertEquals(2, qGramContainer.get(1).getQGramPosition());
 		assertEquals(4, qGramContainer.get(2).getQGramPosition());
 	}
-
+	
 	@Test
 	public void testTokenReaderJava8File() throws IOException {
 		QGramContainer qGramContainer = new QGramContainer(new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8));
 		assertEquals(fileNbT8QGramContainer, qGramContainer);
 	}
-
+	
 	@Test
 	public void testTokenReaderListOfTokenInt() throws IOException {
 		Java8File f = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8);
 		QGramContainer qGramContainer = new QGramContainer(f.tokens, 1);
 		assertEquals(fileNbT8QGramContainer, qGramContainer);
 	}
-
+	
 	@Test
 	public void testTokenReaderListOfToken() throws IOException {
 		Java8File f = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8);
@@ -107,61 +111,59 @@ public class QGramContainerTest {
 	
 	
 	
-	
-
-	@Test(expected=UnsupportedOperationException.class)
+	@Test(expected = UnsupportedOperationException.class)
 	public void testAddIntQGram() {
 		fileNbT8QGramContainer.add(0, null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testAddQGram() {
 		fileNbT8QGramContainer.add(null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testAddAllCollectionOfQGram() {
 		fileNbT8QGramContainer.addAll(null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testAddAllIntCollectionOfQGram() {
 		fileNbT8QGramContainer.addAll(0, null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testClear() {
 		fileNbT8QGramContainer.clear();
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testRemoveInt() {
 		fileNbT8QGramContainer.remove(0);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testRemoveObject() {
 		fileNbT8QGramContainer.remove(null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testRemoveAll() {
 		fileNbT8QGramContainer.removeAll(null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testRetainAll() {
 		fileNbT8QGramContainer.retainAll(null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testSet() {
 		fileNbT8QGramContainer.set(0, null);
 	}
-
 	
 	
 	
-
+	
+	
 }
 

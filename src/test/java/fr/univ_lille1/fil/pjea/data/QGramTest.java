@@ -19,7 +19,7 @@ import fr.univ_lille1.fil.pjea.data.QGram;
 import fr.univ_lille1.fil.pjea.data.QGramContainer;
 
 public class QGramTest {
-
+	
 	QGram qGram;
 	QGram qGramEqual;
 	QGram qGramOther;
@@ -27,41 +27,41 @@ public class QGramTest {
 	@Before
 	public void setUp() throws Exception {
 		ANTLRInputStream in = new ANTLRFileStream(PlagiatVEMPTest.TEST_PACK_1[0]);
-        List<? extends Token> toks = new Java8Lexer(in).getAllTokens();
-		qGram      = new QGram(toks.subList(15, 25), 15, 134454645);
+		List<? extends Token> toks = new Java8Lexer(in).getAllTokens();
+		qGram = new QGram(toks.subList(15, 25), 15, 134454645);
 		qGramEqual = new QGram(toks.subList(15, 25), 15, 134454645);
 		qGramOther = new QGram(toks.subList(15, 26), 15, 344546457);
 	}
-
+	
 	@After
 	public void tearDown() throws Exception {
 		qGram = null;
 		qGramEqual = null;
 		qGramOther = null;
 	}
-
+	
 	@Test
 	public void testHashCode() {
-		assertEquals(134454645,qGram.hashCode());
+		assertEquals(134454645, qGram.hashCode());
 		
 	}
-
+	
 	@Test
 	public void testGetQGramPosition() {
-		assertEquals(15,qGram.getQGramPosition());
+		assertEquals(15, qGram.getQGramPosition());
 	}
-
 	
-
+	
+	
 	@Test
 	public void testSize() {
-		assertEquals(10,qGram.size());
+		assertEquals(10, qGram.size());
 		
 	}
-
 	
 	
-	public void testIdenticalQGramDistanceIsZero(){
+	
+	public void testIdenticalQGramDistanceIsZero() {
 		assertEquals(0, qGram.levenshteinDistance(qGram));
 	}
 	
@@ -73,7 +73,7 @@ public class QGramTest {
 	public void testIdenticalQGramDistance() throws IOException {
 		Java8File f1 = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8);
 		Java8File f2 = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_12);
-        QGram qGram1 = new QGramContainer(f1, 8).iterator().next();
+		QGram qGram1 = new QGramContainer(f1, 8).iterator().next();
 		QGram qGram2 = new QGramContainer(f2, 11).iterator().next();
 		/*
 		 * Info : Pourquoi 4 ? On compte le nombre de tokens manuellement dans les fichiers de comparaison
@@ -81,10 +81,10 @@ public class QGramTest {
 		 */
 		assertEquals(4, qGram1.levenshteinDistance(qGram2));
 		assertTrue(qGram1.levenshteinDistance(qGram2) == qGram2.levenshteinDistance(qGram1));
-
+		
 	}
 	
-
+	
 	
 	@Test
 	public void testAlignmentNeedlemanWunschEquals() {
@@ -96,66 +96,61 @@ public class QGramTest {
 	
 	@Test
 	public void testAlignmentNeedlemanWunschOther() {
-		assertEquals(qGram.size()-1, (qGramOther.needlemanWunschAlignment(qGram, -1)));
+		assertEquals(qGram.size() - 1, (qGramOther.needlemanWunschAlignment(qGram, -1)));
 	}
 	
 	
 	
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testAddIntToken() {
 		qGram.add(0, null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testAddToken() {
 		qGram.add(null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testAddAllCollectionOfQextendsToken() {
 		qGram.addAll(null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testAddAllIntCollectionOfQextendsToken() {
 		qGram.addAll(0, null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testClear() {
 		qGram.clear();
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testRemoveInt() {
 		qGram.remove(0);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testRemoveObject() {
 		qGram.remove(null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testRemoveAll() {
 		qGram.removeAll(null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testRetainAll() {
 		qGram.retainAll(null);
 	}
-
-	@Test(expected=UnsupportedOperationException.class)
+	
+	@Test(expected = UnsupportedOperationException.class)
 	public void testSet() {
 		qGram.set(0, null);
 	}
-
-	
-	
-	
-	
 	
 	
 	
@@ -169,14 +164,14 @@ public class QGramTest {
 		assertTrue(qGram.equals(qGram));
 		assertTrue(qGram.equals(qGramEqual));
 		assertFalse(qGram.equals(qGramOther));
-		QGram qGramSameHashDiffContent      = new QGram(qGramOther.subList(1, 11), 15, 134454645);
-		QGram qGramSameHashDiffContentSize  = new QGram(qGramEqual.subList(0, 2), 15, 134454645);
+		QGram qGramSameHashDiffContent = new QGram(qGramOther.subList(1, 11), 15, 134454645);
+		QGram qGramSameHashDiffContentSize = new QGram(qGramEqual.subList(0, 2), 15, 134454645);
 		QGram qGramSameHashDiffContentSize2 = new QGram(qGramOther, 15, 134454645);
 		assertFalse(qGram.equals(qGramSameHashDiffContent));
 		assertFalse(qGram.equals(qGramSameHashDiffContentSize));
 		assertFalse(qGram.equals(qGramSameHashDiffContentSize2));
 	}
-
+	
 	@Test
 	public void testToString() {
 		assertEquals("[8039d75:.,IOException,;,import,java,.,nio,.,file,.]", qGram.toString());
@@ -184,5 +179,5 @@ public class QGramTest {
 	
 	
 	
-
+	
 }

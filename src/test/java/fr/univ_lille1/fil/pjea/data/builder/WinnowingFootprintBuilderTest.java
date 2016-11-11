@@ -16,14 +16,14 @@ import fr.univ_lille1.fil.pjea.data.Java8File;
 
 
 public class WinnowingFootprintBuilderTest {
-
-	List<Integer> rabinHashCodeExample = Arrays.asList(77, 72, 42, 17, 98, 50, 17, 98, 8, 88, 67, 39, 77, 72, 42, 17, 98);
-	Footprint expectedResult = new Footprint(Arrays.asList(new Pair<>(3, 17), 
-													   new Pair<>(6, 17),
-													   new Pair<>(8, 8),
-													   new Pair<>(11, 39),
-													   new Pair<>(15, 17)
-				                                       ));
+	
+	List<Integer> rabinHashCodeExample = Arrays.asList(77, 72, 42, 17, 98, 50, 17, 98, 8, 88, 67, 39, 77, 72, 42, 17,
+			98);
+	Footprint expectedResult = new Footprint(Arrays.asList(new Pair<>(3, 17),
+			new Pair<>(6, 17),
+			new Pair<>(8, 8),
+			new Pair<>(11, 39),
+			new Pair<>(15, 17)));
 	
 	@Before
 	public void setUp() throws Exception {
@@ -31,12 +31,11 @@ public class WinnowingFootprintBuilderTest {
 	}
 	
 	@After
-	public void tearDown() throws Exception {
-	}
+	public void tearDown() throws Exception {}
 	
 	@Test
 	public void testBuildFromExample() throws Exception {
-		WinnowingFootprintBuilder footprintBuilder = new WinnowingFootprintBuilder().init(rabinHashCodeExample, 
+		WinnowingFootprintBuilder footprintBuilder = new WinnowingFootprintBuilder().init(rabinHashCodeExample,
 				4, rabinHashCodeExample.size());
 		
 		Footprint footPrintBuild = footprintBuilder.build();

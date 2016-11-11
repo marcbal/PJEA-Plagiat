@@ -14,12 +14,12 @@ import org.junit.Test;
 public class PlagiatVEMPTest {
 	
 	public static final String TEST_FILE_DIR = "src/test/resources/";
-
+	
 	public static final String TEST_FILE_NB_TOKEN_16 = TEST_FILE_DIR + "fileNbT16.java";
 	public static final String TEST_FILE_NB_TOKEN_12 = TEST_FILE_DIR + "fileNbT12.java";
-	public static final String TEST_FILE_NB_TOKEN_8  = TEST_FILE_DIR + "fileNbT8.java";
-	public static final String TEST_FILE_WINNOWING  = TEST_FILE_DIR + "filewinnowing.java";
-
+	public static final String TEST_FILE_NB_TOKEN_8 = TEST_FILE_DIR + "fileNbT8.java";
+	public static final String TEST_FILE_WINNOWING = TEST_FILE_DIR + "filewinnowing.java";
+	
 	public static final String[] TEST_PACK_1 = new String[] {
 			TEST_FILE_DIR + "test_pack_1/file1.java",
 			TEST_FILE_DIR + "test_pack_1/file1copy.java",
@@ -47,7 +47,7 @@ public class PlagiatVEMPTest {
 	
 	// DONT TOUCH
 	private static final PrintStream STDOUT = System.out;
-
+	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		System.setOut(STDOUT); // restaure stdout in System.out;
@@ -56,47 +56,47 @@ public class PlagiatVEMPTest {
 	
 	
 	ByteArrayOutputStream outputContent;
-
+	
 	@Before
 	public void setUp() throws Exception {
 		outputContent = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(outputContent, true));
 	}
-
+	
 	@After
 	public void tearDown() throws Exception {
 		outputContent = null;
 	}
 	
-
+	
 	
 	
 	@Test
 	public void testOutputResult() {
 		PlagiatVEMP.outputResult("F1F1", "F2F2", 0.42);
-		assertEquals("F1F1 and F2F2: 42%"+System.lineSeparator(), outputContent.toString());
+		assertEquals("F1F1 and F2F2: 42%" + System.lineSeparator(), outputContent.toString());
 		outputContent.reset();
 		
 		PlagiatVEMP.outputResult("toto", "titi", 0);
-		assertEquals("toto and titi: 0%"+System.lineSeparator(), outputContent.toString());
+		assertEquals("toto and titi: 0%" + System.lineSeparator(), outputContent.toString());
 		outputContent.reset();
 		
 		PlagiatVEMP.outputResult("toto", "titi", 1);
-		assertEquals("toto and titi: 100%"+System.lineSeparator(), outputContent.toString());
+		assertEquals("toto and titi: 100%" + System.lineSeparator(), outputContent.toString());
 		outputContent.reset();
 		
 		PlagiatVEMP.outputResult("toto", "titi", 1.2);
-		assertEquals("toto and titi: 100%"+System.lineSeparator(), outputContent.toString());
+		assertEquals("toto and titi: 100%" + System.lineSeparator(), outputContent.toString());
 		outputContent.reset();
 		
 		PlagiatVEMP.outputResult("toto", "titi", -0.3);
-		assertEquals("toto and titi: 0%"+System.lineSeparator(), outputContent.toString());
+		assertEquals("toto and titi: 0%" + System.lineSeparator(), outputContent.toString());
 		outputContent.reset();
 	}
 	
 	
 	
-
+	
 	/*
 	 * 
 	 * Les méthodes de tests pour main().
@@ -110,13 +110,13 @@ public class PlagiatVEMPTest {
 		PlagiatVEMP.main(new String[0]);
 		assertEquals("", outputContent.toString());
 	}
-
+	
 	@Test
 	public void testMainOneFile() {
-		PlagiatVEMP.main(new String[] {TEST_PACK_1[0]});
+		PlagiatVEMP.main(new String[] { TEST_PACK_1[0] });
 		assertEquals("", outputContent.toString());
 	}
-
+	
 	@Test
 	public void testMainPack1() {
 		PlagiatVEMP.main(TEST_PACK_1);
@@ -124,19 +124,19 @@ public class PlagiatVEMPTest {
 		assertEquals(6, output.split(System.lineSeparator()).length);
 		
 	}
-
+	
 	@Test
 	public void testMainPack2() {
 		PlagiatVEMP.main(TEST_PACK_2);
 		String output = outputContent.toString();
 		assertEquals(1, output.split(System.lineSeparator()).length);
 	}
-
+	
 	@SuppressWarnings("static-method")
-	@Test(expected=UncheckedIOException.class)
+	@Test(expected = UncheckedIOException.class)
 	public void testMainFileNotExist() {
-		PlagiatVEMP.main(new String[] {"target/.unexistant_file"});
+		PlagiatVEMP.main(new String[] { "target/.unexistant_file" });
 	}
 	
-
+	
 }

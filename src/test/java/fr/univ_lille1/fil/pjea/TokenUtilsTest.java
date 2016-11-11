@@ -9,7 +9,7 @@ import org.junit.Test;
 import fr.univ_lille1.fil.pjea.data.Java8File;
 
 public class TokenUtilsTest {
-
+	
 	@SuppressWarnings("static-method")
 	@Test
 	public void testEqualsTokens() throws IOException {
@@ -23,5 +23,5 @@ public class TokenUtilsTest {
 		assertTrue(TokenUtils.equalsTokens(null, null));
 		assertTrue(TokenUtils.equalsTokens(f.tokens.get(2), f.tokens.get(11)));
 	}
-
+	
 }
