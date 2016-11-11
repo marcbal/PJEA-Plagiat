@@ -3,7 +3,7 @@ package fr.univ_lille1.fil.pjea.algos;
 import java.util.List;
 import java.util.function.ToIntBiFunction;
 
-public class AlignmentNeedlemanWunschAlgorithm {
+public class NeedlemanWunschAlignmentAlgorithm {
 	
 	/**
 	 * Calcule le score d'alignement utilisant l'algorithme de

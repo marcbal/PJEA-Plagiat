@@ -62,7 +62,7 @@ public class QGramTest {
 	
 	
 	public void testIdenticalQGramDistanceIsZero(){
-		assertEquals(0, qGram.distance(qGram));
+		assertEquals(0, qGram.levenshteinDistance(qGram));
 	}
 	
 	
@@ -79,8 +79,8 @@ public class QGramTest {
 		 * Info : Pourquoi 4 ? On compte le nombre de tokens manuellement dans les fichiers de comparaison
 		 * Et on ajoute 1 pour car le nom de la classe est changée dans le second.
 		 */
-		assertEquals(4, qGram1.distance(qGram2));
-		assertTrue(qGram1.distance(qGram2) == qGram2.distance(qGram1));
+		assertEquals(4, qGram1.levenshteinDistance(qGram2));
+		assertTrue(qGram1.levenshteinDistance(qGram2) == qGram2.levenshteinDistance(qGram1));
 
 	}
 	
@@ -89,14 +89,14 @@ public class QGramTest {
 	@Test
 	public void testAlignmentNeedlemanWunschEquals() {
 		assertTrue(qGram.equals(qGramEqual));
-		assertEquals(qGram.size(), qGram.alignmentNeedlemanWunsch(qGram, -1));
+		assertEquals(qGram.size(), qGram.needlemanWunschAlignment(qGram, -1));
 	}
 	
 	
 	
 	@Test
 	public void testAlignmentNeedlemanWunschOther() {
-		assertEquals(qGram.size()-1, (qGramOther.alignmentNeedlemanWunsch(qGram, -1)));
+		assertEquals(qGram.size()-1, (qGramOther.needlemanWunschAlignment(qGram, -1)));
 	}
 	
 	

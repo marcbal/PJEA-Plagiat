@@ -7,7 +7,8 @@ import java.util.List;
 import org.antlr.v4.runtime.Token;
 
 import fr.univ_lille1.fil.pjea.TokenUtils;
-import fr.univ_lille1.fil.pjea.algos.AlignmentNeedlemanWunschAlgorithm;
+import fr.univ_lille1.fil.pjea.algos.LevenshteinDistanceAlgorithm;
+import fr.univ_lille1.fil.pjea.algos.NeedlemanWunschAlignmentAlgorithm;
 
 public class QGram extends ArrayList<Token> {
 	private static final long serialVersionUID = 1L;
@@ -25,34 +26,6 @@ public class QGram extends ArrayList<Token> {
 
 	public int getQGramPosition() {
 		return qGramPosition;
-	}
-	
-	public int distance(QGram qGramCompared){
-		// Last version was O(n*m), this one only memorizes previous line of distance matrix
-		// which makes this algorithm O(n)
-	    int[] prev = new int[ qGramCompared.size()+1];
-
-	    for( int j = 0; j < qGramCompared.size() + 1; j++ ) {
-	        prev[ j ] = j;
-	    }
-
-	    for( int i = 1; i < this.size() + 1; i++ ) {
-
-	        // calculate current line of distance matrix     
-	        int[] curr = new int[ qGramCompared.size() + 1 ];
-	        curr[0] = i;
-
-	        for( int j = 1; j < qGramCompared.size() + 1; j++ ) {
-	            int d1 = prev[ j ] + 1;
-	            int d2 = curr[ j - 1 ] + 1;
-	            int d3 = prev[ j - 1 ] + (TokenUtils.equalsTokens(this.get(i-1), qGramCompared.get(j-1))?0:1) ;
-	            curr[ j ] = Math.min( Math.min( d1, d2 ), d3 );
-	        }
-
-	        // define current line of distance matrix as previous     
-	        prev = curr;
-	    }
-	    return prev[ qGramCompared.size() ];
 	}
 	
 	
@@ -92,6 +65,34 @@ public class QGram extends ArrayList<Token> {
 	
 	
 	
+	
+	
+	
+	
+	public int needlemanWunschAlignment(QGram q, int d) {
+		return NeedlemanWunschAlignmentAlgorithm.compute(this, q, d, TokenUtils::tokenSimilarity);
+	}
+	
+	public int levenshteinDistance(QGram qGramCompared){
+		return LevenshteinDistanceAlgorithm.compute(this, qGramCompared, TokenUtils::equalsTokens);
+	}
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public String toString() {
+		return "["+Integer.toHexString(hashCode())+":" + String.join(",", this.stream().map(Token::getText).toArray(s -> new String[s])) + "]";
+	}
+	
+	
+	
+
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) return false;
@@ -104,26 +105,6 @@ public class QGram extends ArrayList<Token> {
 				return false;
 		}
 		return true;
-	}
-	
-	
-	
-	
-	
-	
-	public int alignmentNeedlemanWunsch(QGram q, int d) {
-		return AlignmentNeedlemanWunschAlgorithm.compute(this, q, d, TokenUtils::tokenSimilarity);
-	}
-	
-	
-	
-	
-	
-	
-	
-	@Override
-	public String toString() {
-		return "["+Integer.toHexString(hashCode())+":" + String.join(",", this.stream().map(Token::getText).toArray(s -> new String[s])) + "]";
 	}
 	
 	

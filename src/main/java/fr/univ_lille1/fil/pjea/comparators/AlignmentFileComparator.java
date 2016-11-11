@@ -25,7 +25,7 @@ public class AlignmentFileComparator extends FileComparator {
 		QGram qGram2 = new QGramContainer(tokens2, tokens2.size()).get(0);
 		
 		// peut être négatif si les deux fichiers ont un taux d'alignement des tokens supérieur au nombre total de token.
-		double val = qGram1.alignmentNeedlemanWunsch(qGram2, -1) / (double)Math.max(qGram1.size(), qGram2.size());
+		double val = qGram1.needlemanWunschAlignment(qGram2, -1) / (double)Math.max(qGram1.size(), qGram2.size());
 		
 		return val < 0 ? 0 : val;
 	}
