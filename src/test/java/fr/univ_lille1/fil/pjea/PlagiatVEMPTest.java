@@ -1,6 +1,6 @@
 package fr.univ_lille1.fil.pjea;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -36,7 +36,9 @@ public class PlagiatVEMPTest {
 			TEST_FILE_DIR + "test_pack_spaces/file1.java",
 			TEST_FILE_DIR + "test_pack_spaces/file1copy.java",
 			TEST_FILE_DIR + "test_pack_spaces/filespaces1.java",
-			TEST_FILE_DIR + "test_pack_spaces/filespaces2.java"
+			TEST_FILE_DIR + "test_pack_spaces/filespaces2.java",
+			TEST_FILE_DIR + "test_pack_spaces/fileRandomSpace1.java",
+			TEST_FILE_DIR + "test_pack_spaces/fileRandomSpace2.java"
 	};
 	
 	// TODO ajouter d'autres jeu de test (et créer une méthode de test associé, ci-dessous)
@@ -98,7 +100,7 @@ public class PlagiatVEMPTest {
 	
 	
 	/*
-	 * 
+	 *
 	 * Les méthodes de tests pour main().
 	 * Chacun exécute une seule fois la fonction main.
 	 * et le contenu de la sortie standard est récupérable
