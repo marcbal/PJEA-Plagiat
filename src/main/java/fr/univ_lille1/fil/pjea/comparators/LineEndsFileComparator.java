@@ -23,12 +23,12 @@ public class LineEndsFileComparator extends FileComparator {
 		
 		if (spacesF1.isEmpty() || spacesF2.isEmpty())
 			return 0;
-		/* Si on a le même nombre de lignes avec espaces invisible des dans les deux fichiers,
+		/* Si on a le même nombre de lignes avec espaces invisible dans les deux fichiers,
 		 * On testera sur les deux listes sur leur taille respective et non sur le nombre de lignes
 		 * non vides des fichiers.
 		 * Règle le bug où deux fichiers identiques n'auront jamais le ratio 1
 		 */
-		if (spacesF1.size() == spacesF2.size())
+		if (spacesF1.size() == spacesF2.size() && nF1 == nF2)
 			nF1 = nF2 = spacesF1.size();
 
 		for (Iterator<String> it = spacesF1.iterator(); it.hasNext() || it.hasNext();)

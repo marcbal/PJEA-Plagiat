@@ -1,7 +1,7 @@
 package fr.univ_lille1.fil.pjea.comparators;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
@@ -85,6 +85,7 @@ public class LineEndsFileComparatorTest {
 				new Java8File(PlagiatVEMPTest.TEST_PACK_SPACES[4]), // file1.java
 				new Java8File(PlagiatVEMPTest.TEST_PACK_SPACES[5])) // file1copy.java
 				.computeDifference();
-		assertNotSame(1.0, res);
+		System.out.println(res);
+		assertFalse(1.0 == res);
 	}
 }
