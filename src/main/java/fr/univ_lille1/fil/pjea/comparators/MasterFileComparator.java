@@ -4,6 +4,9 @@ import fr.univ_lille1.fil.pjea.data.Java8File;
 
 public class MasterFileComparator extends FileComparator {
 	
+	public static final int HEURISTIC_Q = 15;
+	public static final double HEURISTIC_RATIO_DIFF_THRESHOLD = 0.3;
+	
 	public MasterFileComparator(Java8File file1, Java8File file2) {
 		super(file1, file2);
 	}
@@ -22,7 +25,6 @@ public class MasterFileComparator extends FileComparator {
 		
 		
 		
-		
 		/*
 		 * Utilisation du winnowing pour vérifier si ça vaut vraiment
 		 * la peine de comparer en profondeur les deux fichiers.
@@ -32,9 +34,12 @@ public class MasterFileComparator extends FileComparator {
 		 * TODO vérifier l'implémentation de WinnowingFileComparator
 		 */
 		@SuppressWarnings("unused")
-		boolean winnowingTest = new WinnowingFileComparator(file1, file2, 15, 0.3).computeDifference() < 0.1;
-		//if (winnowingTest)
-		//	return 0;
+		
+		WinnowingFileComparator winnowingFileComparator = new WinnowingFileComparator(file1, file2, HEURISTIC_Q,
+				HEURISTIC_RATIO_DIFF_THRESHOLD);
+		
+		// if (winnowingFileComparator.isDifferent())
+		//   return winnowingFileComparator.computeDifference();
 		
 		
 		
@@ -43,8 +48,6 @@ public class MasterFileComparator extends FileComparator {
 		 * Calcul du score d'alignement
 		 */
 		double alignmentScore = new AlignmentFileComparator(file1, file2).computeDifference();
-		
-		
 		
 		
 		/*
