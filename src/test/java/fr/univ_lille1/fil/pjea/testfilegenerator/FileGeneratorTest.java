@@ -30,7 +30,7 @@ public class FileGeneratorTest {
 	}
 	
 	@SuppressWarnings("static-method")
-	//@Test
+	//@Test // intentionnellement désactivé
 	public void testMain() {
 		File inputDir = new File(DIR + "in");
 		inputDir.mkdirs(); // si nécessaire
