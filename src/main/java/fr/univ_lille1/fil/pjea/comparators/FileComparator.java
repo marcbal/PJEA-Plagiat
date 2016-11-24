@@ -27,4 +27,10 @@ public abstract class FileComparator {
 	
 	
 	
+	public static double truncateToRange(double v, double min, double max) {
+		return Math.max(min, Math.min(max, v));
+	}
+	
+	
+	
 }

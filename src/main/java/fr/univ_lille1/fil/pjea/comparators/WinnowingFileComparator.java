@@ -14,7 +14,12 @@ public class WinnowingFileComparator extends FileComparator {
 		heuristicRatioDiffThreshold = ratioDiffThreshold;
 	}
 	
-	
+	/**
+	 * Pour {@link WinnowingFileComparator}, cette méthode retoune seulement 0
+	 * ou 1. 0 pour dire que les deux fichiers sont assez différents pour ne pas
+	 * considérer qu'il y a plagiat, 1 si une analyse plus profonde est
+	 * nécessaire.
+	 */
 	@Override
 	public double computeDifference() throws Exception {
 		
@@ -37,7 +42,7 @@ public class WinnowingFileComparator extends FileComparator {
 		if ((cptId / (double) nMax) <= heuristicRatioDiffThreshold)
 			return 0;
 		
-		return new AlignmentFileComparator(file1, file2).computeDifference();
+		return 1;
 	}
 	
 	
