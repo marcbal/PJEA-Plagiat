@@ -2360,7 +2360,3 @@ import com.oracle.webservices.internal.impl.internalspi.encoding.*;
 import java.util.concurrent.atomic.*;
 import com.oracle.webservices.internal.impl.internalspi.encoding.*;
 import java.util.concurrent.atomic.*;
-
-public class BigFile2 {
-	
-}

@@ -29,6 +29,9 @@ public class AlignmentFileComparator extends FileComparator {
 		List<Token> tokens1 = file1.getTokens();
 		List<Token> tokens2 = file2.getTokens();
 		
+		if (tokens1.size() == 0 || tokens2.size() == 0)
+			return 0;
+		
 		QGram qGram1 = new QGramContainer(tokens1, tokens1.size()).get(0);
 		QGram qGram2 = new QGramContainer(tokens2, tokens2.size()).get(0);
 		
