@@ -1,6 +1,6 @@
 package fr.univ_lille1.fil.pjea.data.builder;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,7 +48,7 @@ public class WinnowingFootprintBuilderTest {
 	public void testBuildFromFile() throws Exception {
 		Java8File f = new Java8File(PlagiatVEMPTest.TEST_PACK_1[0]);
 		Footprint f1 = f.getFootprint(2);
-		Footprint f2 = f.getFootprint(2, f.tokens.size());
+		Footprint f2 = f.getFootprint(2, f.getTokens().size());
 		assertEquals(f1, f2);
 	}
 	

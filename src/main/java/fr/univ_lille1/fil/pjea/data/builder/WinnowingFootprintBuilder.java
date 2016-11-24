@@ -33,27 +33,27 @@ import fr.univ_lille1.fil.pjea.data.QGramContainer;
  *
  */
 public class WinnowingFootprintBuilder {
-
+	
 	/**
 	 *
 	 */
 	private int t;
 	private int q;
 	private List<Integer> hashQgrams;
-
-
+	
+	
 	WinnowingFootprintBuilder() {
-
+		
 	}
-
+	
 	public WinnowingFootprintBuilder(Java8File file, int q) {
 		init(new QGramContainer(file, 1, q)
 				.stream().map(QGram::hashCode)
 				.collect(Collectors.toList()),
 				q,
-				file.tokens.size());
+				file.getTokens().size());
 	}
-
+	
 	public WinnowingFootprintBuilder(List<Token> tokens, int q, int t) {
 		init(new QGramContainer(tokens, 1, q)
 				.stream().map(QGram::hashCode)
@@ -61,7 +61,7 @@ public class WinnowingFootprintBuilder {
 				q,
 				t);
 	}
-
+	
 	/**
 	 *
 	 * @param hashQgrams
@@ -74,29 +74,29 @@ public class WinnowingFootprintBuilder {
 		this.t = t;
 		return this;
 	}
-
+	
 	public Footprint build() {
-
+		
 		int w = t - q + 1;
-
+		
 		Pair<Integer, Integer> curMin;
-
+		
 		Map<Integer, Integer> listMin = new HashMap<>();
-
-
+		
+		
 		for (int i = 0; i < w; i++) {
 			curMin = minFrame(i, q, hashQgrams, listMin);
 			if (curMin != null) {
 				listMin.put(curMin.getValue0(), curMin.getValue1());
 			}
 		}
-
+		
 		return new Footprint(listMin.entrySet().stream()
 				.map(e -> new Pair<>(e.getKey(), e.getValue()))
 				.sorted((p1, p2) -> Integer.compare(p1.getValue0(), p2.getValue0()))
 				.collect(Collectors.toList()));
 	}
-
+	
 	/**
 	 *
 	 * @param i
@@ -110,13 +110,13 @@ public class WinnowingFootprintBuilder {
 		if (i + nFrame > len) { // TODO i >= len, à verifier
 			return null;
 		}
-
-
+		
+		
 		int elm, min = list.get(i), pos = i;
-
+		
 		for (int j = i + 1; j < i + nFrame; j++) {
 			elm = list.get(j);
-
+			
 			if (min > elm) {
 				min = elm;
 				pos = j;
@@ -125,8 +125,8 @@ public class WinnowingFootprintBuilder {
 				pos = j;
 			}
 		}
-
+		
 		return !listMin.containsKey(pos) ? new Pair<>(pos, min) : null;
 	}
-
+	
 }

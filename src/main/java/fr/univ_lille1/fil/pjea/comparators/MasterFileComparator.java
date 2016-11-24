@@ -17,8 +17,8 @@ public class MasterFileComparator extends FileComparator {
 		 * Filtrage des lignes 'package' et 'import'
 		 * qui n'ont pas besoin d'être comparés
 		 */
-		Java8File file1 = this.file1.fileWithoutPkgImp;
-		Java8File file2 = this.file2.fileWithoutPkgImp;
+		Java8File file1 = this.file1.getCleanedFile();
+		Java8File file2 = this.file2.getCleanedFile();
 		
 		
 		

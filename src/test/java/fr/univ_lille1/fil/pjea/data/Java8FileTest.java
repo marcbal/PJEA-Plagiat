@@ -27,12 +27,12 @@ public class Java8FileTest {
 		
 		// Vocabulary voc = lexer.getVocabulary();
 		
-		for (Token tok : file1.fileWithoutPkgImp.tokens) {
-			System.out.println(tok.getText()+"	"+ file1.fileWithoutPkgImp.vocabulary.getSymbolicName(tok.getType()));
+		for (Token tok : file1.cleanedFile.tokens) {
+			System.out.println(tok.getText()+"	"+ file1.cleanedFile.vocabulary.getSymbolicName(tok.getType()));
 		}
 		
 		System.out.println("\n-------------------\n");
-		for (String line : file1.fileWithoutPkgImp.fileLines) {
+		for (String line : file1.cleanedFile.fileLines) {
 			System.out.println(line);
 		}
 	}
