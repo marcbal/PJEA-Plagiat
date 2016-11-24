@@ -14,9 +14,29 @@ import fr.univ_lille1.fil.pjea.data.Java8File;
 import fr.univ_lille1.fil.pjea.data.QGram;
 import fr.univ_lille1.fil.pjea.data.QGramContainer;
 
-
+/**
+ * <b>
+ * Cette classe représente un builder permettant de généré une empreinte
+ * grace à l'algorithme du Winnowing
+ * </b>
+ * <p>
+ * Le principe de cet algorithme est de générer une empreinte du fichier.
+ * Pour ce faire elle hash les QGrams via le formalisme de Rabin-Karp.
+ * Une fois effectué elle regroupe ses valeurs dans des fenetres glissantes de taille q.
+ * L'empreinte se contruit en parcourant ses objets et en selectionnant les valeurs suivant des contraintes (minimum, unicité),
+ * elle ajoute donc la position et la valeur des elements choisis.
+ * Une fois effectuée, elle les trie par position.
+ * </p>
+ *
+ * @see RabinHashCodeBuilder
+ * @see Footprint
+ *
+ */
 public class WinnowingFootprintBuilder {
 
+	/**
+	 *
+	 */
 	private int t;
 	private int q;
 	private List<Integer> hashQgrams;
@@ -80,7 +100,7 @@ public class WinnowingFootprintBuilder {
 	/**
 	 *
 	 * @param i
-	 * @param n
+	 * @param nFrame
 	 * @param list
 	 * @return Retourne une paire composé d'une position et de la valeur du minimum
 	 */
