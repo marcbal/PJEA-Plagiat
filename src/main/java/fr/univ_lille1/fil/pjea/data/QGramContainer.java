@@ -3,10 +3,10 @@ package fr.univ_lille1.fil.pjea.data;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.ToIntFunction;
 
 import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.Token;
 
 import fr.univ_lille1.fil.pjea.data.builder.RabinHashCodeBuilder;
 
@@ -28,22 +28,23 @@ public class QGramContainer<T> extends ArrayList<QGram<T>> {
 	
 	/**
 	 * Contruit un {@link Iterable} qui parcours la liste des léxèmes du {@link QGram}
-	 * passé en paramètre de stp à stp éléments. Chaque itération retourne un QGram de
-	 * buffSize {@link Token}.<br/>
+	 * passé en paramètre de step à step éléments. Chaque itération retourne un QGram de
+	 * taille qGramSize.<br/>
 	 * Par exemple :
-	 * <pre>new TokenReader(lexer, 1, 1).iterator()</pre> retournera à chaque
+	 * <pre>new QGramContainer(lexer, 1, 1).iterator()</pre> retournera à chaque
 	 * iteration les éléments 0, 1, 2, ...<br/>
-	 * <pre>new TokenReader(lexer, 1, 5).iterator()</pre> retournera à chaque
+	 * <pre>new QGramContainer(lexer, 1, 5).iterator()</pre> retournera à chaque
 	 * iteration les éléments {0, ..., 4}, {1, ..., 5}, {2, ..., 6}, ...<br/>
-	 * <pre>new TokenReader(lexer, 5, 5).iterator()</pre> retournera à chaque
+	 * <pre>new QGramContainer(lexer, 5, 5).iterator()</pre> retournera à chaque
 	 * iteration les éléments {0, ..., 4}, {5, ..., 9}, {10, ..., 14}, ...<br/>
 	 *
-	 * @param tokens le {@link QGram} depuis lequel on récupère tous les léxèmes
-	 * @param stp le pas de déplacement du buffer dans la liste des léxèmes, après chaque itération
-	 * @param buffSize la taille du buffer, c'est à dire le nombre d'élément retourné à
+	 * @param elements le {@link QGram} depuis lequel on récupère tous les léxèmes
+	 * @param step le pas de déplacement du buffer dans la liste des léxèmes, après chaque itération
+	 * @param qGramSize la taille du buffer, c'est à dire le nombre d'élément retourné à
 	 * chaque itération.
+	 * @param hashcodeFunction la fcontion qui va calculer le hashcode d'un élément donné de type T.
 	 */
-	public QGramContainer(List<T> tokens, int step, int qGramSize, ToIntFunction<T> hashcodeFunction) {
+	public QGramContainer(List<T> elements, int step, int qGramSize, ToIntFunction<T> hashcodeFunction) {
 		this.step = step;
 		this.qGramSize = qGramSize;
 		
@@ -54,9 +55,9 @@ public class QGramContainer<T> extends ArrayList<QGram<T>> {
 		 */
 		int currentPos = 0;
 		RabinHashCodeBuilder hashCodeBuilder = new RabinHashCodeBuilder(256, qGramSize);
-		while (currentPos <= tokens.size() - qGramSize) {
-			List<T> returnedTokens = tokens.subList(currentPos,
-					Math.min(tokens.size(), currentPos + qGramSize));
+		while (currentPos <= elements.size() - qGramSize) {
+			List<T> returnedTokens = elements.subList(currentPos,
+					Math.min(elements.size(), currentPos + qGramSize));
 			
 			hashCodeBuilder.putHashCode(returnedTokens.stream()
 					.skip(Math.max(qGramSize - step, 0)) // retain only last Token that are not present in the previous QGram
@@ -75,32 +76,36 @@ public class QGramContainer<T> extends ArrayList<QGram<T>> {
 	
 	
 	
-	/**
-	 * Équivaut à
-	 * <pre>new TokenReader(file, qGramSize, qGramSize)</pre>
-	 * @param file
-	 * @param qGramSize
-	 */
-	public QGramContainer(List<T> tokens, int qGramSize, ToIntFunction<T> hashcodeFunction) {
-		this(tokens, qGramSize, qGramSize, hashcodeFunction);
+	public QGramContainer(List<T> elements, int qGramSize, ToIntFunction<T> hashcodeFunction) {
+		this(elements, qGramSize, qGramSize, hashcodeFunction);
 	}
 	
-	/**
-	 * Équivaut à
-	 * <pre>new TokenReader(file, 1, 1)</pre>
-	 * @param file
-	 */
-	public QGramContainer(List<T> tokens, ToIntFunction<T> hashcodeFunction) {
-		this(tokens, 1, 1, hashcodeFunction);
+	public QGramContainer(List<T> elements, ToIntFunction<T> hashcodeFunction) {
+		this(elements, 1, 1, hashcodeFunction);
 	}
 	
 	
 	
+	public QGramContainer(List<T> elements, int step, int qGramSize) {
+		this(elements, step, qGramSize, Objects::hashCode);
+	}
 	
 	
 	
-	protected QGram<T> newQGram(List<T> toks, int pos, int computedHashcode) {
-		return new QGram<>(toks, pos, computedHashcode);
+	public QGramContainer(List<T> elements, int qGramSize) {
+		this(elements, qGramSize, Objects::hashCode);
+	}
+	
+	public QGramContainer(List<T> elements) {
+		this(elements, Objects::hashCode);
+	}
+	
+	
+	
+	
+	
+	protected QGram<T> newQGram(List<T> elements, int pos, int computedHashcode) {
+		return new QGram<>(elements, pos, computedHashcode);
 	}
 	
 	

@@ -1,10 +1,12 @@
 package fr.univ_lille1.fil.pjea.comparators;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import fr.univ_lille1.fil.pjea.data.Java8File;
+import fr.univ_lille1.fil.pjea.data.QGramContainer;
 
 public class LineEndsFileComparator extends FileComparator {
 	
@@ -56,24 +58,34 @@ public class LineEndsFileComparator extends FileComparator {
 		return 0;
 	}
 	
-	/*public int testAlignement(){
-		List<String> pd = new ArrayList<>();
-		List<String> pd2 = new ArrayList<>();
+	public static void main(String[] args) {
+		List<String> pd1 = Arrays.asList(
+				" ",
+				"  ",
+				"   ");
+		List<String> pd2 = Arrays.asList(
+				" ",
+				"  ",
+				"    ",
+				"   ");
 		
-		pd.add(" ");
-		pd.add("  ");
-		pd.add("   ");
-		pd2.add(" ");
-		pd2.add("  ");
-		pd2.add("    ");
-		pd2.add("   ");
+		QGramContainer<String> qgc1 = new QGramContainer<>(pd1, 1, 3);
+		QGramContainer<String> qgc2 = new QGramContainer<>(pd2, 1, 3);
 		
-		TODO Attendre que marc fasse son taff de merde
+		int scoreMax = (qgc1.size() * qgc2.size()) * 3;
+		int score = 0;
 		
-		NeedlemanWunschAlignmentAlgorithm kwe;
-		QGram q1 = new QGram
-				
-	}*/
+		for (int i1 = 0; i1 < qgc1.size(); i1++) {
+			for (int i2 = 0; i2 < qgc2.size(); i2++) {
+				score += qgc1.get(i1).needlemanWunschAlignment(qgc2.get(i2), -1);
+			}
+		}
+		
+		// c'est une suggestion :
+		System.out.println(score);
+		System.out.println(scoreMax);
+		System.out.println(score / (double) scoreMax);
+	}
 	
 	
 }
