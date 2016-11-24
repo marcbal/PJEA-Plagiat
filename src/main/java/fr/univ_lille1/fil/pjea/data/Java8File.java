@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,8 @@ public class Java8File {
 	public final List<String> fileLines;
 	public final Vocabulary vocabulary;
 	
+	public final Java8File fileWithoutPkgImp;
+	
 	
 	public Java8File(String fileName) throws IOException {
 		file = new File(fileName);
@@ -37,14 +40,22 @@ public class Java8File {
 		}
 		
 		vocabulary = lexer.getVocabulary();
+		
+		fileWithoutPkgImp = filterPackageAndImport();
 	}
 	
 	
-	private Java8File(File file, List<Token> tokens, List<String> fileLines, Vocabulary vocabulary) {
+	private Java8File(File file, List<Token> tokens, List<String> fileLines, Vocabulary vocabulary,
+			Java8File fileWithoutPkgImp) {
 		this.file = file;
 		this.tokens = Collections.unmodifiableList(tokens);
 		this.fileLines = Collections.unmodifiableList(fileLines);
 		this.vocabulary = vocabulary;
+		this.fileWithoutPkgImp = fileWithoutPkgImp;
+	}
+	
+	private Java8File(File file, List<Token> tokens, List<String> fileLines, Vocabulary vocabulary) {
+		this(file, tokens, fileLines, vocabulary, null);
 	}
 	
 	
@@ -56,73 +67,35 @@ public class Java8File {
 		return new WinnowingFootprintBuilder(this, q).build();
 	}
 	
-	protected Java8File filterPackage() {
-		if (tokens.get(0).getText().equals("package")) return this;
-
-		/* For the token */
+	protected Java8File filterPackageAndImport() {
+		
+		/* Pour le package */
 		List<Token> tks;
+		
 		int endPackageDclTok = 0;
-		while (!tokens.get(endPackageDclTok).getText().equals(";")) endPackageDclTok++;
+		while (!tokens.get(endPackageDclTok ).getText().equals(";")) endPackageDclTok++;
+		
 		tks = tokens.subList(endPackageDclTok + 1, tokens.size());
 		
-		/* For the fileLines */
-		boolean end = false;
-		int nLines = fileLines.size();
-		int iLine = 0, iChar = 0;
-		for (iLine = 0; iLine < nLines && !end; ++iLine) {
-			
-			int lenLine = fileLines.get(iLine).length();
-			for (iChar = 0; iChar < lenLine && !end; iChar++) {
-				if (fileLines.get(iLine).charAt(iChar) == ';') end = true;
-			}
-		}
-
-		List<String> fLs = fileLines.subList(iLine, nLines);
-		fileLines.set(0, fileLines.get(0).substring(iChar + 1));
-		
-		return new Java8File(file, tks, fLs, vocabulary);
-	}
-	
-	protected Java8File filterImport() {
-		if (tokens.get(0).getText().equals("import")) return this;
-		
-		/* For the token */
-		List<Token> tks;
+		/* Pour les imports */
 		int endImportDclTok = 0;
-		
-		while (!tokens.get(endImportDclTok).getText().equals("import")) {
+		while (tks.get(endImportDclTok).getText().equals("import")) {
 			
-			while (!tokens.get(endImportDclTok).getText().equals(";")) endImportDclTok++;
+			while (!tks.get(endImportDclTok).getText().equals(";")) endImportDclTok++;
 			endImportDclTok++;
 		}
-
-		tks = tokens.subList(endImportDclTok, tokens.size());
+		tks = tks.subList(endImportDclTok, tks.size());
 		
-		/* For the fileLines */
-		boolean endLine = false;
-		int nLines = fileLines.size();
-		int iLine = 0, iChar = 0;
 		
-		for (iLine = 0; iLine < nLines; ++iLine) {
-			if (!fileLines.get(iLine).startsWith("import")) {
-				iChar = -1; // Pour le substring plus loin utilisant l'index
-				break;
-			}
-
-			int lenLine = fileLines.get(iLine).length();
-			for (iChar = 0; iChar < lenLine && !endLine; iChar++) {
-				if (fileLines.get(iLine).charAt(iChar) == ';') endLine = true;
-			}
-		}
-
-		List<String> fLs = fileLines.subList(iLine, nLines);
-		fileLines.set(0, fileLines.get(0).substring(iChar + 1));
+		/* Pour les lignes du fichiers */
+		int iLine = tks.get(0).getLine() - 1;
+		int iChar = tks.get(0).getCharPositionInLine();
+		
+		List<String> fLs = new ArrayList<>(fileLines.subList(iLine, fileLines.size()));
+		
+		fLs.set(0, fLs.get(0).substring(iChar));
 		
 		return new Java8File(file, tks, fLs, vocabulary);
-	}
-	
-	public Java8File filterPackageAndImport() {
-		return filterPackage().filterImport();
 	}
 	
 	
