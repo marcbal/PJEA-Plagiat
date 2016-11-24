@@ -5,24 +5,22 @@ import java.util.List;
 import org.antlr.v4.runtime.Token;
 
 import fr.univ_lille1.fil.pjea.TokenUtils;
-import fr.univ_lille1.fil.pjea.algos.LevenshteinDistanceAlgorithm;
-import fr.univ_lille1.fil.pjea.algos.NeedlemanWunschAlignmentAlgorithm;
 
 public class QGramToken extends QGram<Token> {
-	
-	
 	private static final long serialVersionUID = 1L;
+	
+	
 	
 	QGramToken(List<Token> toks, int pos, int computedHashCode) {
 		super(toks, pos, computedHashCode);
 	}
 	
 	public int needlemanWunschAlignment(QGramToken q, int d) {
-		return NeedlemanWunschAlignmentAlgorithm.compute(this, q, d, TokenUtils::tokenSimilarity);
+		return needlemanWunschAlignment(q, d, TokenUtils::tokenSimilarity);
 	}
 	
 	public int levenshteinDistance(QGramToken qGramCompared) {
-		return LevenshteinDistanceAlgorithm.compute(this, qGramCompared, TokenUtils::equalsTokens);
+		return levenshteinDistance(qGramCompared, TokenUtils::equalsTokens);
 	}
 	
 	

@@ -3,6 +3,12 @@ package fr.univ_lille1.fil.pjea.data;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.function.ToIntBiFunction;
+
+import fr.univ_lille1.fil.pjea.algos.LevenshteinDistanceAlgorithm;
+import fr.univ_lille1.fil.pjea.algos.NeedlemanWunschAlignmentAlgorithm;
 
 public class QGram<T> extends ArrayList<T> {
 	private static final long serialVersionUID = 1L;
@@ -92,6 +98,28 @@ public class QGram<T> extends ArrayList<T> {
 	
 	
 	
+	
+	public int levenshteinDistance(QGram<T> qGramCompared, BiFunction<T, T, Boolean> equalsFunction) {
+		return LevenshteinDistanceAlgorithm.compute(this, qGramCompared, equalsFunction);
+	}
+	
+	public int levenshteinDistance(QGram<T> qGramCompared) {
+		return levenshteinDistance(qGramCompared, Objects::equals);
+	}
+	
+	
+	
+	public int needlemanWunschAlignment(QGram<T> q, int d, ToIntBiFunction<T, T> S) {
+		return NeedlemanWunschAlignmentAlgorithm.compute(this, q, d, S);
+	}
+	
+	public int needlemanWunschAlignment(QGram<T> q, int d, BiFunction<T, T, Boolean> Sbool) {
+		return needlemanWunschAlignment(q, d, (ToIntBiFunction<T, T>) ((o1, o2) -> Sbool.apply(o1, o2) ? 1 : 0));
+	}
+	
+	public int needlemanWunschAlignment(QGram<T> q, int d) {
+		return needlemanWunschAlignment(q, d, Objects::equals);
+	}
 	
 	
 	
