@@ -17,14 +17,21 @@ public class LineEndsFileComparator extends FileComparator {
 		List<String> spacesF1 = extractEndLines(this.file1);
 		List<String> spacesF2 = extractEndLines(this.file2);
 		int cpt = 0;
-
+		int nF1 = spacesF1.size(), nF2 = spacesF2.size();
 		spacesF1.removeIf(s -> s.isEmpty());
 		spacesF2.removeIf(s -> s.isEmpty());
-
+		
 		if (spacesF1.isEmpty() || spacesF2.isEmpty())
 			return 0;
+		/* Si on a le même nombre de lignes avec espaces invisible dans les deux fichiers,
+		 * On testera sur les deux listes sur leur taille respective et non sur le nombre de lignes
+		 * non vides des fichiers.
+		 * Règle le bug où deux fichiers identiques n'auront jamais le ratio 1
+		 */
+		if (spacesF1.size() == spacesF2.size() && nF1 == nF2)
+			nF1 = nF2 = spacesF1.size();
 
-		for (Iterator<String> it = spacesF1.iterator(); it.hasNext();)
+		for (Iterator<String> it = spacesF1.iterator(); it.hasNext() || it.hasNext();)
 			if (spacesF2.contains(it.next()))
 				cpt++;
 
@@ -32,13 +39,13 @@ public class LineEndsFileComparator extends FileComparator {
 			if (spacesF1.contains(it.next()))
 				cpt++;
 
-		return (cpt / 2.0) / Math.min((double) spacesF1.size(), (double) spacesF2.size());
+		return (cpt / 2.0) / Math.min((double) nF1, (double) nF2);
 	}
 
 	private static List<String> extractEndLines(Java8File f) {
 		return f.fileLines.stream()
 				.filter(line -> !line.trim().isEmpty()) // on supprime les lignes sans contenu visible
-				.map(line -> line.substring(getLastIndex(line), line.length())) // on garde que les
+				.map(line -> line.substring(getLastIndex(line), line.length())) // on garde que les espaces après le dernier caractère visible
 				.collect(Collectors.toList());
 	}
 
