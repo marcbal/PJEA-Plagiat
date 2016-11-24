@@ -9,19 +9,20 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import org.antlr.v4.runtime.Token;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import fr.univ_lille1.fil.pjea.PlagiatVEMPTest;
 
-public class QGramContainerTest {
+public class QGramTokenContainerTest {
 	
-	QGramContainer fileNbT8QGramContainer;
+	QGramTokenContainer fileNbT8QGramContainer;
 	
 	@Before
 	public void setUp() throws Exception {
-		fileNbT8QGramContainer = new QGramContainer(new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8), 1, 1);
+		fileNbT8QGramContainer = new QGramTokenContainer(new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8), 1, 1);
 	}
 	
 	@After
@@ -31,10 +32,10 @@ public class QGramContainerTest {
 	
 	@Test
 	public void testIterator() {
-		Iterator<QGramToken> it = fileNbT8QGramContainer.iterator();
+		Iterator<QGram<Token>> it = fileNbT8QGramContainer.iterator();
 		assertNotNull(it);
 		assertTrue(it.hasNext());
-		QGramToken qg1 = it.next();
+		QGramToken qg1 = (QGramToken) it.next();
 		assertEquals(1, qg1.size());
 		assertEquals("public", qg1.get(0).getText());
 		assertEquals("class", it.next().get(0).getText());
@@ -49,7 +50,7 @@ public class QGramContainerTest {
 	
 	@Test(expected = NoSuchElementException.class)
 	public void testIteratorNoSuchElementException() {
-		Iterator<QGramToken> it = fileNbT8QGramContainer.iterator();
+		Iterator<QGram<Token>> it = fileNbT8QGramContainer.iterator();
 		it.next();
 		it.next();
 		it.next();
@@ -66,9 +67,9 @@ public class QGramContainerTest {
 	@Test
 	public void testTokenReaderListOfTokenIntInt() throws IOException {
 		Java8File f = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8);
-		QGramContainer qGramContainer = new QGramContainer(f.tokens, 1, 1); // même paramètre que le constructeur appelé dans le setUp();
+		QGramTokenContainer qGramContainer = new QGramTokenContainer(f.tokens, 1, 1); // même paramètre que le constructeur appelé dans le setUp();
 		assertEquals(fileNbT8QGramContainer, qGramContainer);
-		QGramContainer qGramContainer2 = new QGramContainer(f.tokens, 2, 2);
+		QGramTokenContainer qGramContainer2 = new QGramTokenContainer(f.tokens, 2, 2);
 		assertEquals(4, qGramContainer2.size());
 		assertEquals(2, qGramContainer2.get(0).size());
 		assertEquals(0, qGramContainer2.get(0).getQGramPosition());
@@ -79,7 +80,7 @@ public class QGramContainerTest {
 	@SuppressWarnings("static-method")
 	@Test
 	public void testTokenReaderJava8FileInt() throws IOException {
-		QGramContainer qGramContainer = new QGramContainer(new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8), 2);
+		QGramTokenContainer qGramContainer = new QGramTokenContainer(new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8), 2);
 		assertEquals(4, qGramContainer.size());
 		assertEquals(2, qGramContainer.get(0).size());
 		assertEquals(0, qGramContainer.get(0).getQGramPosition());
@@ -89,21 +90,21 @@ public class QGramContainerTest {
 	
 	@Test
 	public void testTokenReaderJava8File() throws IOException {
-		QGramContainer qGramContainer = new QGramContainer(new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8));
+		QGramTokenContainer qGramContainer = new QGramTokenContainer(new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8));
 		assertEquals(fileNbT8QGramContainer, qGramContainer);
 	}
 	
 	@Test
 	public void testTokenReaderListOfTokenInt() throws IOException {
 		Java8File f = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8);
-		QGramContainer qGramContainer = new QGramContainer(f.tokens, 1);
+		QGramTokenContainer qGramContainer = new QGramTokenContainer(f.tokens, 1);
 		assertEquals(fileNbT8QGramContainer, qGramContainer);
 	}
 	
 	@Test
 	public void testTokenReaderListOfToken() throws IOException {
 		Java8File f = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8);
-		QGramContainer qGramContainer = new QGramContainer(f.tokens);
+		QGramTokenContainer qGramContainer = new QGramTokenContainer(f.tokens);
 		assertEquals(fileNbT8QGramContainer, qGramContainer);
 	}
 	

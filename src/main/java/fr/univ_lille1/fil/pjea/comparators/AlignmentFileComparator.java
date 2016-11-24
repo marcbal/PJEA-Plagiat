@@ -5,8 +5,8 @@ import java.util.List;
 import org.antlr.v4.runtime.Token;
 
 import fr.univ_lille1.fil.pjea.data.Java8File;
-import fr.univ_lille1.fil.pjea.data.QGramContainer;
 import fr.univ_lille1.fil.pjea.data.QGramToken;
+import fr.univ_lille1.fil.pjea.data.QGramTokenContainer;
 
 /**
  * Classe de comparaison de deux fichiers qui utilise l'algorithme de Needleman-Wunsh
@@ -38,8 +38,8 @@ public class AlignmentFileComparator extends FileComparator {
 		if (tokens1.size() == 0 || tokens2.size() == 0)
 			return 0;
 		
-		QGramToken qGram1 = new QGramContainer(tokens1, tokens1.size()).get(0);
-		QGramToken qGram2 = new QGramContainer(tokens2, tokens2.size()).get(0);
+		QGramToken qGram1 = (QGramToken) new QGramTokenContainer(tokens1, tokens1.size()).get(0);
+		QGramToken qGram2 = (QGramToken) new QGramTokenContainer(tokens2, tokens2.size()).get(0);
 		
 		// peut être négatif si les deux fichiers ont un taux d'alignement des tokens supérieur au nombre total de token.
 		double val = qGram1.needlemanWunschAlignment(qGram2, -1) / (double) Math.max(qGram1.size(), qGram2.size());

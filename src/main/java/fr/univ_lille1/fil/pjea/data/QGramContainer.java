@@ -3,11 +3,11 @@ package fr.univ_lille1.fil.pjea.data;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 
-import fr.univ_lille1.fil.pjea.TokenUtils;
 import fr.univ_lille1.fil.pjea.data.builder.RabinHashCodeBuilder;
 
 
@@ -17,7 +17,7 @@ import fr.univ_lille1.fil.pjea.data.builder.RabinHashCodeBuilder;
  * passé en paramètre.<br/>
  * Cette classe a été créé pour répondre aux questions 10 et 11 du TP <i>Lexémisation</i>.
  */
-public class QGramContainer extends ArrayList<QGramToken> {
+public class QGramContainer<T> extends ArrayList<QGram<T>> {
 	private static final long serialVersionUID = 1L;
 	
 	
@@ -43,7 +43,7 @@ public class QGramContainer extends ArrayList<QGramToken> {
 	 * @param buffSize la taille du buffer, c'est à dire le nombre d'élément retourné à
 	 * chaque itération.
 	 */
-	public QGramContainer(List<Token> tokens, int step, int qGramSize) {
+	public QGramContainer(List<T> tokens, int step, int qGramSize, ToIntFunction<T> hashcodeFunction) {
 		this.step = step;
 		this.qGramSize = qGramSize;
 		
@@ -55,17 +55,17 @@ public class QGramContainer extends ArrayList<QGramToken> {
 		int currentPos = 0;
 		RabinHashCodeBuilder hashCodeBuilder = new RabinHashCodeBuilder(256, qGramSize);
 		while (currentPos <= tokens.size() - qGramSize) {
-			List<Token> returnedTokens = tokens.subList(currentPos,
+			List<T> returnedTokens = tokens.subList(currentPos,
 					Math.min(tokens.size(), currentPos + qGramSize));
 			
 			hashCodeBuilder.putHashCode(returnedTokens.stream()
 					.skip(Math.max(qGramSize - step, 0)) // retain only last Token that are not present in the previous QGram
-					.mapToInt(TokenUtils::hashCodeToken).toArray());
+					.mapToInt(hashcodeFunction).toArray());
 			
 			int qGramPos = currentPos;
 			currentPos += step;
 			
-			super.add(new QGramToken(returnedTokens, qGramPos, hashCodeBuilder.getCurrentHashCode()));
+			super.add(newQGram(returnedTokens, qGramPos, hashCodeBuilder.getCurrentHashCode()));
 		}
 		
 		
@@ -73,32 +73,7 @@ public class QGramContainer extends ArrayList<QGramToken> {
 		
 	}
 	
-	/**
-	 * Équivaut à
-	 * <pre>new TokenReader(file, qGramSize, qGramSize)</pre>
-	 * @param file
-	 * @param qGramSize
-	 */
-	public QGramContainer(List<Token> tokens, int qGramSize) {
-		this(tokens, qGramSize, qGramSize);
-	}
 	
-	/**
-	 * Équivaut à
-	 * <pre>new TokenReader(file, 1, 1)</pre>
-	 * @param file
-	 */
-	public QGramContainer(List<Token> tokens) {
-		this(tokens, 1, 1);
-	}
-	
-	
-	
-	
-	
-	public QGramContainer(Java8File file, int step, int qGramSize) {
-		this(file.tokens, step, qGramSize);
-	}
 	
 	/**
 	 * Équivaut à
@@ -106,8 +81,8 @@ public class QGramContainer extends ArrayList<QGramToken> {
 	 * @param file
 	 * @param qGramSize
 	 */
-	public QGramContainer(Java8File file, int qGramSize) {
-		this(file.tokens, qGramSize);
+	public QGramContainer(List<T> tokens, int qGramSize, ToIntFunction<T> hashcodeFunction) {
+		this(tokens, qGramSize, qGramSize, hashcodeFunction);
 	}
 	
 	/**
@@ -115,9 +90,19 @@ public class QGramContainer extends ArrayList<QGramToken> {
 	 * <pre>new TokenReader(file, 1, 1)</pre>
 	 * @param file
 	 */
-	public QGramContainer(Java8File file) {
-		this(file.tokens);
+	public QGramContainer(List<T> tokens, ToIntFunction<T> hashcodeFunction) {
+		this(tokens, 1, 1, hashcodeFunction);
 	}
+	
+	
+	
+	
+	
+	
+	protected QGram<T> newQGram(List<T> toks, int pos, int computedHashcode) {
+		return new QGram<>(toks, pos, computedHashcode);
+	}
+	
 	
 	
 	
@@ -127,22 +112,22 @@ public class QGramContainer extends ArrayList<QGramToken> {
 	 * All methods that throws UnsupportedOperationException
 	 */
 	@Override
-	public void add(int index, QGramToken element) {
+	public void add(int index, QGram<T> element) {
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public boolean add(QGramToken e) {
+	public boolean add(QGram<T> e) {
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public boolean addAll(Collection<? extends QGramToken> c) {
+	public boolean addAll(Collection<? extends QGram<T>> c) {
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public boolean addAll(int index, Collection<? extends QGramToken> c) {
+	public boolean addAll(int index, Collection<? extends QGram<T>> c) {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -152,7 +137,7 @@ public class QGramContainer extends ArrayList<QGramToken> {
 	}
 	
 	@Override
-	public QGramToken remove(int index) {
+	public QGram<T> remove(int index) {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -172,7 +157,7 @@ public class QGramContainer extends ArrayList<QGramToken> {
 	}
 	
 	@Override
-	public QGramToken set(int index, QGramToken element) {
+	public QGram<T> set(int index, QGram<T> element) {
 		throw new UnsupportedOperationException();
 	}
 	// ---------------------------------

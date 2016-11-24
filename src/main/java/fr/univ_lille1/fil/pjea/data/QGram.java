@@ -10,15 +10,25 @@ public class QGram<T> extends ArrayList<T> {
 	
 	private final int qGramPosition;
 	
-	QGram(List<T> toks, int pos) {
+	private final int hashCode;
+	
+	
+	QGram(List<T> toks, int pos, int computedHashcode) {
 		super(toks);
 		qGramPosition = pos;
+		hashCode = computedHashcode;
 	}
 	
 	
 	public int getQGramPosition() {
 		return qGramPosition;
 	}
+	
+	@Override
+	public int hashCode() {
+		return hashCode;
+	}
+	
 	
 	
 	

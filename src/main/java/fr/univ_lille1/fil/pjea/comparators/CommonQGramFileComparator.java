@@ -3,9 +3,11 @@ package fr.univ_lille1.fil.pjea.comparators;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.antlr.v4.runtime.Token;
+
 import fr.univ_lille1.fil.pjea.data.Java8File;
-import fr.univ_lille1.fil.pjea.data.QGramContainer;
-import fr.univ_lille1.fil.pjea.data.QGramToken;
+import fr.univ_lille1.fil.pjea.data.QGram;
+import fr.univ_lille1.fil.pjea.data.QGramTokenContainer;
 
 /**
  *
@@ -34,11 +36,11 @@ public class CommonQGramFileComparator extends FileComparator {
 	@Override
 	public double computeDifference() throws Exception {
 		
-		Set<QGramToken> qGrams1 = new HashSet<>(new QGramContainer(file1, 1, q));
-		Set<QGramToken> qGrams2 = new HashSet<>(new QGramContainer(file2, 1, q));
+		Set<QGram<Token>> qGrams1 = new HashSet<>(new QGramTokenContainer(file1, 1, q));
+		Set<QGram<Token>> qGrams2 = new HashSet<>(new QGramTokenContainer(file2, 1, q));
 		int nbQGramTotal = Math.min(qGrams1.size(), qGrams2.size());
 		
-		Set<QGramToken> commonQGram = new HashSet<>(qGrams1);
+		Set<QGram<Token>> commonQGram = new HashSet<>(qGrams1);
 		commonQGram.retainAll(qGrams2);
 		
 		return commonQGram.size() / (double) nbQGramTotal;

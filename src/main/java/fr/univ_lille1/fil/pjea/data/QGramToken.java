@@ -12,13 +12,9 @@ public class QGramToken extends QGram<Token> {
 	
 	
 	private static final long serialVersionUID = 1L;
-	private final int hashCode;
-	
 	
 	QGramToken(List<Token> toks, int pos, int computedHashCode) {
-		super(toks, pos);
-		this.hashCode = computedHashCode;
-		// TODO Auto-generated constructor stub
+		super(toks, pos, computedHashCode);
 	}
 	
 	public int needlemanWunschAlignment(QGramToken q, int d) {
@@ -38,12 +34,6 @@ public class QGramToken extends QGram<Token> {
 		return "[" + Integer.toHexString(hashCode()) + ":"
 				+ String.join(",", this.stream().map(Token::getText).toArray(s -> new String[s])) + "]";
 	}
-	
-	@Override
-	public int hashCode() {
-		return hashCode;
-	}
-	
 	
 	
 	
