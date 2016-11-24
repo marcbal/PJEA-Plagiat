@@ -69,33 +69,25 @@ public class Java8File {
 	
 	protected Java8File filterPackageAndImport() {
 		
-		/* Pour le package */
-		List<Token> tks;
-		
-		int endPackageDclTok = 0;
-		while (!tokens.get(endPackageDclTok ).getText().equals(";")) endPackageDclTok++;
-		
-		tks = tokens.subList(endPackageDclTok + 1, tokens.size());
-		
-		/* Pour les imports */
-		int endImportDclTok = 0;
-		while (tks.get(endImportDclTok).getText().equals("import")) {
-			
-			while (!tks.get(endImportDclTok).getText().equals(";")) endImportDclTok++;
-			endImportDclTok++;
+		/* Filtrage via les tokens */
+		int iToken = 0;
+		while (tokens.get(iToken).getText().equals("import") || tokens.get(iToken).getText().equals("package")) {
+			while (!tokens.get(++iToken).getText().equals(";"));
+			iToken++;
 		}
-		tks = tks.subList(endImportDclTok, tks.size());
+		
+		List<Token> retainedTokens = tokens.subList(iToken, tokens.size());
 		
 		
-		/* Pour les lignes du fichiers */
-		int iLine = tks.get(0).getLine() - 1;
-		int iChar = tks.get(0).getCharPositionInLine();
+		/* filtrage des lignes */
+		int iLine = retainedTokens.get(0).getLine() - 1;
+		int iChar = retainedTokens.get(0).getCharPositionInLine();
 		
-		List<String> fLs = new ArrayList<>(fileLines.subList(iLine, fileLines.size()));
+		List<String> retainedLines = new ArrayList<>(fileLines.subList(iLine, fileLines.size()));
 		
-		fLs.set(0, fLs.get(0).substring(iChar));
+		retainedLines.set(0, retainedLines.get(0).substring(iChar));
 		
-		return new Java8File(file, tks, fLs, vocabulary);
+		return new Java8File(file, retainedTokens, retainedLines, vocabulary);
 	}
 	
 	
