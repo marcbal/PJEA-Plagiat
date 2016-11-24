@@ -9,11 +9,16 @@ import fr.univ_lille1.fil.pjea.data.QGramContainer;
 import fr.univ_lille1.fil.pjea.data.QGramToken;
 
 /**
- * AlignementFileComparator est la classe qui utilise l'algorithme de Needleman-Wunsh
+ * Classe de comparaison de deux fichiers qui utilise l'algorithme de Needleman-Wunsh
  *
  */
 public class AlignmentFileComparator extends FileComparator {
 	
+	/**
+	 * 
+	 * @param f1 fichier
+	 * @param f2 fichier
+	 */
 	public AlignmentFileComparator(Java8File f1, Java8File f2) {
 		super(f1, f2);
 	}
@@ -28,6 +33,10 @@ public class AlignmentFileComparator extends FileComparator {
 		
 		List<Token> tokens1 = file1.getTokens();
 		List<Token> tokens2 = file2.getTokens();
+		
+		
+		if (tokens1.size() == 0 || tokens2.size() == 0)
+			return 0;
 		
 		QGramToken qGram1 = new QGramContainer(tokens1, tokens1.size()).get(0);
 		QGramToken qGram2 = new QGramContainer(tokens2, tokens2.size()).get(0);

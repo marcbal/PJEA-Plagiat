@@ -23,18 +23,29 @@ public class CleanedJava8File extends Java8File {
 		
 		/* Filtrage des tokens */
 		int iToken = 0;
-		while (originalFile.tokens.get(iToken).getText().equals("import") || originalFile.tokens.get(iToken).getText().equals("package")) {
+		while (iToken < originalFile.tokens.size()
+				&& (originalFile.tokens.get(iToken).getText().equals("import")
+						|| originalFile.tokens.get(iToken).getText().equals("package"))) {
 			while (!originalFile.tokens.get(++iToken).getText().equals(";"));
 			iToken++;
 		}
 		
-		tokens = originalFile.tokens.subList(iToken, originalFile.tokens.size());
-		
+		if (iToken < originalFile.tokens.size()) {
+			tokens = originalFile.tokens.subList(iToken, originalFile.tokens.size());
+		}
+		else {
+			tokens = new ArrayList<>(0);
+		}
 		
 		/* Filtrage des lignes */
-		fileLines = new ArrayList<>(originalFile.fileLines.subList(
-				tokens.get(0).getLine() - 1,originalFile.fileLines.size()));
-		fileLines.set(0, fileLines.get(0).substring(tokens.get(0).getCharPositionInLine()));
+		if (tokens.isEmpty()) {
+			fileLines = new ArrayList<>(0);
+		}
+		else {
+			fileLines = new ArrayList<>(originalFile.fileLines.subList(
+					tokens.get(0).getLine() - 1,originalFile.fileLines.size()));
+			fileLines.set(0, fileLines.get(0).substring(tokens.get(0).getCharPositionInLine()));
+		}
 	}
 	
 	
