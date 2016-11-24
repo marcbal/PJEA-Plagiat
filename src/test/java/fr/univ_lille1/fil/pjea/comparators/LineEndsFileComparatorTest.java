@@ -30,8 +30,7 @@ public class LineEndsFileComparatorTest {
 				new Java8File(PlagiatVEMPTest.TEST_PACK_SPACES[2]),
 				new Java8File(PlagiatVEMPTest.TEST_PACK_SPACES[3]))
 				.computeDifference();
-		System.out.println(res);
-		assertEquals(0.833, res, 0.001);
+		assertEquals(0.714, res, 0.001);
 	}
 	
 	
@@ -86,7 +85,6 @@ public class LineEndsFileComparatorTest {
 				new Java8File(PlagiatVEMPTest.TEST_PACK_SPACES[4]), // file1.java
 				new Java8File(PlagiatVEMPTest.TEST_PACK_SPACES[5])) // file1copy.java
 				.computeDifference();
-		System.out.println(res);
 		assertFalse(1.0 == res);
 	}
 }
