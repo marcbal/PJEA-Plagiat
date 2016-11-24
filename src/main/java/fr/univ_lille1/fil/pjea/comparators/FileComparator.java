@@ -5,11 +5,17 @@ import fr.univ_lille1.fil.pjea.data.Java8File;
 
 
 /**
- * FileComporator est une classe qui prend Deux fichiers et compare leurs differences.
+ * Classe qui prend deux fichiers et calcule leurs differences.
  */
 public abstract class FileComparator {
 	
 	protected final Java8File file1, file2;
+	
+	/**
+	 * 
+	 * @param f1 fichier
+	 * @param f2 fichier
+	 */
 	
 	public FileComparator(Java8File f1, Java8File f2) {
 		file1 = f1;
@@ -25,7 +31,13 @@ public abstract class FileComparator {
 	
 	
 	
-	
+	/**
+	 * 
+	 * @param v
+	 * @param min
+	 * @param max
+	 * @return max si v>max, min si v<min, v sinon.
+	 */
 	
 	public static double truncateToRange(double v, double min, double max) {
 		return Math.max(min, Math.min(max, v));

@@ -9,13 +9,18 @@ import fr.univ_lille1.fil.pjea.data.QGramContainer;
 
 /**
  *
- * CommonQGramFileComparator est la classe qui utilise l'algorithme de comparaison de Qgram
+ * Classe de comparaison de deux fichiers qui utilise l'algorithme de comparaison de Qgram suivant taille donnée
  *
  */
 public class CommonQGramFileComparator extends FileComparator {
 	
 	private int q;
-	
+	/**
+	 * 
+	 * @param f1 fichier
+	 * @param f2 fichier
+	 * @param q taille des QGrams à comparer
+	 */
 	public CommonQGramFileComparator(Java8File f1, Java8File f2, int q) {
 		super(f1, f2);
 		this.q = q;
