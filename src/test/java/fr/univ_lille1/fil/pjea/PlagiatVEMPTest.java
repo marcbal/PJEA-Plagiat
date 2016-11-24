@@ -1,6 +1,6 @@
 package fr.univ_lille1.fil.pjea;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -30,6 +30,11 @@ public class PlagiatVEMPTest {
 	public static final String[] TEST_PACK_2 = new String[] {
 			TEST_FILE_DIR + "test_pack_2/BigFile1.java",
 			TEST_FILE_DIR + "test_pack_2/BigFile2.java"
+	};
+	
+	public static final String[] TEST_MEGA_PACK = new String[] {
+			TEST_FILE_DIR + "mega_test/BC-lastbuild-A-E.java",
+			TEST_FILE_DIR + "mega_test/BC-2yearsbefore-A-E.java"
 	};
 	
 	public static final String[] TEST_PACK_SPACES = new String[] {
@@ -98,7 +103,7 @@ public class PlagiatVEMPTest {
 	
 	
 	/*
-	 * 
+	 *
 	 * Les méthodes de tests pour main().
 	 * Chacun exécute une seule fois la fonction main.
 	 * et le contenu de la sortie standard est récupérable
@@ -128,6 +133,13 @@ public class PlagiatVEMPTest {
 	@Test
 	public void testMainPack2() {
 		PlagiatVEMP.main(TEST_PACK_2);
+		String output = outputContent.toString();
+		assertEquals(1, output.split(System.lineSeparator()).length);
+	}
+	
+	@Test
+	public void testMainMega1() {
+		PlagiatVEMP.main(TEST_MEGA_PACK);
 		String output = outputContent.toString();
 		assertEquals(1, output.split(System.lineSeparator()).length);
 	}
