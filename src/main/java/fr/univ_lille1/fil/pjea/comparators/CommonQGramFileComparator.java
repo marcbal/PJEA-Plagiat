@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import fr.univ_lille1.fil.pjea.data.Java8File;
-import fr.univ_lille1.fil.pjea.data.QGram;
 import fr.univ_lille1.fil.pjea.data.QGramContainer;
+import fr.univ_lille1.fil.pjea.data.QGramToken;
 
 /**
  *
@@ -34,11 +34,11 @@ public class CommonQGramFileComparator extends FileComparator {
 	@Override
 	public double computeDifference() throws Exception {
 		
-		Set<QGram> qGrams1 = new HashSet<>(new QGramContainer(file1, 1, q));
-		Set<QGram> qGrams2 = new HashSet<>(new QGramContainer(file2, 1, q));
+		Set<QGramToken> qGrams1 = new HashSet<>(new QGramContainer(file1, 1, q));
+		Set<QGramToken> qGrams2 = new HashSet<>(new QGramContainer(file2, 1, q));
 		int nbQGramTotal = Math.min(qGrams1.size(), qGrams2.size());
 		
-		Set<QGram> commonQGram = new HashSet<>(qGrams1);
+		Set<QGramToken> commonQGram = new HashSet<>(qGrams1);
 		commonQGram.retainAll(qGrams2);
 		
 		return commonQGram.size() / (double) nbQGramTotal;

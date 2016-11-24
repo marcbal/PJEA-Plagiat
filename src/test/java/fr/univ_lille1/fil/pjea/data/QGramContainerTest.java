@@ -1,6 +1,9 @@
 package fr.univ_lille1.fil.pjea.data;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -11,9 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.univ_lille1.fil.pjea.PlagiatVEMPTest;
-import fr.univ_lille1.fil.pjea.data.Java8File;
-import fr.univ_lille1.fil.pjea.data.QGram;
-import fr.univ_lille1.fil.pjea.data.QGramContainer;
 
 public class QGramContainerTest {
 	
@@ -31,10 +31,10 @@ public class QGramContainerTest {
 	
 	@Test
 	public void testIterator() {
-		Iterator<QGram> it = fileNbT8QGramContainer.iterator();
+		Iterator<QGramToken> it = fileNbT8QGramContainer.iterator();
 		assertNotNull(it);
 		assertTrue(it.hasNext());
-		QGram qg1 = it.next();
+		QGramToken qg1 = it.next();
 		assertEquals(1, qg1.size());
 		assertEquals("public", qg1.get(0).getText());
 		assertEquals("class", it.next().get(0).getText());
@@ -49,7 +49,7 @@ public class QGramContainerTest {
 	
 	@Test(expected = NoSuchElementException.class)
 	public void testIteratorNoSuchElementException() {
-		Iterator<QGram> it = fileNbT8QGramContainer.iterator();
+		Iterator<QGramToken> it = fileNbT8QGramContainer.iterator();
 		it.next();
 		it.next();
 		it.next();

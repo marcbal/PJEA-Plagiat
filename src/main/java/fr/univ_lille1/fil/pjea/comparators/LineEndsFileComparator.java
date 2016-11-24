@@ -21,7 +21,7 @@ public class LineEndsFileComparator extends FileComparator {
 		spacesF1.removeIf(s -> s.isEmpty());
 		spacesF2.removeIf(s -> s.isEmpty());
 		
-		if (spacesF1.isEmpty() || spacesF2.isEmpty())
+		if (spacesF1.size() < 3 || spacesF2.size() < 3)
 			return 0;
 		/* Si on a le même nombre de lignes avec espaces invisible dans les deux fichiers,
 		 * On testera sur les deux listes sur leur taille respective et non sur le nombre de lignes
@@ -39,7 +39,7 @@ public class LineEndsFileComparator extends FileComparator {
 			if (spacesF1.contains(it.next()))
 				cpt++;
 		
-		return (cpt / 2.0) / Math.min((double) nF1, (double) nF2);
+		return (cpt / 2.0) / (((double) nF1 + (double) nF2)/2);
 	}
 	
 	private static List<String> extractEndLines(Java8File f) {
@@ -55,6 +55,25 @@ public class LineEndsFileComparator extends FileComparator {
 				return i + 1;
 		return 0;
 	}
+	
+	/*public int testAlignement(){
+		List<String> pd = new ArrayList<>();
+		List<String> pd2 = new ArrayList<>();
+		
+		pd.add(" ");
+		pd.add("  ");
+		pd.add("   ");
+		pd2.add(" ");
+		pd2.add("  ");
+		pd2.add("    ");
+		pd2.add("   ");
+		
+		TODO Attendre que marc fasse son taff de merde
+		
+		NeedlemanWunschAlignmentAlgorithm kwe;
+		QGram q1 = new QGram
+				
+	}*/
 	
 	
 }
