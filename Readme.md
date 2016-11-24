@@ -50,7 +50,7 @@ La comparaison effectué par le main est la suivante :
 
 ### Troisième rendu **v3.0** du 10 novembre
 
-* On compare toujours les fichiers passé en argument du main, en utilisant l'algorithme d'alignement (en attendant la validation du test du Winnowing, et l'algo sur les fins de lignes)
+* Fonctionnalités : On compare toujours les fichiers passé en argument du main, en utilisant l'algorithme d'alignement (en attendant la validation du test du Winnowing, et l'algo sur les fins de lignes)
 * Ajout d'un grand nombre de tests unitaires.
 * Développement (non terminé) d'algorithme de fusion de fichiers .java (pour tester la comparaison en gros volume)
 * Développement (non terminé) d'algorithme qui compare les fins de ligne des fichiers (caractères non-imprimables)
@@ -58,3 +58,12 @@ La comparaison effectué par le main est la suivante :
     * Affichage graphique des tests unitaires Junit fonctionnels et non-fonctionnels
     * Affichage de la couverture de code des tests unitaires (en relation avec un plugin Maven qui effectue l'analyse)
     * Un build est lancé sur Jenkins à chaque push sur le dépôt Github.
+
+
+### Quatrième rendu **v4.0** du 24 novembre
+
+* Fonctionnalités : On compare toujours les fichiers passé en argument du main, en utilisant l'algorithme d'alignement (en attendant la validation du test du Winnowing, et l'algo sur les fins de lignes). Ajout : Les déclarations de `package` et `import` ne sont pas pris en compte dans la comparaison.
+* Refactorign : réoraganisation générale de tous les packages et classes du projet. Code plus porpre dans pas mal de classes.
+* Développement Terminée de l'algorithme de fusion de fichiers `.java`. Des gros fichiers (provenant de projets Java sur Github) sont comparés dans nos classes de tests. Possibilité de fournir ces fichiers pour que les autres projets puissent être testés.
+* Amélioration de l'algorithme de comparaison des fins de ligne des fichiers (caractères non-imprimables)
+* Avancement des commentaires Javadoc du code source.
