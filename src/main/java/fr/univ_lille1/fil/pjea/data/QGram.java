@@ -118,7 +118,7 @@ public class QGram<T> extends ArrayList<T> {
 	}
 	
 	public int needlemanWunschAlignment(QGram<T> q, int d) {
-		return needlemanWunschAlignment(q, d, Objects::equals);
+		return needlemanWunschAlignment(q, d, (BiFunction<T, T, Boolean>) Objects::equals);
 	}
 	
 	

@@ -10,6 +10,10 @@ import fr.univ_lille1.fil.pjea.data.QGramContainer;
 
 public class LineEndsFileComparator extends FileComparator {
 	
+	
+	public static final int QGRAM_LENGTH = 3;
+	
+	
 	public LineEndsFileComparator(Java8File f1, Java8File f2) {
 		super(f1, f2);
 	}
@@ -23,7 +27,7 @@ public class LineEndsFileComparator extends FileComparator {
 		spacesF1.removeIf(s -> s.isEmpty());
 		spacesF2.removeIf(s -> s.isEmpty());
 		
-		if (spacesF1.size() < 3 || spacesF2.size() < 3)
+		if (spacesF1.size() < QGRAM_LENGTH || spacesF2.size() < QGRAM_LENGTH)
 			return 0;
 		/* Si on a le même nombre de lignes avec espaces invisible dans les deux fichiers,
 		 * On testera sur les deux listes sur leur taille respective et non sur le nombre de lignes
@@ -69,15 +73,17 @@ public class LineEndsFileComparator extends FileComparator {
 				"    ",
 				"   ");
 		
-		QGramContainer<String> qgc1 = new QGramContainer<>(pd1, 1, 3);
-		QGramContainer<String> qgc2 = new QGramContainer<>(pd2, 1, 3);
+		QGramContainer<String> qgc1 = new QGramContainer<>(pd1, 1, QGRAM_LENGTH);
+		QGramContainer<String> qgc2 = new QGramContainer<>(pd2, 1, QGRAM_LENGTH);
 		
-		int scoreMax = (qgc1.size() * qgc2.size()) * 3;
+		int scoreMax = QGRAM_LENGTH;
 		int score = 0;
 		
 		for (int i1 = 0; i1 < qgc1.size(); i1++) {
 			for (int i2 = 0; i2 < qgc2.size(); i2++) {
-				score += qgc1.get(i1).needlemanWunschAlignment(qgc2.get(i2), -1);
+				int currentScore = qgc1.get(i1).needlemanWunschAlignment(qgc2.get(i2), -1);
+				if (currentScore > score)
+					score = currentScore;
 			}
 		}
 		

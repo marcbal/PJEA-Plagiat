@@ -3,7 +3,6 @@ package fr.univ_lille1.fil.pjea.data;
 import org.antlr.v4.runtime.Token;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 import fr.univ_lille1.fil.pjea.PlagiatVEMPTest;
 
@@ -22,10 +21,8 @@ public class Java8FileTest {
 		file1 = null;
 	}
 	
-	@Test
+	// @Test // ce test ne fait que des print
 	public void testFilterImport() {
-		
-		// Vocabulary voc = lexer.getVocabulary();
 		
 		for (Token tok : file1.cleanedFile.tokens) {
 			System.out.println(tok.getText()+"	"+ file1.cleanedFile.vocabulary.getSymbolicName(tok.getType()));
@@ -35,11 +32,6 @@ public class Java8FileTest {
 		for (String line : file1.cleanedFile.fileLines) {
 			System.out.println(line);
 		}
-	}
-	
-	@Test
-	public void testFilterPackage() {
-		//fail("Pas encore implémenté");
 	}
 	
 	
