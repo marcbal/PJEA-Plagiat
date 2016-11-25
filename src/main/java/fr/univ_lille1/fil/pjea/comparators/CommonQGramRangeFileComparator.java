@@ -2,9 +2,11 @@ package fr.univ_lille1.fil.pjea.comparators;
 
 import fr.univ_lille1.fil.pjea.data.Java8File;
 /**
- *
- * Classe qui compare deux fichiers par l'utlisation de l'algortihme de comparaison des QGrams
- *
+ * Compare deux fichiers en appelant successivement le comparateur
+ * {@link CommonQGramFileComparator} avec une taille de qGram allant
+ * de qMin à qMax (paramètres de {@link #CommonQGramRangeFileComparator(Java8File, Java8File, int, int)}.
+ * les scores obtenu avec des grands qGram ont un poids plus fort que les scores obtenus avec des petit
+ * qgrams.
  */
 
 public class CommonQGramRangeFileComparator extends FileComparator {
@@ -17,7 +19,7 @@ public class CommonQGramRangeFileComparator extends FileComparator {
 	 * @param f1 fichier
 	 * @param f2 fichier
 	 * @param qMin taille minimum de QGrams
-	 * @param qMax taille maximal de QGrams
+	 * @param qMax taille maximum de QGrams
 	 */
 	
 	public CommonQGramRangeFileComparator(Java8File f1, Java8File f2, int qMin, int qMax) {
@@ -26,11 +28,6 @@ public class CommonQGramRangeFileComparator extends FileComparator {
 		this.qMax = qMax;
 	}
 	
-	/**
-	 * Compare deux fichiers par l'algorithme de comparaison de Qgram
-	 * @return le taux de Qgram identique par rapport aux deux fichiers
-	 * @throws Exception
-	 */
 	@Override
 	public double computeDifference() throws Exception {
 		

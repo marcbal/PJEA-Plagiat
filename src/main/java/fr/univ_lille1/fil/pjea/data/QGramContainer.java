@@ -14,7 +14,7 @@ import fr.univ_lille1.fil.pjea.data.builder.RabinHashCodeBuilder;
 
 /**
  * Classe {@link Iterable} qui permet de parcourir les léxèmes du {@link Lexer}
- * passé en paramètre.<br/>
+ * passé en paramètre.<p>
  * Cette classe a été créé pour répondre aux questions 10 et 11 du TP <i>Lexémisation</i>.
  */
 public class QGramContainer<T> extends ArrayList<QGram<T>> {
@@ -29,14 +29,18 @@ public class QGramContainer<T> extends ArrayList<QGram<T>> {
 	/**
 	 * Contruit un {@link Iterable} qui parcours la liste des léxèmes du {@link QGram}
 	 * passé en paramètre de step à step éléments. Chaque itération retourne un QGram de
-	 * taille qGramSize.<br/>
-	 * Par exemple :
-	 * <pre>new QGramContainer(lexer, 1, 1).iterator()</pre> retournera à chaque
-	 * iteration les éléments 0, 1, 2, ...<br/>
-	 * <pre>new QGramContainer(lexer, 1, 5).iterator()</pre> retournera à chaque
-	 * iteration les éléments {0, ..., 4}, {1, ..., 5}, {2, ..., 6}, ...<br/>
-	 * <pre>new QGramContainer(lexer, 5, 5).iterator()</pre> retournera à chaque
-	 * iteration les éléments {0, ..., 4}, {5, ..., 9}, {10, ..., 14}, ...<br/>
+	 * taille qGramSize.
+	 * <p>
+	 * Exemples d'utilisation :
+	 * <p>
+	 * <code>new QGramContainer(lexer, 1, 1).iterator()</code> retournera à chaque
+	 * iteration les éléments 0, 1, 2, ...
+	 * <p>
+	 * <code>new QGramContainer(lexer, 1, 5).iterator()</code> retournera à chaque
+	 * iteration les éléments {0, ..., 4}, {1, ..., 5}, {2, ..., 6}, ...
+	 * <p>
+	 * <code>new QGramContainer(lexer, 5, 5).iterator()</code> retournera à chaque
+	 * iteration les éléments {0, ..., 4}, {5, ..., 9}, {10, ..., 14}, ...
 	 *
 	 * @param elements le {@link QGram} depuis lequel on récupère tous les léxèmes
 	 * @param step le pas de déplacement du buffer dans la liste des léxèmes, après chaque itération
@@ -50,7 +54,7 @@ public class QGramContainer<T> extends ArrayList<QGram<T>> {
 		
 		
 		
-		/**
+		/*
 		 * Contruction de la liste des QGrams
 		 */
 		int currentPos = 0;

@@ -15,7 +15,6 @@ import fr.univ_lille1.fil.pjea.data.QGramTokenContainer;
 public class AlignmentFileComparator extends FileComparator {
 	
 	/**
-	 * 
 	 * @param f1 fichier
 	 * @param f2 fichier
 	 */
@@ -26,7 +25,6 @@ public class AlignmentFileComparator extends FileComparator {
 	/**
 	 * Compare deux fichiers par l'algorithme de Needleman-Wunsh
 	 * @return le taux d'alignement du nombre de tokens identiques
-	 * @throws Exception
 	 */
 	@Override
 	public double computeDifference() throws Exception {

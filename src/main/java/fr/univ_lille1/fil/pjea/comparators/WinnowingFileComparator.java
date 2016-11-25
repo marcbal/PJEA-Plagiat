@@ -2,7 +2,14 @@ package fr.univ_lille1.fil.pjea.comparators;
 
 import fr.univ_lille1.fil.pjea.data.Footprint;
 import fr.univ_lille1.fil.pjea.data.Java8File;
+import fr.univ_lille1.fil.pjea.data.builder.WinnowingFootprintBuilder;
 
+/**
+ * Calcul le taux de ressemblance entre deuc fichiers en calculant
+ * un taux de ressemblance de leurs empreintes.
+ * Les empreintes sont calculés via la méthode du Winnowing
+ * @see WinnowingFootprintBuilder
+ */
 public class WinnowingFileComparator extends FileComparator {
 	
 	private final int heuristicQ; // = 15;
@@ -18,13 +25,6 @@ public class WinnowingFileComparator extends FileComparator {
 		
 		scoreFilterWinnowing = initScoreFilterWinnowing();
 	}
-	
-	/**
-	 * Pour {@link WinnowingFileComparator}, cette méthode retoune seulement 0
-	 * ou 1. 0 pour dire que les deux fichiers sont assez différents pour ne pas
-	 * considérer qu'il y a plagiat, 1 si une analyse plus profonde est
-	 * nécessaire.
-	 */
 	
 	protected double initScoreFilterWinnowing() {
 		

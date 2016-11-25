@@ -10,15 +10,15 @@ import fr.univ_lille1.fil.pjea.data.QGram;
 import fr.univ_lille1.fil.pjea.data.QGramTokenContainer;
 
 /**
- *
- * Classe de comparaison de deux fichiers qui utilise l'algorithme de comparaison de Qgram suivant taille donnée
- *
+ * Compare deux fichiers en comptant le nombre de qGram de taille q
+ * (paramètre du contructeur) qu'il y a en commun entre les fichiers.
+ * Ce nombre est ensuite divisé par le nombre de qGram qu'il y
+ * a dans le plus petit fichier.
  */
 public class CommonQGramFileComparator extends FileComparator {
 	
 	private int q;
 	/**
-	 * 
 	 * @param f1 fichier
 	 * @param f2 fichier
 	 * @param q taille des QGrams à comparer
@@ -28,11 +28,6 @@ public class CommonQGramFileComparator extends FileComparator {
 		this.q = q;
 	}
 	
-	/**
-	 * Compare deux fichiers par l'algorithme de comparaison de Qgram
-	 * @return le taux de Qgram identique par rapport aux deux fichiers
-	 * @throws Exception
-	 */
 	@Override
 	public double computeDifference() throws Exception {
 		

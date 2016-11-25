@@ -12,7 +12,6 @@ public abstract class FileComparator {
 	protected final Java8File file1, file2;
 	
 	/**
-	 * 
 	 * @param f1 fichier
 	 * @param f2 fichier
 	 */
@@ -25,18 +24,19 @@ public abstract class FileComparator {
 	
 	/**
 	 * @return Un nombre compris entre 0 et 1 qui représente l'égalité des deux fichiers.
-	 * @throws Exception
+	 * @throws Exception si une des implémentations lance une exception
 	 */
 	public abstract double computeDifference() throws Exception;
 	
 	
 	
 	/**
-	 * 
-	 * @param v
-	 * @param min
-	 * @param max
-	 * @return max si v>max, min si v<min, v sinon.
+	 * Tronque la valeur v entre min et max.
+	 * @param v la valeur à tronquer
+	 * @param min la valeur minimum à retourner
+	 * @param max la valeur maximum à retourner
+	 * @return max si v &gt; max, min si v &lt; min, v sinon.
+	 * Si max &lt; min, alors min sera retournée.
 	 */
 	
 	public static double truncateToRange(double v, double min, double max) {

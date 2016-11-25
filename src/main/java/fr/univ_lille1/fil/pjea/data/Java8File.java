@@ -17,6 +17,12 @@ import org.antlr.v4.runtime.Vocabulary;
 import fr.univ_lille1.fil.pjea.antlr_lexers.java8.Java8Lexer;
 import fr.univ_lille1.fil.pjea.data.builder.WinnowingFootprintBuilder;
 
+/**
+ * Représente un fichier source Java (jusqu'à version 8).
+ * L'instentiation de cette classe met en mémoire le contenu textuelle
+ * et les tokens de ce fichier de telle sorte à optimiser
+ * son analyse par les algorithmes.
+ */
 public class Java8File {
 	
 	public final File file;
@@ -46,9 +52,9 @@ public class Java8File {
 	
 	/**
 	 * Utilisé uniquement par la sous-classe {@link CleanedJava8File}
-	 * pour définir les valeurs des propriétés final
-	 * @param file
-	 * @param vocabulary
+	 * pour définir les valeurs des propriétés <code>final</code>
+	 * @param file le fichier représenté par ce {@link Java8File}
+	 * @param vocabulary le vocabulaire du lexer pour ce fichier
 	 */
 	protected Java8File(File file, Vocabulary vocabulary) {
 		this.file = file;
