@@ -17,6 +17,7 @@ Liens
 * https://gitlab-etu.fil.univ-lille1.fr/baloup/PJEA-Plagiat (intranet Lille 1 seulement)
 * https://github.com/marcbal/PJEA-Plagiat (dépôt privé)
 * http://ci.pandacube.fr/job/PJEA-Plagiat_dev (Intégration continue de la branche `dev` sur un serveur Jenkins)
+* http://ci.pandacube.fr/job/PJEA-Plagiat_dev/javadoc/index.html (Javadoc de la version `dev` actuelle)
 
 Développement
 -------------
