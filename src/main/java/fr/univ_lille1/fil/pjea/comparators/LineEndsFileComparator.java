@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import fr.univ_lille1.fil.pjea.data.ComparisonResult;
 import fr.univ_lille1.fil.pjea.data.Java8File;
 import fr.univ_lille1.fil.pjea.data.QGramContainer;
 
@@ -19,7 +20,7 @@ public class LineEndsFileComparator extends FileComparator {
 	}
 	
 	@Override
-	public double computeDifference() throws Exception {
+	public ComparisonResult computeDifference() throws Exception {
 		List<String> spacesF1 = extractEndLines(this.file1);
 		List<String> spacesF2 = extractEndLines(this.file2);
 		int cpt = 0;
@@ -28,7 +29,7 @@ public class LineEndsFileComparator extends FileComparator {
 		spacesF2.removeIf(s -> s.isEmpty());
 		
 		if (spacesF1.size() < QGRAM_LENGTH || spacesF2.size() < QGRAM_LENGTH)
-			return 0;
+			return new ComparisonResult(null, 0);
 		/* Si on a le même nombre de lignes avec espaces invisible dans les deux fichiers,
 		 * On testera sur les deux listes sur leur taille respective et non sur le nombre de lignes
 		 * non vides des fichiers.
@@ -45,7 +46,7 @@ public class LineEndsFileComparator extends FileComparator {
 			if (spacesF1.contains(it.next()))
 				cpt++;
 		
-		return (cpt / 2.0) / (((double) nF1 + (double) nF2)/2);
+		return new ComparisonResult(null, (cpt / 2.0) / (((double) nF1 + (double) nF2)/2));
 	}
 	
 	private static List<String> extractEndLines(Java8File f) {

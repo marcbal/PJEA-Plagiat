@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.antlr.v4.runtime.Token;
 
+import fr.univ_lille1.fil.pjea.data.ComparisonResult;
 import fr.univ_lille1.fil.pjea.data.Java8File;
 import fr.univ_lille1.fil.pjea.data.QGram;
 import fr.univ_lille1.fil.pjea.data.QGramTokenContainer;
@@ -29,7 +30,7 @@ public class CommonQGramFileComparator extends FileComparator {
 	}
 	
 	@Override
-	public double computeDifference() throws Exception {
+	public ComparisonResult computeDifference() throws Exception {
 		
 		Set<QGram<Token>> qGrams1 = new HashSet<>(new QGramTokenContainer(file1, 1, q));
 		Set<QGram<Token>> qGrams2 = new HashSet<>(new QGramTokenContainer(file2, 1, q));
@@ -38,7 +39,7 @@ public class CommonQGramFileComparator extends FileComparator {
 		Set<QGram<Token>> commonQGram = new HashSet<>(qGrams1);
 		commonQGram.retainAll(qGrams2);
 		
-		return commonQGram.size() / (double) nbQGramTotal;
+		return new ComparisonResult(null, commonQGram.size() / (double) nbQGramTotal);
 	}
 	
 }

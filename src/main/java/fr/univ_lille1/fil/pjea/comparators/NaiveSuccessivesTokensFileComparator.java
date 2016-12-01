@@ -5,6 +5,7 @@ import java.util.Iterator;
 import org.antlr.v4.runtime.Token;
 
 import fr.univ_lille1.fil.pjea.TokenUtils;
+import fr.univ_lille1.fil.pjea.data.ComparisonResult;
 import fr.univ_lille1.fil.pjea.data.Java8File;
 import fr.univ_lille1.fil.pjea.data.QGram;
 import fr.univ_lille1.fil.pjea.data.QGramTokenContainer;
@@ -18,7 +19,7 @@ public class NaiveSuccessivesTokensFileComparator extends FileComparator {
 	
 	
 	@Override
-	public double computeDifference() throws Exception {
+	public ComparisonResult computeDifference() throws Exception {
 		QGramTokenContainer cont1 = new QGramTokenContainer(file1);
 		QGramTokenContainer cont2 = new QGramTokenContainer(file2);
 		
@@ -29,7 +30,7 @@ public class NaiveSuccessivesTokensFileComparator extends FileComparator {
 			}
 		}
 		
-		return nbEquals / (double) Math.max(cont1.size(), cont2.size());
+		return new ComparisonResult(null, nbEquals / (double) Math.max(cont1.size(), cont2.size()));
 	}
 	
 }

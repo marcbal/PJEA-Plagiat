@@ -78,31 +78,6 @@ public class PlagiatVEMPTest {
 	
 	
 	
-	@Test
-	public void testOutputResult() {
-		PlagiatVEMP.outputResult("F1F1", "F2F2", 0.42);
-		assertEquals("F1F1 and F2F2: 42%" + System.lineSeparator(), outputContent.toString());
-		outputContent.reset();
-		
-		PlagiatVEMP.outputResult("toto", "titi", 0);
-		assertEquals("toto and titi: 0%" + System.lineSeparator(), outputContent.toString());
-		outputContent.reset();
-		
-		PlagiatVEMP.outputResult("toto", "titi", 1);
-		assertEquals("toto and titi: 100%" + System.lineSeparator(), outputContent.toString());
-		outputContent.reset();
-		
-		PlagiatVEMP.outputResult("toto", "titi", 1.2);
-		assertEquals("toto and titi: 100%" + System.lineSeparator(), outputContent.toString());
-		outputContent.reset();
-		
-		PlagiatVEMP.outputResult("toto", "titi", -0.3);
-		assertEquals("toto and titi: 0%" + System.lineSeparator(), outputContent.toString());
-		outputContent.reset();
-	}
-	
-	
-	
 	
 	/*
 	 *

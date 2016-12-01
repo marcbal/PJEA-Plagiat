@@ -1,19 +1,25 @@
 package fr.univ_lille1.fil.pjea.comparators;
 
+import fr.univ_lille1.fil.pjea.data.ComparisonResult;
 import fr.univ_lille1.fil.pjea.data.Java8File;
 
 
 
 /**
- * Classe qui prend deux fichiers et calcule leurs differences.
+ * Super-classe de tous les comparateur de fichiers. Elle fourni
+ * un moyen de représenter un comparateur de fichier :
+ * <ul>
+ * 	<li>Constructeur qui prend en paramètre les deux fichiers à comparer</li>
+ * 	<li>Méthode exécutant l'algorithme de comparaison et retournant un résultat de comparaison</li>
+ * </ul>
  */
 public abstract class FileComparator {
 	
 	protected final Java8File file1, file2;
 	
 	/**
-	 * @param f1 fichier
-	 * @param f2 fichier
+	 * @param f1 le premier fichier comparé
+	 * @param f2 le deuxième fichier qui sera comparé au premier
 	 */
 	
 	public FileComparator(Java8File f1, Java8File f2) {
@@ -23,25 +29,11 @@ public abstract class FileComparator {
 	
 	
 	/**
-	 * @return Un nombre compris entre 0 et 1 qui représente l'égalité des deux fichiers.
-	 * @throws Exception si une des implémentations lance une exception
+	 * @return Un résultat de comparaison {@link ComparisonResult}.
+	 * @throws Exception si, pour une raison quelconque, une exception est levée pendant
+	 * l'exécution de cette méthode.
 	 */
-	public abstract double computeDifference() throws Exception;
-	
-	
-	
-	/**
-	 * Tronque la valeur v entre min et max.
-	 * @param v la valeur à tronquer
-	 * @param min la valeur minimum à retourner
-	 * @param max la valeur maximum à retourner
-	 * @return max si v &gt; max, min si v &lt; min, v sinon.
-	 * Si max &lt; min, alors min sera retournée.
-	 */
-	
-	public static double truncateToRange(double v, double min, double max) {
-		return Math.max(min, Math.min(max, v));
-	}
+	public abstract ComparisonResult computeDifference() throws Exception;
 	
 	
 	

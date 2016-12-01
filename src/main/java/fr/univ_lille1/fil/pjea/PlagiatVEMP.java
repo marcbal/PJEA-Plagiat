@@ -6,6 +6,7 @@ import java.lang.annotation.AnnotationFormatError;
 import java.util.Arrays;
 
 import fr.univ_lille1.fil.pjea.comparators.MasterFileComparator;
+import fr.univ_lille1.fil.pjea.data.ComparisonResult;
 import fr.univ_lille1.fil.pjea.data.Java8File;
 
 public class PlagiatVEMP {
@@ -31,7 +32,7 @@ public class PlagiatVEMP {
 		 */
 		for (int i = 0; i < files.length; i++) {
 			for (int j = i + 1; j < files.length; j++) {
-				double result = 0;
+				ComparisonResult result = null;
 				try {
 					result = new MasterFileComparator(files[i], files[j]).computeDifference();
 				} catch (OutOfMemoryError e) {
@@ -41,7 +42,7 @@ public class PlagiatVEMP {
 				} catch (Exception | StackOverflowError | AssertionError | AnnotationFormatError e) {
 					e.printStackTrace();
 				}
-				outputResult(files[i].file.toString(), files[j].file.toString(), result);
+				ComparisonResult.output(files[i].file, files[j].file, result);
 			}
 		}
 		
@@ -52,18 +53,6 @@ public class PlagiatVEMP {
 	
 	
 	
-	public static void outputResult(String f1, String f2, double result) {
-		
-		int printedResult = (int) (Math.round(result * 100));
-		if (printedResult > 100) {
-			printedResult = 100;
-		}
-		else if (printedResult < 0) {
-			printedResult = 0;
-		}
-		System.out.println(f1 + " and " + f2 + ": " + printedResult + "%");
-		
-	}
 	
 	
 }

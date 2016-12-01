@@ -1,5 +1,6 @@
 package fr.univ_lille1.fil.pjea.comparators;
 
+import fr.univ_lille1.fil.pjea.data.ComparisonResult;
 import fr.univ_lille1.fil.pjea.data.Java8File;
 
 public class MasterFileComparator extends FileComparator {
@@ -12,7 +13,7 @@ public class MasterFileComparator extends FileComparator {
 	}
 	
 	@Override
-	public double computeDifference() throws Exception {
+	public ComparisonResult computeDifference() throws Exception {
 		
 		
 		
@@ -35,11 +36,11 @@ public class MasterFileComparator extends FileComparator {
 		 */
 		@SuppressWarnings("unused")
 		
-		WinnowingFileComparator winnowingFileComparator = new WinnowingFileComparator(file1, file2, HEURISTIC_Q,
-				HEURISTIC_RATIO_DIFF_THRESHOLD);
+		ComparisonResult winnowingComparison = new WinnowingFileComparator(file1, file2, HEURISTIC_Q,
+				HEURISTIC_RATIO_DIFF_THRESHOLD).computeDifference();
 		
-		// if (winnowingFileComparator.isDifferent())
-		//   return winnowingFileComparator.computeDifference();
+		//if (Boolean.FALSE.equals(winnowingComparison.isPlagiarism))
+		//	return winnowingComparison;
 		
 		
 		
@@ -47,7 +48,7 @@ public class MasterFileComparator extends FileComparator {
 		/*
 		 * Calcul du score d'alignement
 		 */
-		double alignmentScore = new AlignmentFileComparator(file1, file2).computeDifference();
+		ComparisonResult alignmentComparison = new AlignmentFileComparator(file1, file2).computeDifference();
 		
 		
 		/*
@@ -58,17 +59,17 @@ public class MasterFileComparator extends FileComparator {
 		 * cohérence de la sortie du comparateur (cas particulier de fichier d'entrée)
 		 */
 		//
-		double lineEndsScore = 0;//new LineEndsFileComparator(file1, file2).computeDifference();
+		ComparisonResult lineEndsComparison = /* TEMP */new ComparisonResult(null, 0);//new LineEndsFileComparator(file1, file2).computeDifference();
 		
 		
 		
 		/*
 		 * Score d'alignement : poids de 100 % du score total
 		 * Score fin de ligne : poids de  50 % du score total
-		 * RÉSULTAT FINAL : résultat entre 0% et 150%, tronqué à 100% avant retour
+		 * RÉSULTAT FINAL : résultat entre 0% et 150%
 		 */
-		double finalResult = alignmentScore + lineEndsScore/2d;
-		return truncateToRange(finalResult, 0, 1);
+		double finalResult = alignmentComparison.similarityRate + lineEndsComparison.similarityRate/2d;
+		return new ComparisonResult(finalResult, alignmentComparison, lineEndsComparison);
 	}
 	
 }

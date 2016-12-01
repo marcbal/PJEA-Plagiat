@@ -1,5 +1,6 @@
 package fr.univ_lille1.fil.pjea.comparators;
 
+import fr.univ_lille1.fil.pjea.data.ComparisonResult;
 import fr.univ_lille1.fil.pjea.data.Footprint;
 import fr.univ_lille1.fil.pjea.data.Java8File;
 import fr.univ_lille1.fil.pjea.data.builder.WinnowingFootprintBuilder;
@@ -15,18 +16,20 @@ public class WinnowingFileComparator extends FileComparator {
 	private final int heuristicQ; // = 15;
 	private final double heuristicRatioDiffThreshold; // = 0.3;
 	
-	private final double scoreFilterWinnowing;
-	
-	
 	public WinnowingFileComparator(Java8File f1, Java8File f2, int q, double ratioDiffThreshold) {
 		super(f1, f2);
 		heuristicQ = q;
 		heuristicRatioDiffThreshold = ratioDiffThreshold;
 		
-		scoreFilterWinnowing = initScoreFilterWinnowing();
 	}
 	
-	protected double initScoreFilterWinnowing() {
+	
+	
+	@Override
+	public ComparisonResult computeDifference() throws Exception {
+		
+		// TODO tester cette méthode plus convenablement et définir des heuristique
+		// convenable
 		
 		Footprint footprint1 = file1.getFootprint(heuristicQ);
 		Footprint footprint2 = file2.getFootprint(heuristicQ);
@@ -40,20 +43,9 @@ public class WinnowingFileComparator extends FileComparator {
 			}
 		}
 		
-		return cptId / (double) nMax;
-	}
-	
-	
-	@Override
-	public double computeDifference() throws Exception {
+		double score = cptId / (double) nMax;
 		
-		// TODO tester cette méthode plus convenablement et définir des heuristique
-		// convenable
-		return scoreFilterWinnowing;
-	}
-	
-	public boolean isDifferent() {
-		return  scoreFilterWinnowing < heuristicRatioDiffThreshold;
+		return new ComparisonResult(score < heuristicRatioDiffThreshold ? false : null, score);
 	}
 	
 	
