@@ -97,14 +97,14 @@ public class QGramTokenContainerTest {
 	@Test
 	public void testTokenReaderListOfTokenInt() throws IOException {
 		Java8File f = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8);
-		QGramTokenContainer qGramContainer = new QGramTokenContainer(f.tokens, 1);
+		QGramTokenContainer qGramContainer = new QGramTokenContainer(f, 1);
 		assertEquals(fileNbT8QGramContainer, qGramContainer);
 	}
 	
 	@Test
 	public void testTokenReaderListOfToken() throws IOException {
 		Java8File f = new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_8);
-		QGramTokenContainer qGramContainer = new QGramTokenContainer(f.tokens);
+		QGramTokenContainer qGramContainer = new QGramTokenContainer(f);
 		assertEquals(fileNbT8QGramContainer, qGramContainer);
 	}
 	

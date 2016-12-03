@@ -47,10 +47,14 @@ public class QGramContainer<T> extends ArrayList<QGram<T>> {
 	 * @param qGramSize la taille du buffer, c'est à dire le nombre d'élément retourné à
 	 * chaque itération.
 	 * @param hashcodeFunction la fcontion qui va calculer le hashcode d'un élément donné de type T.
+	 * @param hashCodeBase la valeur servant de modulo pour le calcul du hashcode des QGram.
 	 */
-	public QGramContainer(List<T> elements, int step, int qGramSize, ToIntFunction<T> hashcodeFunction) {
+	public QGramContainer(List<T> elements, int step, int qGramSize, ToIntFunction<T> hashcodeFunction, int hashCodeBase) {
 		this.step = step;
 		this.qGramSize = qGramSize;
+		if (hashCodeBase <= 0) {
+			throw new IllegalArgumentException("hashCodeBase must be positive");
+		}
 		
 		
 		
@@ -58,7 +62,7 @@ public class QGramContainer<T> extends ArrayList<QGram<T>> {
 		 * Contruction de la liste des QGrams
 		 */
 		int currentPos = 0;
-		RabinHashCodeBuilder hashCodeBuilder = new RabinHashCodeBuilder(256, qGramSize);
+		RabinHashCodeBuilder hashCodeBuilder = new RabinHashCodeBuilder(hashCodeBase, qGramSize);
 		while (currentPos <= elements.size() - qGramSize) {
 			List<T> returnedTokens = elements.subList(currentPos,
 					Math.min(elements.size(), currentPos + qGramSize));
@@ -80,28 +84,28 @@ public class QGramContainer<T> extends ArrayList<QGram<T>> {
 	
 	
 	
-	public QGramContainer(List<T> elements, int qGramSize, ToIntFunction<T> hashcodeFunction) {
-		this(elements, qGramSize, qGramSize, hashcodeFunction);
+	public QGramContainer(List<T> elements, int qGramSize, ToIntFunction<T> hashcodeFunction, int hashCodeBase) {
+		this(elements, qGramSize, qGramSize, hashcodeFunction, hashCodeBase);
 	}
 	
-	public QGramContainer(List<T> elements, ToIntFunction<T> hashcodeFunction) {
-		this(elements, 1, 1, hashcodeFunction);
-	}
-	
-	
-	
-	public QGramContainer(List<T> elements, int step, int qGramSize) {
-		this(elements, step, qGramSize, Objects::hashCode);
+	public QGramContainer(List<T> elements, ToIntFunction<T> hashcodeFunction, int hashCodeBase) {
+		this(elements, 1, 1, hashcodeFunction, hashCodeBase);
 	}
 	
 	
 	
-	public QGramContainer(List<T> elements, int qGramSize) {
-		this(elements, qGramSize, Objects::hashCode);
+	public QGramContainer(List<T> elements, int step, int qGramSize, int hashCodeBase) {
+		this(elements, step, qGramSize, Objects::hashCode, hashCodeBase);
 	}
 	
-	public QGramContainer(List<T> elements) {
-		this(elements, Objects::hashCode);
+	
+	
+	public QGramContainer(List<T> elements, int qGramSize, int hashCodeBase) {
+		this(elements, qGramSize, Objects::hashCode, hashCodeBase);
+	}
+	
+	public QGramContainer(List<T> elements, int hashCodeBase) {
+		this(elements, Objects::hashCode, hashCodeBase);
 	}
 	
 	

@@ -14,6 +14,8 @@ import fr.univ_lille1.fil.pjea.TokenUtils;
 public class QGramTokenContainer extends QGramContainer<Token> {
 	private static final long serialVersionUID = 1L;
 	
+	private static final int HASHCODE_BASE = 509; // plus grand nombre premier < 512
+	
 	
 	/**
 	 * 
@@ -22,7 +24,7 @@ public class QGramTokenContainer extends QGramContainer<Token> {
 	 * @see QGramContainer#QGramContainer(List, int, int, java.util.function.ToIntFunction)
 	 */
 	public QGramTokenContainer(List<Token> tokens, int step, int qGramSize) {
-		super(tokens, step, qGramSize, TokenUtils::hashCodeToken);
+		super(tokens, step, qGramSize, TokenUtils::hashCodeToken, HASHCODE_BASE);
 	}
 	
 	
@@ -33,7 +35,7 @@ public class QGramTokenContainer extends QGramContainer<Token> {
 	 * <pre>new QGramTokenContainer(file, qGramSize, qGramSize)</pre>
 	 */
 	public QGramTokenContainer(List<Token> tokens, int qGramSize) {
-		super(tokens, qGramSize, qGramSize, TokenUtils::hashCodeToken);
+		super(tokens, qGramSize, qGramSize, TokenUtils::hashCodeToken, HASHCODE_BASE);
 	}
 	
 	/**
@@ -41,7 +43,7 @@ public class QGramTokenContainer extends QGramContainer<Token> {
 	 * <pre>new QGramTokenContainer(file, 1, 1)</pre>
 	 */
 	public QGramTokenContainer(List<Token> tokens) {
-		super(tokens, 1, 1, TokenUtils::hashCodeToken);
+		super(tokens, 1, 1, TokenUtils::hashCodeToken, HASHCODE_BASE);
 	}
 	
 	
