@@ -26,20 +26,41 @@ import fr.univ_lille1.fil.pjea.data.QGramTokenContainer;
  * Une fois effectuée, elle les trie par position.
  * </p>
  *
- * @see <a href="http://www.fil.univ-lille1.fr/~varre/portail/pje/docs/fingerprint.pdf">http://www.fil.univ-lille1.fr/~varre/portail/pje/docs/fingerprint.pdf
+ * @see <a href="http://www.fil.univ-lille1.fr/~varre/portail/pje/docs/fingerprint.pdf">http://www.fil.univ-lille1.fr/~varre/portail/pje/docs/fingerprint.pdf</a>
  * @see RabinHashCodeBuilder
  * @see Footprint
  *
  */
 public class WinnowingFootprintBuilder {
-	
+	/**
+	 * Indique la taille de l'objet sur laquelle le Winnowing travail.
+	 * Cet attribut à comme pré-conditions le fait qu'il doit être strictement superieur à zéro.
+	 */
 	private int t;
+	
+	/**
+	 * Indique la taille des fênetre glissantes.
+	 * Cet attribut à comme pré-conditions le fait qu'il doit être strictement superieur à zéro.
+	 */
 	private int q;
+	
+	/**
+	 * C'est une liste des objets hachés sur lequel le Winnowing travail.
+	 * Elle symbolise l'entrée général du problème.
+	 */
 	private List<Integer> hashQgrams;
 	
-	
+	/**
+	 * Cela permet de créer une instance vide, afin de pouvoir l'initialiser avec la méthode {@link #init(List, int, int)}.
+	 */
 	WinnowingFootprintBuilder() {}
 	
+	
+	/**
+	 * Construit une instance du probléme à partir d'une réprésentation
+	 * @param file
+	 * @param q
+	 */
 	public WinnowingFootprintBuilder(Java8File file, int q) {
 		init(new QGramTokenContainer(file, 1, q)
 				.stream().map(QGram::hashCode)
