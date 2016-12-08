@@ -20,7 +20,7 @@ public class AlignmentFileComparator extends FileComparator {
 	/**
 	 * @param f1 fichier
 	 * @param f2 fichier
-	 * @param heuristicAlignmentPlagiatThreshold le taux de similarité pour lequel
+	 * @param hPlagiatThreshold le taux de similarité pour lequel
 	 * si cette valeur est dépassée, on considère qu'il y a plagiat.
 	 */
 	public AlignmentFileComparator(Java8File f1, Java8File f2, double hPlagiatThreshold) {
