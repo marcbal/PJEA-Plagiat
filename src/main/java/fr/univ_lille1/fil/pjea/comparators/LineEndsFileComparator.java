@@ -1,7 +1,5 @@
 package fr.univ_lille1.fil.pjea.comparators;
 
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,7 +10,7 @@ import fr.univ_lille1.fil.pjea.data.QGramContainer;
 public class LineEndsFileComparator extends FileComparator {
 	
 	
-	public static final int QGRAM_LENGTH = 3;
+	public static final int QGRAM_LENGTH = 5;
 	
 	
 	public LineEndsFileComparator(Java8File f1, Java8File f2) {
@@ -23,30 +21,27 @@ public class LineEndsFileComparator extends FileComparator {
 	public ComparisonResult computeDifference() throws Exception {
 		List<String> spacesF1 = extractEndLines(this.file1);
 		List<String> spacesF2 = extractEndLines(this.file2);
-		int cpt = 0;
-		int nF1 = spacesF1.size(), nF2 = spacesF2.size();
 		spacesF1.removeIf(s -> s.isEmpty());
 		spacesF2.removeIf(s -> s.isEmpty());
 		
 		if (spacesF1.size() < QGRAM_LENGTH || spacesF2.size() < QGRAM_LENGTH)
 			return new ComparisonResult(null, 0);
-		/* Si on a le même nombre de lignes avec espaces invisible dans les deux fichiers,
-		 * On testera sur les deux listes sur leur taille respective et non sur le nombre de lignes
-		 * non vides des fichiers.
-		 * Règle le bug où deux fichiers identiques n'auront jamais le ratio 1
-		 */
-		if (spacesF1.size() == spacesF2.size() && nF1 == nF2)
-			nF1 = nF2 = spacesF1.size();
 		
-		for (Iterator<String> it = spacesF1.iterator(); it.hasNext() || it.hasNext();)
-			if (spacesF2.contains(it.next()))
-				cpt++;
+		QGramContainer<String> qgc1 = new QGramContainer<>(spacesF1, 1, QGRAM_LENGTH);
+		QGramContainer<String> qgc2 = new QGramContainer<>(spacesF2, 1, QGRAM_LENGTH);
 		
-		for (Iterator<String> it = spacesF2.iterator(); it.hasNext();)
-			if (spacesF1.contains(it.next()))
-				cpt++;
+		int scoreMax = QGRAM_LENGTH;
+		int score = 0;
 		
-		return new ComparisonResult(null, (cpt / 2.0) / (((double) nF1 + (double) nF2)/2));
+		for (int i1 = 0; i1 < qgc1.size(); i1++) {
+			for (int i2 = 0; i2 < qgc2.size(); i2++) {
+				int currentScore = qgc1.get(i1).needlemanWunschAlignment(qgc2.get(i2), -1);
+				if (currentScore > score)
+					score = currentScore;
+			}
+		}
+		
+		return new ComparisonResult((score == scoreMax) ? true : null, score / (double) scoreMax);
 	}
 	
 	private static List<String> extractEndLines(Java8File f) {
@@ -62,37 +57,5 @@ public class LineEndsFileComparator extends FileComparator {
 				return i + 1;
 		return 0;
 	}
-	
-	public static void main(String[] args) {
-		List<String> pd1 = Arrays.asList(
-				" ",
-				"  ",
-				"   ");
-		List<String> pd2 = Arrays.asList(
-				" ",
-				"  ",
-				"    ",
-				"   ");
-		
-		QGramContainer<String> qgc1 = new QGramContainer<>(pd1, 1, QGRAM_LENGTH);
-		QGramContainer<String> qgc2 = new QGramContainer<>(pd2, 1, QGRAM_LENGTH);
-		
-		int scoreMax = QGRAM_LENGTH;
-		int score = 0;
-		
-		for (int i1 = 0; i1 < qgc1.size(); i1++) {
-			for (int i2 = 0; i2 < qgc2.size(); i2++) {
-				int currentScore = qgc1.get(i1).needlemanWunschAlignment(qgc2.get(i2), -1);
-				if (currentScore > score)
-					score = currentScore;
-			}
-		}
-		
-		// c'est une suggestion :
-		System.out.println(score);
-		System.out.println(scoreMax);
-		System.out.println(score / (double) scoreMax);
-	}
-	
 	
 }

@@ -59,7 +59,7 @@ public class MasterFileComparator extends FileComparator {
 		 * cohérence de la sortie du comparateur (cas particulier de fichier d'entrée)
 		 */
 		//
-		ComparisonResult lineEndsComparison = /* TEMP */new ComparisonResult(null, 0);//new LineEndsFileComparator(file1, file2).computeDifference();
+		ComparisonResult lineEndsComparison = new LineEndsFileComparator(file1, file2).computeDifference();
 		
 		
 		
