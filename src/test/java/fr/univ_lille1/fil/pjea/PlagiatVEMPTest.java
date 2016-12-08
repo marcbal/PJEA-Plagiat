@@ -91,18 +91,21 @@ public class PlagiatVEMPTest {
 	public void testMainNoFile() {
 		PlagiatVEMP.main(new String[0]);
 		assertEquals("", outputContent.toString());
+		STDOUT.println(outputContent.toString());
 	}
 	
 	@Test
 	public void testMainOneFile() {
 		PlagiatVEMP.main(new String[] { TEST_PACK_1[0] });
 		assertEquals("", outputContent.toString());
+		STDOUT.println(outputContent.toString());
 	}
 	
 	@Test
 	public void testMainPack1() {
 		PlagiatVEMP.main(TEST_PACK_1);
 		String output = outputContent.toString();
+		STDOUT.println(output);
 		assertEquals(6, output.split(System.lineSeparator()).length);
 		
 	}
@@ -111,16 +114,25 @@ public class PlagiatVEMPTest {
 	public void testMainPack2() {
 		PlagiatVEMP.main(TEST_PACK_2);
 		String output = outputContent.toString();
+		STDOUT.println(output);
 		assertEquals(1, output.split(System.lineSeparator()).length);
+	}
+	
+	@Test
+	public void testPackSpaces() {
+		PlagiatVEMP.main(TEST_PACK_SPACES);
+		String output = outputContent.toString();
+		STDOUT.println(output);
+		assertEquals(15, output.split(System.lineSeparator()).length);
 	}
 	
 	@Test
 	public void testMainMega1() {
 		PlagiatVEMP.main(TEST_MEGA_PACK);
 		String output = outputContent.toString();
+		STDOUT.println(output);
 		assertEquals(1, output.split(System.lineSeparator()).length);
 	}
-	
 	@SuppressWarnings("static-method")
 	@Test(expected = UncheckedIOException.class)
 	public void testMainFileNotExist() {

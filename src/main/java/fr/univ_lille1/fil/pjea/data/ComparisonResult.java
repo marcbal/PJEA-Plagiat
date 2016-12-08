@@ -73,6 +73,7 @@ public class ComparisonResult {
 	
 	
 	
+	
 	/**
 	 * Tronque la valeur v entre min et max.
 	 * @param v la valeur à tronquer
@@ -97,7 +98,8 @@ public class ComparisonResult {
 	 */
 	public static void output(File file1, File file2, ComparisonResult result) {
 		int porcent = (int) (Math.round(((result != null) ? result.similarityRate : 0) * 100));
-		System.out.println(file1 + " and " + file2 + ": " + ((porcent > 100) ? 100 : (porcent < 0) ? 0 : porcent) + "%");
+		System.out.println(file1 + " and " + file2 + ": " + ((porcent > 100) ? 100 : (porcent < 0) ? 0 : porcent) + "% "
+				+ ((result == null || result.isPlagiarism == null) ? 'P' : (result.isPlagiarism ? 'O' : 'N')));
 		
 	}
 	
