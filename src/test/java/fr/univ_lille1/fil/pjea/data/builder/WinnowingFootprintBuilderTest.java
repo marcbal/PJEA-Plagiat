@@ -6,8 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.javatuples.Pair;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import fr.univ_lille1.fil.pjea.PlagiatVEMPTest;
@@ -25,13 +23,6 @@ public class WinnowingFootprintBuilderTest {
 			new Pair<>(11, 39),
 			new Pair<>(15, 17)));
 	
-	@Before
-	public void setUp() throws Exception {
-		
-	}
-	
-	@After
-	public void tearDown() throws Exception {}
 	
 	@Test
 	public void testBuildFromExample() throws Exception {

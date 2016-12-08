@@ -21,7 +21,7 @@ public class QGramTokenContainer extends QGramContainer<Token> {
 	 * 
 	 * @param tokens les tokens à partir duquel générer les qgrams de token
 	 * 
-	 * @see QGramContainer#QGramContainer(List, int, int, java.util.function.ToIntFunction)
+	 * @see QGramContainer#QGramContainer(List, int, int, java.util.function.ToIntFunction, int)
 	 */
 	public QGramTokenContainer(List<Token> tokens, int step, int qGramSize) {
 		super(tokens, step, qGramSize, TokenUtils::hashCodeToken, HASHCODE_BASE);
@@ -33,6 +33,7 @@ public class QGramTokenContainer extends QGramContainer<Token> {
 	/**
 	 * Équivaut à
 	 * <pre>new QGramTokenContainer(file, qGramSize, qGramSize)</pre>
+	 * 
 	 */
 	public QGramTokenContainer(List<Token> tokens, int qGramSize) {
 		super(tokens, qGramSize, qGramSize, TokenUtils::hashCodeToken, HASHCODE_BASE);
