@@ -15,12 +15,17 @@ import fr.univ_lille1.fil.pjea.data.QGramTokenContainer;
  */
 public class AlignmentFileComparator extends FileComparator {
 	
+	private final double heuristicPlagiatThreshold;
+	
 	/**
 	 * @param f1 fichier
 	 * @param f2 fichier
+	 * @param heuristicAlignmentPlagiatThreshold le taux de similarité pour lequel
+	 * si cette valeur est dépassée, on considère qu'il y a plagiat.
 	 */
-	public AlignmentFileComparator(Java8File f1, Java8File f2) {
+	public AlignmentFileComparator(Java8File f1, Java8File f2, double hPlagiatThreshold) {
 		super(f1, f2);
+		heuristicPlagiatThreshold = hPlagiatThreshold;
 	}
 	
 	/**
@@ -43,6 +48,6 @@ public class AlignmentFileComparator extends FileComparator {
 		// peut être négatif si les deux fichiers ont un taux d'alignement des tokens supérieur au nombre total de token.
 		double val = qGram1.needlemanWunschAlignment(qGram2, -1) / (double) Math.max(qGram1.size(), qGram2.size());
 		
-		return new ComparisonResult(null, val < 0 ? 0 : val);
+		return new ComparisonResult((val > heuristicPlagiatThreshold) ? true : null, val < 0 ? 0 : val);
 	}
 }

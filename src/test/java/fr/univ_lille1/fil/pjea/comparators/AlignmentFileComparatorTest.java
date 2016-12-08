@@ -15,7 +15,7 @@ public class AlignmentFileComparatorTest {
 	public void testComputeDifference() throws Exception {
 		ComparisonResult res = new AlignmentFileComparator(
 				new Java8File(PlagiatVEMPTest.TEST_PACK_1[0]), // file1.java
-				new Java8File(PlagiatVEMPTest.TEST_PACK_1[1])) // file1copy.java
+				new Java8File(PlagiatVEMPTest.TEST_PACK_1[1]), 1) // file1copy.java
 				.computeDifference();
 		assertEquals(1, res.similarityRate, 0.01);
 	}
@@ -25,7 +25,7 @@ public class AlignmentFileComparatorTest {
 	public void testComputeDifference2() throws Exception {
 		ComparisonResult res = new AlignmentFileComparator(
 				new Java8File(PlagiatVEMPTest.TEST_PACK_1[0]), // file1.java
-				new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_12))
+				new Java8File(PlagiatVEMPTest.TEST_FILE_NB_TOKEN_12), 1)
 				.computeDifference();
 		assertEquals(0, res.similarityRate, 0.01);
 	}
