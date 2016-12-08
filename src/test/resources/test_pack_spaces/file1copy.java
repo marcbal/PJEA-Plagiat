@@ -28,12 +28,12 @@ public class Application {
 	
 	
 	private Clock _clock = new Clock();
-	private RenderWindow _window = new RenderWindow();
-	private Vector2i _window_size;
+	private RenderWindow _window = new RenderWindow();   
+	private Vector2i _window_size;  
 	private Screen[] _ecrans = new Screen[3];
 	private Background _background;
 	private ButtonValue _ecran_actif = new ButtonValue(SCR_INDEX);
-	private Time _timeBefore = _clock.getElapsedTime();
+	private Time _timeBefore = _clock.getElapsedTime(); 
 	
 	private ScreenDebug _debug;
 	
@@ -42,8 +42,8 @@ public class Application {
 	
 	
 	
-	public Application()
-	{
+	public Application()	
+	{	 
 		System.out.println("Chargement des ressources ...");
 		// précharge la police de caractère
 		Widget.getThemeFont();

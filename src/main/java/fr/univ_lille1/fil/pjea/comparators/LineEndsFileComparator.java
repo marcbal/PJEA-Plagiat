@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import fr.univ_lille1.fil.pjea.data.ComparisonResult;
 import fr.univ_lille1.fil.pjea.data.Java8File;
+import fr.univ_lille1.fil.pjea.data.QGram;
 import fr.univ_lille1.fil.pjea.data.QGramContainer;
 
 public class LineEndsFileComparator extends FileComparator {
@@ -27,15 +28,12 @@ public class LineEndsFileComparator extends FileComparator {
 		if (spacesF1.size() < QGRAM_LENGTH || spacesF2.size() < QGRAM_LENGTH)
 			return new ComparisonResult(null, 0);
 		
-		QGramContainer<String> qgc1 = new QGramContainer<>(spacesF1, 1, QGRAM_LENGTH);
-		QGramContainer<String> qgc2 = new QGramContainer<>(spacesF2, 1, QGRAM_LENGTH);
-		
 		int scoreMax = QGRAM_LENGTH;
 		int score = 0;
 		
-		for (int i1 = 0; i1 < qgc1.size(); i1++) {
-			for (int i2 = 0; i2 < qgc2.size(); i2++) {
-				int currentScore = qgc1.get(i1).needlemanWunschAlignment(qgc2.get(i2), -1);
+		for (QGram<String> qg1 : new QGramContainer<>(spacesF1, 1, QGRAM_LENGTH, 1021)) {
+			for (QGram<String> qg2 : new QGramContainer<>(spacesF2, 1, QGRAM_LENGTH, 1021)) {
+				int currentScore = qg1.needlemanWunschAlignment(qg2, -1);
 				if (currentScore > score)
 					score = currentScore;
 			}
