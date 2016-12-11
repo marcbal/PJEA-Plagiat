@@ -23,7 +23,9 @@ Développement
 -------------
 Version de Java : 1.8
 
-Utiliser de préférence Eclipse Neon pour la configuration du projet (en plus de celle apportée par la configuration de Maven). Utiliser l'option d'importation "General/Existing project into workspace" et non "Maven/Existing maven project".
+Utilise Maven pour la compilation et la génération de l'exécutable `.jar`.
+
+Pour les utilisateurs d'Eclipse, la configuration du projet est déjà présente dans le dépot, notamment pour le formatage du code et l'activation des warning supplémentaires.
 
 Évolution du projet
 -------------------
@@ -68,3 +70,16 @@ La comparaison effectué par le main est la suivante :
 * Développement Terminée de l'algorithme de fusion de fichiers `.java`. Des gros fichiers (provenant de projets Java sur Github) sont comparés dans nos classes de tests. Possibilité de fournir ces fichiers pour que les autres projets puissent être testés.
 * Amélioration de l'algorithme de comparaison des fins de ligne des fichiers (caractères non-imprimables)
 * Avancement des commentaires Javadoc du code source.
+
+### Rendu final **v5.0** du 13 décembre
+
+* Fonctionnalités : Comparaison des fichiers deux à deux :
+    * Filtrage des fichiers : les import et package sont ignorés
+    * Application de l'algorithme de Winnowing : En dessous d'un certain pourcentage de ressemblance (entre les deux empruntes) le résultat de comparaison indique l'absence de plagiat, et termine (la suite n'est pas exécutée)
+    * Calcul du score d'alignement entre les deux fichiers, et division par le score maximum possible. On obtient un score entre 0 et 1. Au dessus d'un certain seil, le programme considère qu'il y a plagiat.
+    * Analyse et comparaison des espaces en fin de ligne des deux fichiers. Si une série de 5 fin de lignes consécutives sont identiques, le programme considère qu'il y a plagiat. Le score de comparaison des espaces est aussi une valeur entre 0 et 1.
+    * Le score global est calculé comme suit : `min(1, scoreAlignement + (scoreFinLigne / 2.0))`
+    * Le résultat final (plagiat ou pas) indique qu'il y a plagiat si au moins un des deux algos (alignement et fin de ligne) indique qu'il y a plagiat. Sinon, on laisse une incertitude.
+* Avancement des commentaires Javadoc du code source.
+* Les structures de données `QGram` et  `QGramContainer` sont généralisés pour permettre de contenir autre chose que des tokens.
+
