@@ -46,7 +46,6 @@ public class WinnowingFileComparator extends FileComparator {
 		
 		
 		double score = footprint1.size() / (double) Math.min(nFp1, nFp2);
-		System.out.println(score);
 		
 		return new ComparisonResult(score < heuristicRatioDiffThreshold ? false : null, score);
 	}
