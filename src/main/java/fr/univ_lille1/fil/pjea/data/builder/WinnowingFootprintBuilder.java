@@ -67,6 +67,8 @@ public class WinnowingFootprintBuilder {
 				.collect(Collectors.toList()),
 				q,
 				file.getTokens().size());
+		System.out.println("WinnowingFootprintBuilder, file.getTokens() : " + file.getTokens().size());
+		System.out.println("WinnowingFootprintBuilder, hashQgrams : " + hashQgrams.size());
 	}
 	
 	public WinnowingFootprintBuilder(List<Token> tokens, int q, int t) {

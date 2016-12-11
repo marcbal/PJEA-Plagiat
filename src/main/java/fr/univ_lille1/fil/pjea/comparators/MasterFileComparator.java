@@ -11,7 +11,7 @@ public class MasterFileComparator extends FileComparator {
 	 * Heuristique correspondant à la taille d'un {@link QGramToken} pour
 	 * la comparaison des {@link Footprint} entre les deux fichiers
 	 */
-	public static final int HEURISTIC_Q = 15;
+	public static final int HEURISTIC_Q = 5;
 	/**
 	 * Heuristique correspondant au taux de similarité entre les
 	 * {@link Footprint} (entre 0 et 1) pour lequel si la valeur calculée
@@ -59,8 +59,8 @@ public class MasterFileComparator extends FileComparator {
 		ComparisonResult winnowingComparison = new WinnowingFileComparator(file1, file2, HEURISTIC_Q,
 				HEURISTIC_RATIO_DIFF_THRESHOLD).computeDifference();
 		
-		//if (Boolean.FALSE.equals(winnowingComparison.isPlagiarism))
-		//	return winnowingComparison;
+		if (Boolean.FALSE.equals(winnowingComparison.isPlagiarism))
+			return winnowingComparison;
 		
 		
 		

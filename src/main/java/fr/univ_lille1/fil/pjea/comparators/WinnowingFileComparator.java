@@ -1,7 +1,8 @@
 package fr.univ_lille1.fil.pjea.comparators;
 
+import java.util.Set;
+
 import fr.univ_lille1.fil.pjea.data.ComparisonResult;
-import fr.univ_lille1.fil.pjea.data.Footprint;
 import fr.univ_lille1.fil.pjea.data.Java8File;
 import fr.univ_lille1.fil.pjea.data.builder.WinnowingFootprintBuilder;
 
@@ -31,19 +32,21 @@ public class WinnowingFileComparator extends FileComparator {
 		// TODO tester cette méthode plus convenablement et définir des heuristique
 		// convenable
 		
-		Footprint footprint1 = file1.getFootprint(heuristicQ);
-		Footprint footprint2 = file2.getFootprint(heuristicQ);
+		Set<Integer> footprint1 = file1.getFootprint(heuristicQ).getAsSetOfValues();
+		Set<Integer> footprint2 = file2.getFootprint(heuristicQ).getAsSetOfValues();
+		int nFp1 = footprint1.size();
+		int nFp2 = footprint2.size();
+		/*
+		if (Math.min(nFp1, nFp2) == 0) {
+			return new ComparisonResult(false, 0);
+		}*/
 		
-		int cptId = 0;
-		int nMin = Math.min(footprint1.size(), footprint2.size());
-		int nMax = Math.max(footprint1.size(), footprint2.size());
-		for (int i = 0; i < nMin; ++i) {
-			if (footprint1.get(i).equals(footprint2.get(i))) {
-				cptId++;
-			}
-		}
+		footprint1.retainAll(footprint2);
 		
-		double score = cptId / (double) nMax;
+		
+		
+		double score = footprint1.size() / (double) Math.min(nFp1, nFp2);
+		System.out.println(score);
 		
 		return new ComparisonResult(score < heuristicRatioDiffThreshold ? false : null, score);
 	}
