@@ -48,6 +48,6 @@ public class AlignmentFileComparator extends FileComparator {
 		// peut être négatif si les deux fichiers ont un taux d'alignement des tokens supérieur au nombre total de token.
 		double val = qGram1.needlemanWunschAlignment(qGram2, -1) / (double) Math.max(qGram1.size(), qGram2.size());
 		
-		return new ComparisonResult((val > heuristicPlagiatThreshold) ? true : null, val < 0 ? 0 : val);
+		return new ComparisonResult((val > heuristicPlagiatThreshold) ? (Boolean)true : val <= 0 ? false : null, val < 0 ? 0 : val);
 	}
 }
