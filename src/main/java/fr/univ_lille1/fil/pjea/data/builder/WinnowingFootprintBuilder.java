@@ -58,8 +58,8 @@ public class WinnowingFootprintBuilder {
 	
 	/**
 	 * Construit une instance du probléme à partir d'une réprésentation
-	 * @param file
-	 * @param q
+	 * @param file le fichier sur lequel le {@link Footprint} sera construit
+	 * @param q taille des QGrams
 	 */
 	public WinnowingFootprintBuilder(Java8File file, int q) {
 		init(new QGramTokenContainer(file, 1, q)

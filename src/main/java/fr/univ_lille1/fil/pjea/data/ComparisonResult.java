@@ -51,7 +51,7 @@ public class ComparisonResult {
 	 * <br>
 	 * Le taux de similarité n'est pas calculé et par conséquent doit être passé via le paramètre
 	 * <code>mergedSimilarity</code>.
-	 * @param mergedSimilarity
+	 * @param mergedSimilarity score de similarité, déjà calculé
 	 * @param results les résultats de comparaison provenants d'autres algorithmes.
 	 */
 	public ComparisonResult(double mergedSimilarity, ComparisonResult... results) {

@@ -42,7 +42,7 @@ public class QGramContainer<T> extends ArrayList<QGram<T>> {
 	 * <code>new QGramContainer(lexer, 5, 5).iterator()</code> retournera à chaque
 	 * iteration les éléments {0, ..., 4}, {5, ..., 9}, {10, ..., 14}, ...
 	 *
-	 * @param elements le {@link QGram} depuis lequel on récupère tous les léxèmes
+	 * @param elements la liste depuis lequel on récupère tous les éléments
 	 * @param step le pas de déplacement du buffer dans la liste des léxèmes, après chaque itération
 	 * @param qGramSize la taille du buffer, c'est à dire le nombre d'élément retourné à
 	 * chaque itération.

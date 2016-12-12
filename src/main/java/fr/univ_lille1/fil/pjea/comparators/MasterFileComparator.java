@@ -18,7 +18,7 @@ public class MasterFileComparator extends FileComparator {
 	 * est inférieure à cette constante, alors les deux fichiers sont
 	 * considérés assez différents pour conclure qu'il n'y a pas de plagiat.
 	 */
-	public static final double HEURISTIC_RATIO_DIFF_THRESHOLD = 0.3;
+	public static final double HEURISTIC_RATIO_DIFF_THRESHOLD = 0.1;
 	/**
 	 * Heuristique correspondant au taux de similarité entre les
 	 * deux fichiers (via l'algorithme d'alignement) (entre 0 et 1)
@@ -49,13 +49,7 @@ public class MasterFileComparator extends FileComparator {
 		/*
 		 * Utilisation du winnowing pour vérifier si ça vaut vraiment
 		 * la peine de comparer en profondeur les deux fichiers.
-		 * 
-		 * ---------- ATTENTION ! ----------
-		 * TODO calibrer les deux heuristiques passés en paramètre
-		 * TODO vérifier l'implémentation de WinnowingFileComparator
 		 */
-		@SuppressWarnings("unused")
-		
 		ComparisonResult winnowingComparison = new WinnowingFileComparator(file1, file2, HEURISTIC_Q,
 				HEURISTIC_RATIO_DIFF_THRESHOLD).computeDifference();
 		
