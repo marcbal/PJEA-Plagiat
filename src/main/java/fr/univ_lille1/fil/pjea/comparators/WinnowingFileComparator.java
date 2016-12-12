@@ -36,10 +36,10 @@ public class WinnowingFileComparator extends FileComparator {
 		Set<Integer> footprint2 = file2.getFootprint(heuristicQ).getAsSetOfValues();
 		int nFp1 = footprint1.size();
 		int nFp2 = footprint2.size();
-		/*
+		
 		if (Math.min(nFp1, nFp2) == 0) {
 			return new ComparisonResult(false, 0);
-		}*/
+		}
 		
 		footprint1.retainAll(footprint2);
 		
