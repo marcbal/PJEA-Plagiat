@@ -44,7 +44,7 @@ public class QGramTokenContainer extends QGramContainer<Token> {
 	 * @param tokens la liste depuis lequel on récupère tous les tokens
 	 * @param qGramSize la taille du buffer, c'est à dire le nombre d'élément retourné à
 	 * chaque itération.
-	 * @See {@link QGramTokenContainer#QGramTokenContainer(Java8File, int, int)}
+	 * @see {@link QGramTokenContainer#QGramTokenContainer(Java8File, int, int)}
 	 * 
 	 */
 	public QGramTokenContainer(List<Token> tokens, int qGramSize) {
@@ -57,7 +57,7 @@ public class QGramTokenContainer extends QGramContainer<Token> {
 	 * 
 	 * @param tokens la liste depuis lequel on récupère tous les tokens
 	 * 
-	 * @See {@link QGramTokenContainer#QGramTokenContainer(Java8File, int, int)}
+	 * @see {@link QGramTokenContainer#QGramTokenContainer(Java8File, int, int)}
 	 */
 	public QGramTokenContainer(List<Token> tokens) {
 		super(tokens, 1, 1, TokenUtils::hashCodeToken, HASHCODE_BASE);
