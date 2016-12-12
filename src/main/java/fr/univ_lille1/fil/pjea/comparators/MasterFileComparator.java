@@ -26,7 +26,7 @@ public class MasterFileComparator extends FileComparator {
 	 * alors les deux fichiers sont considérés assez égaux pour conclure
 	 * qu'il y a du plagiat.
 	 */
-	public static final double HEURISTIC_ALIGNMENT_PLAGIAT_THRESHOLD = 0.9;
+	public static final double HEURISTIC_ALIGNMENT_PLAGIAT_THRESHOLD = 0.6;
 	
 	public MasterFileComparator(Java8File file1, Java8File file2) {
 		super(file1, file2);

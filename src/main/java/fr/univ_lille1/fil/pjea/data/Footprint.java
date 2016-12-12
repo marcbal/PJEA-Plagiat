@@ -28,7 +28,6 @@ public class Footprint extends ArrayList<Pair<Integer, Integer>> {
 	}
 	
 	public Set<Integer> getAsSetOfValues() {
-		System.out.println("getAsSetOfValues : " + size());
 		return this.stream().map(x -> x.getValue1()).collect(Collectors.toSet());
 	}
 	
