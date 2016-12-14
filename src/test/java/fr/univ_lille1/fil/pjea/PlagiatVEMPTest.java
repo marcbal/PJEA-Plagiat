@@ -3,8 +3,11 @@ package fr.univ_lille1.fil.pjea;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.PrintStream;
 import java.io.UncheckedIOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,7 +49,37 @@ public class PlagiatVEMPTest {
 			TEST_FILE_DIR + "test_pack_spaces/fileRandomSpace2.java"
 	};
 	
+	public static final String[] TEST_EXEMPLE_8 = listFilesRecursive(new File(TEST_FILE_DIR + "exemple8"));
+	
+	
 	// TODO ajouter d'autres jeu de test (et créer une méthode de test associé, ci-dessous)
+	
+	
+	
+	
+	
+	private static String[] listFilesRecursive(File d) {
+		List<String> ret = new ArrayList<>();
+		
+		if (!d.isDirectory())
+			return new String[0];
+		for (File f : d.listFiles()) {
+			if (f.isDirectory()) {
+				for (String s : listFilesRecursive(f)) {
+					ret.add(s);
+				}
+			}
+			else if (f.getName().toLowerCase().endsWith(".java")) {
+				ret.add(f.getPath());
+			}
+			
+		}
+		
+		return ret.toArray(new String[ret.size()]);
+	}
+	
+	
+	
 	
 	
 	
@@ -91,14 +124,12 @@ public class PlagiatVEMPTest {
 	public void testMainNoFile() {
 		PlagiatVEMP.main(new String[0]);
 		assertEquals("", outputContent.toString());
-		STDOUT.println(outputContent.toString());
 	}
 	
 	@Test
 	public void testMainOneFile() {
 		PlagiatVEMP.main(new String[] { TEST_PACK_1[0] });
 		assertEquals("", outputContent.toString());
-		STDOUT.println(outputContent.toString());
 	}
 	
 	@Test
@@ -107,6 +138,15 @@ public class PlagiatVEMPTest {
 		String output = outputContent.toString();
 		STDOUT.println(output);
 		assertEquals(6, output.split(System.lineSeparator()).length);
+		
+	}
+	
+	@Test
+	public void testMainExemple8() {
+		PlagiatVEMP.main(TEST_EXEMPLE_8);
+		String output = outputContent.toString();
+		STDOUT.println(output);
+		assertEquals(TEST_EXEMPLE_8.length * (TEST_EXEMPLE_8.length - 1) / 2, output.split(System.lineSeparator()).length);
 		
 	}
 	
